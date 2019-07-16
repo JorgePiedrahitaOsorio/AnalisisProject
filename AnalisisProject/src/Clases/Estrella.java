@@ -5,10 +5,29 @@
  */
 package Clases;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author JORGE OSORIO
  */
 public class Estrella {
+    int x;
+    int y;
+    int ancho;
+    int alto;
+    String ruta;
+    ImageIcon imagen;
+
+    public Estrella() {
+    }
+
+    public Estrella(int x, int y, int ancho, int alto, String ruta) {
+        this.x = x;
+        this.y = y;
+        this.ancho = ancho;
+        this.alto = alto;
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
+    }
     
 }
