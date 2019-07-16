@@ -9,6 +9,6 @@ package Clases;
  *
  * @author JORGE OSORIO
  */
-public class BarcoJugador {
+public class BarcoJugador extends Barco{
     
 }
