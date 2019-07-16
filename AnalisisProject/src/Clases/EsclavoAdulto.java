@@ -9,6 +9,6 @@ package Clases;
  *
  * @author JORGE OSORIO
  */
-public class EsclavoAdulto {
+public class EsclavoAdulto extends Esclavo {
     
 }
