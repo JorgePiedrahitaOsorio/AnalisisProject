@@ -16,6 +16,13 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        this.Configuraciones();
+    }
+    
+    private void Configuraciones(){
+        this.setTitle("EL PERLA NEGRA");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -27,17 +34,42 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dibujosInicio1 = new Interfaces.DibujosInicio();
+        btnComenzar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnComenzar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnComenzar.png"))); // NOI18N
+        btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnComenzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnComenzar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        javax.swing.GroupLayout dibujosInicio1Layout = new javax.swing.GroupLayout(dibujosInicio1);
+        dibujosInicio1.setLayout(dibujosInicio1Layout);
+        dibujosInicio1Layout.setHorizontalGroup(
+            dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
+        );
+        dibujosInicio1Layout.setVerticalGroup(
+            dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
+                .addContainerGap(337, Short.MAX_VALUE)
+                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(dibujosInicio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(dibujosInicio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,5 +111,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnComenzar;
+    private Interfaces.DibujosInicio dibujosInicio1;
     // End of variables declaration//GEN-END:variables
 }
