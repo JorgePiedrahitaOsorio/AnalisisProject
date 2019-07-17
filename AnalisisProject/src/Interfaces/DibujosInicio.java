@@ -7,15 +7,18 @@ package Interfaces;
 
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-
+import Clases.Sonido;
 /**
  *
  * @author JORGE OSORIO
  */
 public class DibujosInicio extends javax.swing.JPanel {
 
+    Sonido audio;
     public DibujosInicio() {
         initComponents();
+        //this.audio = new Sonido("../Sonidos/300Violin.wav");
+        //this.audio.Play();
     }
 
     @Override

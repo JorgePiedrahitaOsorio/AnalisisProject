@@ -5,10 +5,42 @@
  */
 package Clases;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author JORGE OSORIO
  */
 public class GrafoMundo {
+
+    private LinkedList<Continente> nodos;
+    private LinkedList<MarProfundo> aristas;
+
+    public GrafoMundo() {
+        this.nodos = new LinkedList<>();
+        this.aristas = new LinkedList<>();
+    }
     
+    public void AñadirContinente(Continente continente){
+        this.nodos.add(continente);
+    }
+    
+    public void AñadirMarProfundo(Continente origen, Continente destino, double distancia, int peso){
+        this.aristas.add(new MarProfundo(origen, destino, distancia, peso));
+    }
+
+    /**
+     * @return the nodos
+     */
+    public LinkedList<Continente> getNodos() {
+        return nodos;
+    }
+
+    /**
+     * @return the aristas
+     */
+    public LinkedList<MarProfundo> getAristas() {
+        return aristas;
+    }
+
 }

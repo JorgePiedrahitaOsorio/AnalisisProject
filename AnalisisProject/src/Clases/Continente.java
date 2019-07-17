@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import java.awt.Point;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,16 +13,15 @@ import javax.swing.ImageIcon;
  * @author JORGE OSORIO
  */
 public class Continente {
-    private int x;
-    private int y;
+    private Point ubicacion;
     private int ancho;
     private int alto;
     private String ruta;
     private ImageIcon imagen;
-
-    public Continente(int x, int y, int ancho, int alto, String ruta) {
-        this.x = x;
-        this.y = y;
+    GrafoIslas grafoIslas;
+    
+    public Continente(Point ubicacion, int ancho, int alto, String ruta) {
+        this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
         this.imagen = new ImageIcon(getClass().getResource(ruta));
@@ -30,34 +30,7 @@ public class Continente {
     public Continente() {
     }
 
-    /**
-     * @return the x
-     */
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * @param x the x to set
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * @return the y
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * @param y the y to set
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
-
+   
     /**
      * @return the ancho
      */
@@ -112,6 +85,20 @@ public class Continente {
      */
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
+    }
+
+    /**
+     * @return the ubicacion
+     */
+    public Point getUbicacion() {
+        return ubicacion;
+    }
+
+    /**
+     * @param ubicacion the ubicacion to set
+     */
+    public void setUbicacion(Point ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     
