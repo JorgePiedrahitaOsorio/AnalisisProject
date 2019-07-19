@@ -21,6 +21,8 @@ public class Estrella implements Runnable {
     private LinkedList<String> rutas;
     private ImageIcon imagen;
     private Thread hilo;
+    Tesoro tesoro;
+    LinkedList<Esclavo> esclavos;
 
     public Estrella() {
     }

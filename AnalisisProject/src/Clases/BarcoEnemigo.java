@@ -10,5 +10,5 @@ package Clases;
  * @author JORGE OSORIO
  */
 public class BarcoEnemigo extends Barco {
-    
+    int peligrosidad;
 }

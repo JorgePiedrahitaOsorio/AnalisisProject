@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import java.awt.Point;
 import java.util.LinkedList;
 
 /**
@@ -20,12 +21,12 @@ public class GrafoMundo {
         this.nodos = new LinkedList<>();
         this.aristas = new LinkedList<>();
     }
-    
-    public void AñadirContinente(Continente continente){
+
+    public void AñadirContinente(Continente continente) {
         this.nodos.add(continente);
     }
-    
-    public void AñadirMarProfundo(Continente origen, Continente destino, double distancia, int peso){
+
+    public void AñadirMarProfundo(Point origen, Point destino, double distancia, int peso) {
         this.aristas.add(new MarProfundo(origen, destino, distancia, peso));
     }
 

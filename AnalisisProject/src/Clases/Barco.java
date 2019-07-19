@@ -18,6 +18,7 @@ public class Barco {
     protected int alto;
     protected String ruta;
     protected ImageIcon imagen;
+    int vida;
 
     public Barco() {
     }

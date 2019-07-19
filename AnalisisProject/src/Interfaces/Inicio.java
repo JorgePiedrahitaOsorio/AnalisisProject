@@ -5,6 +5,8 @@
  */
 package Interfaces;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author JORGE OSORIO
@@ -20,9 +22,10 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     private void Configuraciones(){
-        this.setTitle("EL PERLA NEGRA");
+        this.setTitle("PIRATAS POR EL MUNDO");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
     }
 
     /**
@@ -45,12 +48,19 @@ public class Inicio extends javax.swing.JFrame {
         btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnComenzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnComenzar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        btnComenzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComenzarActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCargarMapa.png"))); // NOI18N
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnInstrucciones.png"))); // NOI18N
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout dibujosInicio1Layout = new javax.swing.GroupLayout(dibujosInicio1);
         dibujosInicio1.setLayout(dibujosInicio1Layout);
@@ -89,6 +99,10 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
+        System.out.println("Probando");
+    }//GEN-LAST:event_btnComenzarActionPerformed
 
     /**
      * @param args the command line arguments

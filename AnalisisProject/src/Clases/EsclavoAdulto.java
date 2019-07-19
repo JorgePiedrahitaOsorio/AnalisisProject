@@ -10,5 +10,9 @@ package Clases;
  * @author JORGE OSORIO
  */
 public class EsclavoAdulto extends Esclavo {
-    
+
+    public EsclavoAdulto() {
+        super();
+    }
+
 }

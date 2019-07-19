@@ -18,6 +18,8 @@ public class Monstruo {
     private int alto;
     private String ruta;
     private ImageIcon imagen;
+    int vida;
+    int peligrosidad;
 
     public Monstruo() {
     }
@@ -29,6 +31,7 @@ public class Monstruo {
         this.alto = alto;
         this.imagen = new ImageIcon(getClass().getResource(ruta));
     }
+ 
 
     /**
      * @return the x

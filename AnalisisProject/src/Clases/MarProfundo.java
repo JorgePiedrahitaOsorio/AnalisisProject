@@ -5,56 +5,29 @@
  */
 package Clases;
 
+import java.awt.Point;
+
 /**
  *
  * @author JORGE OSORIO
  */
 public class MarProfundo {
 
-    private Continente origen;
-    private Continente destino;
+    private Point origen;
+    private Point destino;
     private double distacia;
     private int peso;
 
     public MarProfundo() {
     }
 
-    public MarProfundo(Continente origen, Continente destino, double distacia, int peso) {
+    public MarProfundo(Point origen, Point destino, double distacia, int peso) {
         this.origen = origen;
         this.destino = destino;
         this.distacia = distacia;
         this.peso = peso;
     }
     
-
-    /**
-     * @return the origen
-     */
-    public Continente getOrigen() {
-        return origen;
-    }
-
-    /**
-     * @param origen the origen to set
-     */
-    public void setOrigen(Continente origen) {
-        this.origen = origen;
-    }
-
-    /**
-     * @return the destino
-     */
-    public Continente getDestino() {
-        return destino;
-    }
-
-    /**
-     * @param destino the destino to set
-     */
-    public void setDestino(Continente destino) {
-        this.destino = destino;
-    }
-
     /**
      * @return the distacia
      */
@@ -81,6 +54,34 @@ public class MarProfundo {
      */
     public void setPeso(int peso) {
         this.peso = peso;
+    }
+
+    /**
+     * @return the origen
+     */
+    public Point getOrigen() {
+        return origen;
+    }
+
+    /**
+     * @param origen the origen to set
+     */
+    public void setOrigen(Point origen) {
+        this.origen = origen;
+    }
+
+    /**
+     * @return the destino
+     */
+    public Point getDestino() {
+        return destino;
+    }
+
+    /**
+     * @param destino the destino to set
+     */
+    public void setDestino(Point destino) {
+        this.destino = destino;
     }
 
 }
