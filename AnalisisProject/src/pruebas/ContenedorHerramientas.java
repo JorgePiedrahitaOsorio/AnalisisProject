@@ -12,17 +12,32 @@ import java.awt.Color;
  * @author Thebest
  */
 public class ContenedorHerramientas extends javax.swing.JPanel {
-    
-    public ContenedorHerramientas(){
+
+    private int x, y, width, heigth;
+
+    public ContenedorHerramientas(int x, int y, int width, int heigth) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.heigth = heigth;
         iniciarComponentes();
     }
-    
-    private void iniciarComponentes(){
-        aspecto();
+
+    private void tamaño() {
+        this.setBounds(x, y, width, heigth);
     }
     
-    private void aspecto(){
-        this.setBackground(Color.white);
+    private void agregarLayout(){
         this.setLayout(null);
+    }
+
+    private void iniciarComponentes() {
+        aspecto();
+        tamaño();
+        agregarLayout();
+    }
+
+    private void aspecto() {
+        this.setBackground(Color.black);
     }
 }
