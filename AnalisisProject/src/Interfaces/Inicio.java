@@ -5,6 +5,9 @@
  */
 package Interfaces;
 
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         this.Configuraciones();
+        this.CambiarCursorBotones();
     }
     
     private void Configuraciones(){
@@ -26,6 +30,15 @@ public class Inicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
+    }
+    private void CambiarCursorBotones() {
+        Cursor cursor;
+        ImageIcon imagenes = new ImageIcon(getClass().getResource("../Imagenes/espada.png"));
+        Toolkit t = Toolkit.getDefaultToolkit();
+        cursor = t.createCustomCursor(imagenes.getImage(), new Point(1, 1), "Cursor");
+        this.btnCargarMapa.setCursor(cursor);
+        this.btnInstrucciones.setCursor(cursor);
+        this.btnComenzar.setCursor(cursor);
     }
 
     /**
@@ -39,8 +52,8 @@ public class Inicio extends javax.swing.JFrame {
 
         dibujosInicio1 = new Interfaces.DibujosInicio();
         btnComenzar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCargarMapa = new javax.swing.JButton();
+        btnInstrucciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,13 +67,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCargarMapa.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCargarMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCargarMapa.png"))); // NOI18N
+        btnCargarMapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCargarMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnInstrucciones.png"))); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInstrucciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnInstrucciones.png"))); // NOI18N
+        btnInstrucciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnInstrucciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout dibujosInicio1Layout = new javax.swing.GroupLayout(dibujosInicio1);
         dibujosInicio1.setLayout(dibujosInicio1Layout);
@@ -70,17 +83,17 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(243, Short.MAX_VALUE)
                 .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(219, 219, 219))
         );
         dibujosInicio1Layout.setVerticalGroup(
             dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
                 .addContainerGap(230, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
@@ -140,9 +153,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargarMapa;
     private javax.swing.JButton btnComenzar;
+    private javax.swing.JButton btnInstrucciones;
     private Interfaces.DibujosInicio dibujosInicio1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

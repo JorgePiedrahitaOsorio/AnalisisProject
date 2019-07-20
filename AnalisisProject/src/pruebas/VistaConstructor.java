@@ -17,7 +17,6 @@ public class VistaConstructor extends javax.swing.JFrame{
     
     public VistaConstructor(){
         iniciarComponentes();
-//        pack();
     }
     
     private Dimension tamañoPantalla(){

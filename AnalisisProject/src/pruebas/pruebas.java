@@ -126,6 +126,8 @@ public class pruebas extends javax.swing.JFrame implements MouseListener, MouseM
     private void cursor() {
         this.setCursor(Cursor.HAND_CURSOR);
     }
+    
+    
 
     /**
      * @param args the command line arguments

@@ -10,5 +10,8 @@ package Clases;
  * @author JORGE OSORIO
  */
 public class ControladoraJuego {
+    Ruta ruta;
+    
+    
     
 }

@@ -10,5 +10,7 @@ package Clases;
  * @author JORGE OSORIO
  */
 public class EsclavoJoven extends Esclavo {
-    
+    static final int VELOCIDAD = 5;
+    static final int ATAQUE = 25;
+    static final String RUTA = "../Imagenes/Joven2.png";
 }

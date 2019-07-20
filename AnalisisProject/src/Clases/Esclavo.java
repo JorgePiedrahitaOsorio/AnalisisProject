@@ -6,45 +6,33 @@
 package Clases;
 
 import java.awt.Point;
-import java.util.LinkedList;
 import javax.swing.ImageIcon;
-
 
 /**
  *
  * @author JORGE OSORIO
  */
-public class Esclavo implements Runnable{
-    private Point ubicacion;
-    private int ancho;
-    private int alto;
-    private LinkedList<String> rutas;
-    private ImageIcon imagen;
-    Thread hilo;
-    int horas_vida;
+public class Esclavo {
+
+    protected Point ubicacion;
+    protected int ancho;
+    protected int alto;
+    protected ImageIcon imagen;
+    protected int velocidad_navegacion;
+    protected int nivel_ataque;
+    protected int vida;
 
     public Esclavo() {
     }
 
-    public Esclavo(Point ubicacion, int ancho, int alto) {
+    public Esclavo(Point ubicacion, int ancho, int alto, String ruta, int velocidad_navegacion, int nivel_ataque) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
-        this.rutas = new LinkedList<>();
-        this.hilo = new Thread(this);
-        this.Start();
-    } 
-    
-    private void Start(){
-        this.hilo.start();
-    }
-
-    @Override
-    public void run() {
-        int i = 0;
-        while (true) {            
-            
-        }
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
+        this.velocidad_navegacion = velocidad_navegacion;
+        this.nivel_ataque = nivel_ataque;
+        this.vida = 100;
     }
 
     /**
@@ -90,20 +78,6 @@ public class Esclavo implements Runnable{
     }
 
     /**
-     * @return the rutas
-     */
-    public LinkedList<String> getRutas() {
-        return rutas;
-    }
-
-    /**
-     * @param rutas the rutas to set
-     */
-    public void setRutas(LinkedList<String> rutas) {
-        this.rutas = rutas;
-    }
-
-    /**
      * @return the imagen
      */
     public ImageIcon getImagen() {
@@ -116,4 +90,51 @@ public class Esclavo implements Runnable{
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
     }
+
+    /**
+     * @return the velocidad_navegacion
+     */
+    public int getVelocidad_navegacion() {
+        return velocidad_navegacion;
+    }
+
+    /**
+     * @param velocidad_navegacion the velocidad_navegacion to set
+     */
+    public void setVelocidad_navegacion(int velocidad_navegacion) {
+        this.velocidad_navegacion = velocidad_navegacion;
+    }
+
+    /**
+     * @return the nivel_ataque
+     */
+    public int getNivel_ataque() {
+        return nivel_ataque;
+    }
+
+    /**
+     * @param nivel_ataque the nivel_ataque to set
+     */
+    public void setNivel_ataque(int nivel_ataque) {
+        this.nivel_ataque = nivel_ataque;
+    }
+
+    /**
+     * @return the vida
+     */
+    public int getVida() {
+        return vida;
+    }
+
+    /**
+     * @param vida the vida to set
+     */
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+    
+    
+    
+    
+
 }
