@@ -12,19 +12,44 @@ import java.awt.Color;
  * @author Thebest
  */
 public class ContenedorPremapa extends javax.swing.JPanel {
-    
-    public ContenedorPremapa(){
+
+ 
+    private int x, y, width, heigth;
+
+    public ContenedorPremapa(int x, int y, int width, int heigth) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.heigth = heigth;
         iniciarComponentes();
     }
-    
-    private void iniciarComponentes(){
+
+    private void iniciarComponentes() {
         aspecto();
+        tamaño();
+        agregarLayout();
     }
     
-    private void aspecto(){
-        this.setBackground(Color.white);
+    private void tamaño() {
+        this.setBounds(x, y, getWidth(), heigth);
+    }
+    
+    private void agregarLayout(){
         this.setLayout(null);
     }
     
-    private void AgregarFondo(){}
+    private void aspecto() {
+        this.setBackground(Color.white);
+    }
+
+    private void AgregarFondo() {
+    }
+    
+       /**
+     * @return the width
+     */
+    public int getWidth() {
+        return width;
+    }
+
 }

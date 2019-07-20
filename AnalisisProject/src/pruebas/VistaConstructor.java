@@ -6,6 +6,7 @@
 package pruebas;
 
 import java.awt.*;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -14,7 +15,8 @@ import java.awt.*;
 public class VistaConstructor extends javax.swing.JFrame{
     
     private Dimension pantallaTamano;
-    
+    private ContenedorPremapa contenedorPremapa;
+    private ContenedorHerramientas contenedorHerramientas;
     public VistaConstructor(){
         iniciarComponentes();
     }
@@ -38,6 +40,8 @@ public class VistaConstructor extends javax.swing.JFrame{
         AmpliarTamañoPantalla();
         aspecto();
         ConfiguracionesIniciales();
+        agregarLayout();
+        agregarPaneles();
     }
     
     private void AmpliarTamañoPantalla(){
@@ -48,7 +52,19 @@ public class VistaConstructor extends javax.swing.JFrame{
     
     private void aspecto(){
         this.getContentPane().setBackground(Color.white);
-        this.getContentPane().setLayout(new BorderLayout());
+    }
+    
+    private void agregarLayout(){
+        this.getContentPane().setLayout(null);
+    }
+    
+    private void agregarPaneles(){
+        this.contenedorPremapa = new ContenedorPremapa(0,0,pantallaTamano.width-260,
+                pantallaTamano.height);
+        this.getContentPane().add(this.contenedorPremapa);
+        this.contenedorHerramientas = new ContenedorHerramientas(
+                this.contenedorPremapa.getWidth() + 5,0,250,this.pantallaTamano.height);
+        this.getContentPane().add(this.contenedorHerramientas);
     }
     
     public static void main(String x[]){
