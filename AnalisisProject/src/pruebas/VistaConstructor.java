@@ -17,11 +17,17 @@ public class VistaConstructor extends javax.swing.JFrame{
     
     public VistaConstructor(){
         iniciarComponentes();
+//        pack();
     }
     
     private Dimension tamañoPantalla(){
        Toolkit t = Toolkit.getDefaultToolkit();
        return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+    
+    private void ConfiguracionesIniciales(){
+        this.setTitle("MAPA CONTINENTES");
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
     private void iniciarComponentes(){
@@ -32,14 +38,22 @@ public class VistaConstructor extends javax.swing.JFrame{
     private void caracteristicasVisuales(){
         AmpliarTamañoPantalla();
         aspecto();
+        ConfiguracionesIniciales();
     }
     
     private void AmpliarTamañoPantalla(){
+        this.setBounds(0,0,pantallaTamano.width,pantallaTamano.height);
         this.setExtendedState(MAXIMIZED_BOTH);
+        this.setResizable(false);
     }
     
     private void aspecto(){
         this.getContentPane().setBackground(Color.white);
         this.getContentPane().setLayout(new BorderLayout());
+    }
+    
+    public static void main(String x[]){
+        VistaConstructor v = new VistaConstructor();
+        v.setVisible(true);
     }
 }
