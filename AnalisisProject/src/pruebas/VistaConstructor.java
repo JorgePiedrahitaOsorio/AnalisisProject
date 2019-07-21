@@ -18,7 +18,7 @@ public class VistaConstructor extends javax.swing.JFrame{
     private ContenedorPremapa contenedorPremapa;
     private JPanel contenedorIzquierda;
     private JPanel contenedorDerecha;
-    private ContenedorHerramientas contenedorHerramientas;
+    private ContenedorTools contenedorTools;
     public VistaConstructor(){
         iniciarComponentes();
     }
@@ -65,9 +65,9 @@ public class VistaConstructor extends javax.swing.JFrame{
                 pantallaTamano.height);
         this.contenedorIzquierda = this.contenedorPremapa;
         this.getContentPane().add(this.contenedorIzquierda);
-        this.contenedorHerramientas = new ContenedorHerramientas(
+        this.contenedorTools = new ContenedorHerramientasContinentes(
                 this.contenedorPremapa.getWidth() + 5,0,250,this.pantallaTamano.height);
-        this.contenedorDerecha = this.contenedorHerramientas;
+        this.contenedorDerecha = this.contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
     }
     

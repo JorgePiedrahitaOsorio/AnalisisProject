@@ -12,13 +12,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -32,7 +37,40 @@ public class pruebas extends javax.swing.JFrame implements MouseListener, MouseM
     private int mouseX = 0;
     private int mouseY = 0;
     private boolean banderaMov = false;
+    
 
+     private void AñadirMenu(){
+        JMenuBar barra = new JMenuBar();
+        JMenu menu = new JMenu("OPCIONES");
+        JMenuItem item = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/pelea1.gif")));
+        JMenuItem item2 = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/pelea2.gif")));
+        barra.add(menu);
+        menu.add(item);
+        menu.add(item2);
+        setJMenuBar(barra);
+        item.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirContinenteAction(evt);
+            }
+        });
+        item2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirMarAction(evt);
+            }
+        });
+    }
+    
+    private void AñadirContinenteAction(java.awt.event.ActionEvent evt){
+        //this.dibujosPruebas1.agregar = true;
+    }
+    
+    private void AñadirMarAction(java.awt.event.ActionEvent evt){
+        System.out.println("William ReMk2");
+    }
+    
+    
     public pruebas() {
         initComponents();
         mouseX = this.jLabel1.getX();
