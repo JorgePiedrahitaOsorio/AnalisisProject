@@ -38,7 +38,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
         iniciarComponentes();
         this.hilo = new Thread(this);
         this.Start();
+        caracteristicasAuxContenedorImagen();
+    }
+    
+    private void caracteristicasAuxContenedorImagen(){
         this.auxContenedorImagen = new ContenedorImagen("", 0, 0, 100, 100);
+        this.auxContenedorImagen.eliminarEventoClick();
     }
 
     private void agregarInterfacesMapa() {
@@ -89,12 +94,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void agregarPaneles() {
-        this.contenedorPremapa = new ContenedorPremapa(0, 0, pantallaTamano.width - 260,
+        this.contenedorPremapa = new ContenedorPremapa(0, 0, pantallaTamano.width - 210,
                 pantallaTamano.height);
         this.contenedorIzquierda = this.contenedorPremapa;
         this.getContentPane().add(this.contenedorIzquierda);
         this.contenedorTools = new ContenedorHerramientasContinentes(
-                this.contenedorPremapa.getWidth() + 5, 0, 250, this.pantallaTamano.height);
+                this.contenedorPremapa.getWidth() + 5, 0, 200, this.pantallaTamano.height);
         this.contenedorDerecha = this.contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
     }
@@ -109,7 +114,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         boolean detener = true;
         while (detener) {
             try {
-//                System.out.println(estadoEdicion);
+                System.out.println(estadoEdicion);
                 if (estadoEdicion) {
                     this.setCursor(Cursor.HAND_CURSOR);
                 } else {
@@ -128,7 +133,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         if (estadoEdicion) {
             this.contenedorPremapa.add(this.auxContenedorImagen);
             this.auxContenedorImagen.setUrl(urlElemento);
-            this.auxContenedorImagen.mover(e.getX(), e.getY());
+            this.auxContenedorImagen.mover(e.getX() + 25, e.getY() + 25);
             this.contenedorPremapa.repaint();
         }
     }
@@ -136,11 +141,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Entro 1");
-        if (!estadoEdicion) {
+        if (estadoEdicion) {
             System.out.println("entro");
             estadoEdicion = false;
             this.contenedorPremapa.remove(this.auxContenedorImagen);
-            ContenedorImagen contenedorFijo = new ContenedorImagen(urlElemento, e.getX(), e.getY(), 100, 100);
+            ContenedorNodo contenedorFijo = new ContenedorNodo
+        (urlElemento, e.getX(), e.getY(), 100, 100);
             this.contenedorPremapa.add(contenedorFijo);
         }
     }

@@ -9,22 +9,21 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import static pruebas.VistaConstructor.urlElemento;
-import static pruebas.VistaConstructor.estadoEdicion;
+
 
 /**
  *
  * @author Thebest
  */
-public class ContenedorImagen extends javax.swing.JButton {
-
+public class ContenedorNodo extends javax.swing.JButton{
+    
     private String url;
     private final int x;
     private final int y;
     private final int width;
     private final int height;
     
-    public ContenedorImagen(String url, int x, int y, int width, int height) {
+    public ContenedorNodo(String url, int x, int y, int width, int height) {
         this.url = url;
         this.x = x;
         this.y = y;
@@ -53,19 +52,7 @@ public class ContenedorImagen extends javax.swing.JButton {
     }
 
     private void accionClick(ActionEvent e) {
-        urlElemento = this.url;
-        estadoEdicion = true;
+
     }
     
-    public void mover(int x,int y){
-        this.setBounds(x, y,this.width,this.height);
-    }
-    public void setUrl(String url){
-        this.url = url;
-        dibujarFondo();
-    }
-    
-    public void eliminarEventoClick(){
-        this.removeActionListener(actionListener);
-    }
 }
