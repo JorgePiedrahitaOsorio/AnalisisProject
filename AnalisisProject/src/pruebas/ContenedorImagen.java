@@ -22,8 +22,7 @@ public class ContenedorImagen extends javax.swing.JButton {
     }
 
     private void contenido() {
-        Image img = new ImageIcon(url).getImage();
-        ImageIcon img2 = new ImageIcon(img.getScaledInstance(78, 124, Image.SCALE_SMOOTH));
+        ImageIcon img2 = new ImageIcon(getClass().getResource(url));
         this.setIcon(img2);
     }
 }
