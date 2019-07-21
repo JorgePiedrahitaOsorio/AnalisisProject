@@ -29,7 +29,7 @@ public class ContenedorHerramientasContinentes extends ContenedorTools {
     }
 
     @Override
-    public void iniciarComponentes() {
+    public final void iniciarComponentes() {
         aspecto();
         tamaño();
         agregarLayout();
@@ -38,14 +38,13 @@ public class ContenedorHerramientasContinentes extends ContenedorTools {
 
     private void crearContinentes() {
         for (int i = 1; i < 7; i++) {
-            agregarContinente("../Imagenes/continente" + i + ".png", 80, 20 * i
-                    + (80 * (i - 1)), 80, 80);
+            agregarContinente("../Imagenes/continente"+String.valueOf(i)+".png", 100, 20 * i
+                    + (100 * (i - 1)), 100, 100);
         }
     }
 
     private void agregarContinente(String url, int x, int y, int width, int height) {
-        ContenedorImagen contenedorImagen = new ContenedorImagen(url);
-        contenedorImagen.setBounds(x, y, width, height);
+        ContenedorImagen contenedorImagen = new ContenedorImagen(url,x, y, width, height);
         this.add(contenedorImagen);
     }
 

@@ -12,8 +12,12 @@ import java.awt.Color;
  * @author Thebest
  */
 public class ContenedorPreContinente extends javax.swing.JPanel{
+
+    private final int x;
+    private final int y;
     
-     private int x, y, width, heigth;
+     private final int width;
+     private final int heigth;
 
     public ContenedorPreContinente(int x, int y, int width, int heigth) {
         this.x = x;
@@ -47,6 +51,7 @@ public class ContenedorPreContinente extends javax.swing.JPanel{
        /**
      * @return the width
      */
+    @Override
     public int getWidth() {
         return width;
     }

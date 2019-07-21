@@ -13,8 +13,10 @@ import java.awt.Color;
  */
 public class ContenedorPremapa extends javax.swing.JPanel {
 
- 
-    private int x, y, width, heigth;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int heigth;
 
     public ContenedorPremapa(int x, int y, int width, int heigth) {
         this.x = x;
@@ -48,6 +50,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
        /**
      * @return the width
      */
+    @Override
     public int getWidth() {
         return width;
     }
