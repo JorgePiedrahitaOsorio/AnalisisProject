@@ -9,6 +9,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -37,11 +42,13 @@ public class VistaConstructor extends javax.swing.JFrame implements
     public VistaConstructor() {
         iniciarComponentes();
         this.hilo = new Thread(this);
+        this.contenedorDerecha.setVisible(false);
         this.Start();
         caracteristicasAuxContenedorImagen();
+        this.AñadirMenu();
     }
-    
-    private void caracteristicasAuxContenedorImagen(){
+
+    private void caracteristicasAuxContenedorImagen() {
         this.auxContenedorImagen = new ContenedorImagen("", 0, 0, 100, 100);
         this.auxContenedorImagen.eliminarEventoClick();
     }
@@ -54,7 +61,37 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void Start() {
         this.hilo.start();
     }
-
+    private void AñadirMenu(){
+        JMenuBar barra = new JMenuBar();
+        JMenu menu = new JMenu("OPCIONES");
+        JMenuItem item = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
+        JMenuItem item2 = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
+        barra.add(menu);
+        menu.add(item);
+        menu.add(item2);
+        setJMenuBar(barra);
+        item.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirContinenteAction(evt);
+            }
+        });
+        item2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirMarAction(evt);
+            }
+        });
+    }
+    
+    private void AñadirContinenteAction(java.awt.event.ActionEvent evt){
+       this.contenedorDerecha.setVisible(true);
+    }
+    
+    private void AñadirMarAction(java.awt.event.ActionEvent evt){
+      this.contenedorDerecha.setVisible(false);
+    }
+    
     private Dimension tamañoPantalla() {
         Toolkit t = Toolkit.getDefaultToolkit();
         return Toolkit.getDefaultToolkit().getScreenSize();
@@ -114,13 +151,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
         boolean detener = true;
         while (detener) {
             try {
-                System.out.println(estadoEdicion);
                 if (estadoEdicion) {
                     this.setCursor(Cursor.HAND_CURSOR);
                 } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 new Throwable("Todo es culpa de jorge ");
             }
@@ -131,6 +167,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
     @Override
     public void mouseMoved(MouseEvent e) {
         if (estadoEdicion) {
+            this.contenedorPremapa.ColocarContinente = true;
+            this.contenedorPremapa.DibujarRectanguloVerdeRojo(e.getX() + 25, e.getY() + 25);
             this.contenedorPremapa.add(this.auxContenedorImagen);
             this.auxContenedorImagen.setUrl(urlElemento);
             this.auxContenedorImagen.mover(e.getX() + 25, e.getY() + 25);
@@ -140,14 +178,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Entro 1");
         if (estadoEdicion) {
-            System.out.println("entro");
-            estadoEdicion = false;
-            this.contenedorPremapa.remove(this.auxContenedorImagen);
-            ContenedorNodo contenedorFijo = new ContenedorNodo
-        (urlElemento, e.getX(), e.getY(), 100, 100);
-            this.contenedorPremapa.add(contenedorFijo);
+            //estadoEdicion = false;
+            if (this.contenedorPremapa.DibujarRectangulos(e.getX() + 25, e.getY() + 25)) {
+                this.contenedorPremapa.remove(this.auxContenedorImagen);
+                ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 100, 100);
+                this.contenedorPremapa.add(contenedorFijo);
+                estadoEdicion = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "LOS CONTINENTES NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
+            }
         }
     }
 
