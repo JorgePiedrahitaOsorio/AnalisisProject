@@ -9,20 +9,20 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
-
+import static pruebas.VistaConstructor.referenciaContinente;
+import static pruebas.VistaConstructor.continenteClickeado;
 /**
  *
  * @author Thebest
  */
-public class ContenedorNodo extends javax.swing.JButton{
-    
+public class ContenedorNodo extends javax.swing.JButton {
+
     private String url;
     private final int x;
     private final int y;
     private final int width;
     private final int height;
-    
+
     public ContenedorNodo(String url, int x, int y, int width, int height) {
         this.url = url;
         this.x = x;
@@ -38,6 +38,7 @@ public class ContenedorNodo extends javax.swing.JButton{
         this.addActionListener((ActionEvent e) -> {
             accionClick(e);
         });
+        decoracion();
     }
 
     private void tamaño() {
@@ -52,7 +53,13 @@ public class ContenedorNodo extends javax.swing.JButton{
     }
 
     private void accionClick(ActionEvent e) {
-
+       referenciaContinente = this;
+       continenteClickeado = true;
     }
-    
+
+    private void decoracion() {
+        this.setBorder(null);
+        this.setContentAreaFilled(false);
+    }
+
 }

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -33,10 +34,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     public static String urlElemento;
     public static boolean estadoEdicion;
+    public static JButton referenciaContinente;
+    public static boolean continenteClickeado;
 
     static {
         urlElemento = "";
         estadoEdicion = false;
+        referenciaContinente = new JButton();
+        continenteClickeado = false;
     }
 
     public VistaConstructor() {
@@ -64,23 +69,17 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void AñadirMenu(){
         JMenuBar barra = new JMenuBar();
         JMenu menu = new JMenu("OPCIONES");
-        JMenuItem item = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
-        JMenuItem item2 = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
+        JMenuItem item = new JMenuItem("Añadir Continente",new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
+        JMenuItem item2 = new JMenuItem("Añadir Mar",new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
         barra.add(menu);
         menu.add(item);
         menu.add(item2);
         setJMenuBar(barra);
-        item.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AñadirContinenteAction(evt);
-            }
+        item.addActionListener((java.awt.event.ActionEvent evt) -> {
+            AñadirContinenteAction(evt);
         });
-        item2.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AñadirMarAction(evt);
-            }
+        item2.addActionListener((java.awt.event.ActionEvent evt) -> {
+            AñadirMarAction(evt);
         });
     }
     
@@ -156,14 +155,29 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
+                
+                if(continenteClickeado){
+                    cambioContenedorIzq();
+                }
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                new Throwable("Todo es culpa de jorge ");
+                System.out.println("Todo es culpa de jorge!!!!");
             }
 
         }
     }
-
+    
+    /**
+    Este método se encarga de cambiar el panel que se aloja en la parte izquierda
+    del constructor del mapa
+    * version 1.0
+    */
+    public void cambioContenedorIzq(){
+        ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
+        this.contenedorIzquierda.remove(this.contenedorPremapa);
+        this.contenedorPremapa.setVisible(false);
+        this.contenedorIzquierda.add(aux);
+    }
     @Override
     public void mouseMoved(MouseEvent e) {
         if (estadoEdicion) {
@@ -175,7 +189,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
             this.contenedorPremapa.repaint();
         }
     }
-
+    /*
+        Metodo encargado de insertar el continente al mapa y adicionarlos a la hashMap
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (estadoEdicion) {
@@ -183,6 +199,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
             if (this.contenedorPremapa.DibujarRectangulos(e.getX() + 25, e.getY() + 25)) {
                 this.contenedorPremapa.remove(this.auxContenedorImagen);
                 ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 100, 100);
+                this.contenedorPremapa.islas.put(contenedorFijo, new ContenedorPreContinente(this.contenedorPremapa.getX(),
+                this.contenedorPremapa.getY(),this.contenedorPremapa.getWidth(),this.contenedorPremapa.getHeight()));
                 this.contenedorPremapa.add(contenedorFijo);
                 estadoEdicion = false;
             } else {

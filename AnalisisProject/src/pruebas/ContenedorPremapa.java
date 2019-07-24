@@ -7,8 +7,12 @@ package pruebas;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.HashMap;
 import java.util.LinkedList;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  *
@@ -20,10 +24,13 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     private final int y;
     private final int width;
     private final int heigth;
+    private Image imgFondo;
     boolean ColocarContinente;
     LinkedList<Rectangle> rectangulos;
     Rectangle aux;
     Color color;
+    
+    protected HashMap <JButton,ContenedorPreContinente> islas;
 
     public ContenedorPremapa(int x, int y, int width, int heigth) {
         this.x = x;
@@ -33,6 +40,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         this.rectangulos = new LinkedList<>();
         this.ColocarContinente = false;
         this.color = Color.GREEN;
+        this.islas =  new HashMap<>();
         iniciarComponentes();
     }
 
@@ -45,9 +53,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.rectangulos.forEach((r) -> {
-            g.drawRect(r.x, r.y, r.width, r.height);
-        });
+
         if (ColocarContinente) {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
@@ -69,9 +75,23 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     private void aspecto() {
         this.setBackground(Color.white);
+        AgregarFondo();
     }
 
     private void AgregarFondo() {
+        try {
+            this.imgFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo1.jpg")).getImage();
+        } catch (Exception e) {
+            System.out.println("No cargo Fondo");
+        }
+
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        g.drawImage(imgFondo, 0, 0, this.width, this.heigth - 50,null);
+        this.setOpaque(false);
+        super.paint(g);
     }
 
     public boolean DibujarRectangulos(int x, int y) {
@@ -87,7 +107,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     public void DibujarRectanguloVerdeRojo(int x, int y) {
         if (ColocarContinente) {
-            aux = new Rectangle(x, y , 102, 102);
+            aux = new Rectangle(x, y, 102, 102);
             if (!NoColisiona(aux)) {
                 this.color = Color.RED;
             } else {

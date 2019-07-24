@@ -39,6 +39,7 @@ public class ContenedorImagen extends javax.swing.JButton {
         this.addActionListener((ActionEvent e) -> {
             accionClick(e);
         });
+        decoracion();
     }
 
     private void tamaño() {
@@ -67,5 +68,10 @@ public class ContenedorImagen extends javax.swing.JButton {
     
     public void eliminarEventoClick(){
         this.removeActionListener(actionListener);
+    }
+    
+    private void decoracion(){
+        this.setBorder(null);
+        this.setContentAreaFilled(false);
     }
 }
