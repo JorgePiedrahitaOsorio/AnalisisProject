@@ -31,7 +31,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     Color color;
     
     protected HashMap <JButton,ContenedorPreContinente> islas;
-
+     
     public ContenedorPremapa(int x, int y, int width, int heigth) {
         this.x = x;
         this.y = y;
