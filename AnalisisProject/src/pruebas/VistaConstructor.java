@@ -41,7 +41,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     private JPanel contenedorDerecha;
     /**
-     * clase abstracta que la cual nos ayuda a construir los contenedores herramientas
+     * clase abstracta que la cual nos ayuda a construir los contenedores
+     * herramientas
      */
     private ContenedorTools contenedorTools;
     /**
@@ -53,27 +54,28 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     private ContenedorImagen auxContenedorImagen;
     /**
-     *Variables estaticas para la construccion de mar
-     * @serialField  estadoEdicionMar indica que habilitado la creacion de una arista
-     * ,osea mar o mar profundo, ya sea el caso
-     * 
+     * Variables estaticas para la construccion de mar
+     *
+     * @serialField estadoEdicionMar indica que habilitado la creacion de una
+     * arista ,osea mar o mar profundo, ya sea el caso
+     *
      */
     public static boolean estadoEdicionMar;
     /**
-     * @serialField  referencia a el primer contiennete clickeado
+     * @serialField referencia a el primer contiennete clickeado
      */
     public static ContenedorNodo referenciaContinente1;
     /**
-     * @serialField  referencia el segundo continente clickeado
+     * @serialField referencia el segundo continente clickeado
      */
     public static ContenedorNodo referenciaContinente2;
     /**
-     * @serialField banderaDibujarMar bandera que indica que los continentes ya 
-     * fueron seleccionados, or tal motivo, se dibuja la arista, ademas se deshabilita
-     * el modo edicion 
+     * @serialField banderaDibujarMar bandera que indica que los continentes ya
+     * fueron seleccionados, or tal motivo, se dibuja la arista, ademas se
+     * deshabilita el modo edicion
      */
     public static boolean banderaDibujarMar;
-    
+
     /**
      * url para el modo de agregar continente o islas al mapa según sea el caso
      */
@@ -87,10 +89,20 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     public static ContenedorNodo referenciaContinente;
     /**
-     *bandera que indica que el boton fue clickeado fuera de cualquier modo de edicion 
+     * bandera que indica que el boton fue clickeado fuera de cualquier modo de
+     * edicion
      */
     public static boolean continenteClickeado;
 
+    private JMenuBar barraMenu;
+    private JMenu menuAñadir;
+    private JMenu menuOpciones;
+    private JMenuItem itemGuardar;
+    private JMenuItem itemEditar;
+    private JMenuItem itemAñadirContinente;
+    private JMenuItem itemAñadirIsla;
+    private JMenuItem itemAñadirMar;
+    private JMenuItem itemSimular;
 
     static {
         urlElemento = "";
@@ -107,9 +119,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         iniciarComponentes();
         this.hilo = new Thread(this);
         this.contenedorDerecha.setVisible(false);
-        this.Start();
         caracteristicasAuxContenedorImagen();
-        this.AñadirMenu();
+        this.CrearMenu();
+        this.Start();
     }
 
     private void caracteristicasAuxContenedorImagen() {
@@ -126,29 +138,36 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.hilo.start();
     }
 
-    private void AñadirMenu() {
-        JMenuBar barra = new JMenuBar();
-        JMenu Añadir = new JMenu("Añadir");
-        JMenu Opciones = new JMenu("Opciones");
-        JMenuItem itemContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
-        JMenuItem itemMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
-        JMenuItem itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png")));
-        JMenuItem itemSimular = new JMenuItem("Run", new ImageIcon(getClass().getResource("../Imagenes/IconoSimular.png")));
-        JMenuItem itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png")));
-        barra.add(Añadir);
-        barra.add(Opciones);
-        Añadir.add(itemContinente);
-        Añadir.add(itemMar);
-        Opciones.add(itemGuardar);
-        Opciones.add(itemEditar);
-        Opciones.add(itemSimular);
-        setJMenuBar(barra);
-        itemContinente.addActionListener((java.awt.event.ActionEvent evt) -> {
+    private void CrearMenu() {
+        this.barraMenu = new JMenuBar();
+        this.setJMenuBar(this.barraMenu);
+        this.AñadirAlMenu(this.menuAñadir = new JMenu("Añadir"));
+        this.AñadirAlMenu(this.menuOpciones = new JMenu("Opciones"));
+        this.itemAñadirContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
+        this.itemAñadirIsla = new JMenuItem("Añadir Isla", new ImageIcon(getClass().getResource("../Imagenes/IconoIsla.png")));
+        this.AñadirItem(this.menuAñadir, this.itemAñadirMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png"))));
+        this.AñadirItem(this.menuOpciones, this.itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png"))));
+        this.AñadirItem(this.menuOpciones, this.itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png"))));
+        this.AñadirItem(this.menuOpciones, this.itemSimular = new JMenuItem("Run", new ImageIcon(getClass().getResource("../Imagenes/IconoSimular.png"))));
+        this.CrearAccionesMenu();
+    }
+
+    private void CrearAccionesMenu() {
+        this.itemAñadirContinente.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirContinenteAction(evt);
         });
-        itemMar.addActionListener((java.awt.event.ActionEvent evt) -> {
+        this.itemAñadirMar.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirMarAction(evt);
         });
+
+    }
+
+    public void AñadirAlMenu(JMenu menu) {
+        this.barraMenu.add(menu);
+    }
+
+    public void AñadirItem(JMenu menu, JMenuItem item) {
+        menu.add(item);
     }
 
     private void AñadirContinenteAction(java.awt.event.ActionEvent evt) {
@@ -225,14 +244,17 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
                 /**
-                 * Jorge no toque esto remk
-                 * metodos abajo muy importantes 
+                 * Jorge no toque esto remk metodos abajo muy importantes
                  * calmese!!!!!!!!!!!!!!!!
                  */
                 if (continenteClickeado) {
                     cambioContenedorIzq();
+                    this.AñadirItem(this.menuAñadir, itemAñadirIsla);
+                    this.menuAñadir.remove(this.itemAñadirContinente);
+                } else {
+                    this.AñadirItem(this.menuAñadir, this.itemAñadirContinente);
+                    this.menuAñadir.remove(this.itemAñadirIsla);
                 }
-
                 if (banderaDibujarMar) {
                     this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
                             referenciaContinente2));
@@ -259,7 +281,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     public void cambioContenedorIzq() {
         ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
         this.contenedorIzquierda.remove(this.contenedorPremapa);
-        this.contenedorPremapa.setVisible(false);
+        //this.contenedorPremapa.setVisible(false);
         this.contenedorIzquierda.add(aux);
     }
 
