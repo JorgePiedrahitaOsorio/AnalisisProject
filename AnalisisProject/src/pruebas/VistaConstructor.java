@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -24,30 +23,79 @@ import javax.swing.JPanel;
 public class VistaConstructor extends javax.swing.JFrame implements
         MouseMotionListener, Runnable, MouseListener {
 
+    /**
+     * toma el tamaño de la pantalla
+     */
     private Dimension pantallaTamano;
+    /**
+     * contenedor que contiene la informacion de los continentes y graficamente
+     * a los mismos
+     */
     private ContenedorPremapa contenedorPremapa;
+    /**
+     * contenedor que contiene los mapas según la situación
+     */
     private JPanel contenedorIzquierda;
+    /**
+     * contenedor que se encarga de alojar las herramientas
+     */
     private JPanel contenedorDerecha;
+    /**
+     * clase abstracta que la cual nos ayuda a construir los contenedores herramientas
+     */
     private ContenedorTools contenedorTools;
+    /**
+     * Hilo que esta pendiente de los estados de edicion
+     */
     private final Thread hilo;
+    /**
+     * Contenedor aux que nos ayuda con la construccion de los mapas
+     */
     private ContenedorImagen auxContenedorImagen;
-
+    /**
+     *Variables estaticas para la construccion de mar
+     * @serialField  estadoEdicionMar indica que habilitado la creacion de una arista
+     * ,osea mar o mar profundo, ya sea el caso
+     * 
+     */
     public static boolean estadoEdicionMar;
+    /**
+     * @serialField  referencia a el primer contiennete clickeado
+     */
     public static ContenedorNodo referenciaContinente1;
+    /**
+     * @serialField  referencia el segundo continente clickeado
+     */
     public static ContenedorNodo referenciaContinente2;
+    /**
+     * @serialField banderaDibujarMar bandera que indica que los continentes ya 
+     * fueron seleccionados, or tal motivo, se dibuja la arista, ademas se deshabilita
+     * el modo edicion 
+     */
     public static boolean banderaDibujarMar;
-
+    
+    /**
+     * url para el modo de agregar continente o islas al mapa según sea el caso
+     */
     public static String urlElemento;
+    /**
+     * bandera que indica que se esta agregando un continente al mapa
+     */
     public static boolean estadoEdicion;
-    public static JButton referenciaContinente;
+    /**
+     * referencia hacia el boton clickeado fuera de cualquier modo de edicion
+     */
+    public static ContenedorNodo referenciaContinente;
+    /**
+     *bandera que indica que el boton fue clickeado fuera de cualquier modo de edicion 
+     */
     public static boolean continenteClickeado;
 
-    private boolean ponerMar;
 
     static {
         urlElemento = "";
         estadoEdicion = false;
-        referenciaContinente = new JButton();
+        referenciaContinente = null;
         continenteClickeado = false;
         estadoEdicionMar = false;
         referenciaContinente1 = null;
@@ -59,7 +107,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
         iniciarComponentes();
         this.hilo = new Thread(this);
         this.contenedorDerecha.setVisible(false);
-        this.ponerMar = false;
         this.Start();
         caracteristicasAuxContenedorImagen();
         this.AñadirMenu();
@@ -110,8 +157,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void AñadirMarAction(java.awt.event.ActionEvent evt) {
         this.contenedorDerecha.setVisible(false);
-        System.out.println("Entra");
-        this.ponerMar = true;
         estadoEdicionMar = true;
     }
 

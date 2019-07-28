@@ -5,17 +5,13 @@
  */
 package pruebas;
 
-import Clases.MarProfundo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import static pruebas.VistaConstructor.banderaDibujarMar;
 
 /**
  *
@@ -33,7 +29,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     Rectangle aux;
     Color color;
 
-    protected HashMap<JButton, ContenedorPreContinente> islas;
+    protected HashMap<ContenedorNodo, ContenedorPreContinente> islas;
 
     protected LinkedList<Arista> marProfundo;
 
@@ -105,12 +101,6 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             System.out.println("No cargo Fondo");
         }
 
-    }
-
-    @Override
-    public void paint(Graphics g) {
-
-        super.paint(g);
     }
 
     public boolean DibujarRectangulos(int x, int y) {

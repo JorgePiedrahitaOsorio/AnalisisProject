@@ -7,8 +7,6 @@ package pruebas;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import static pruebas.VistaConstructor.referenciaContinente;
