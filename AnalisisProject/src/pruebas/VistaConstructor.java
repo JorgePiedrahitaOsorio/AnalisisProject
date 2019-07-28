@@ -248,6 +248,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                  * calmese!!!!!!!!!!!!!!!!
                  */
                 if (continenteClickeado) {
+                    continenteClickeado = false;
                     cambioContenedorIzq();
                     this.AñadirItem(this.menuAñadir, itemAñadirIsla);
                     this.menuAñadir.remove(this.itemAñadirContinente);
@@ -279,10 +280,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
      * izquierda del constructor del mapa version 1.0
      */
     public void cambioContenedorIzq() {
+        this.contenedorPremapa.setVisible(false);
+        this.getContentPane().remove(this.contenedorIzquierda);
+        this.contenedorIzquierda = null;
         ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
-        this.contenedorIzquierda.remove(this.contenedorPremapa);
-        //this.contenedorPremapa.setVisible(false);
-        this.contenedorIzquierda.add(aux);
+        this.contenedorIzquierda = aux;
+        this.getContentPane().add(this.contenedorIzquierda);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
     }
 
     private void aspecto() {
-        this.setBackground(Color.white);
+        this.setBackground(Color.BLACK);
     }
 
     private void AgregarFondo() {
