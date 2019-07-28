@@ -57,7 +57,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void caracteristicasAuxContenedorImagen() {
-        this.auxContenedorImagen = new ContenedorImagen("", 0, 0, 100, 100);
+        this.auxContenedorImagen = new ContenedorImagen("", 0, 0, 150, 150);
         this.auxContenedorImagen.eliminarEventoClick();
     }
 
@@ -72,17 +72,21 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void AñadirMenu() {
         JMenuBar barra = new JMenuBar();
-        JMenu menu = new JMenu("OPCIONES");
-        JMenuItem item = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
-        JMenuItem item2 = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
-        barra.add(menu);
-        menu.add(item);
-        menu.add(item2);
+        JMenu Añadir = new JMenu("Añadir");
+        JMenu menu2 = new JMenu("Opciones");
+        JMenuItem itemContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
+        JMenuItem itemMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
+        JMenuItem itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png")));
+        barra.add(Añadir);
+        barra.add(menu2);
+        Añadir.add(itemContinente);
+        Añadir.add(itemMar);
+        menu2.add(itemGuardar);
         setJMenuBar(barra);
-        item.addActionListener((java.awt.event.ActionEvent evt) -> {
+        itemContinente.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirContinenteAction(evt);
         });
-        item2.addActionListener((java.awt.event.ActionEvent evt) -> {
+        itemMar.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirMarAction(evt);
         });
     }
@@ -141,7 +145,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.contenedorIzquierda = this.contenedorPremapa;
         this.getContentPane().add(this.contenedorIzquierda);
         this.contenedorTools = new ContenedorHerramientasContinentes(
-                this.contenedorPremapa.getWidth() + 5, 0, 200, this.pantallaTamano.height);
+                this.contenedorPremapa.getWidth() , 0, 200, this.pantallaTamano.height);
         this.contenedorDerecha = this.contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
     }
@@ -205,7 +209,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
             //estadoEdicion = false;
             if (this.contenedorPremapa.DibujarRectangulos(e.getX() + 25, e.getY() + 25)) {
                 this.contenedorPremapa.remove(this.auxContenedorImagen);
-                ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 100, 100);
+                ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 150, 150);
                 this.contenedorPremapa.islas.put(contenedorFijo, new ContenedorPreContinente(this.contenedorPremapa.getX(),
                         this.contenedorPremapa.getY(), this.contenedorPremapa.getWidth(), this.contenedorPremapa.getHeight()));
                 this.contenedorPremapa.add(contenedorFijo);

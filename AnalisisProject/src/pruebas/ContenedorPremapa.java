@@ -59,7 +59,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(imgFondo, 0, 0, this.width , this.heigth, null);
+        g.drawImage(imgFondo, 0, 0, this.width , this.heigth - 45, null);
         if (ColocarContinente) {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
@@ -89,7 +89,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     private void AgregarFondo() {
         try {
-            this.imgFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo1.jpg")).getImage();
+            this.imgFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo1.png")).getImage();
         } catch (Exception e) {
             System.out.println("No cargo Fondo");
         }
@@ -105,8 +105,8 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     public boolean DibujarRectangulos(int x, int y) {
         if (ColocarContinente) {
-            if (NoColisiona(new Rectangle(x, y, 100, 100))) {
-                this.rectangulos.add(new Rectangle(x, y, 100, 100));
+            if (NoColisiona(new Rectangle(x, y, 150, 150))) {
+                this.rectangulos.add(new Rectangle(x, y, 150, 150));
                 this.ColocarContinente = false;
                 return true;
             }
@@ -116,7 +116,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     public void DibujarRectanguloVerdeRojo(int x, int y) {
         if (ColocarContinente) {
-            aux = new Rectangle(x, y, 102, 102);
+            aux = new Rectangle(x, y, 150, 150);
             if (!NoColisiona(aux)) {
                 this.color = Color.RED;
             } else {
