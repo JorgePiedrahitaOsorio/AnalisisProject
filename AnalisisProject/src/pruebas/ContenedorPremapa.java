@@ -5,9 +5,11 @@
  */
 package pruebas;
 
+import Clases.MarProfundo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,10 +29,12 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     private Image imgFondo;
     boolean ColocarContinente;
     LinkedList<Rectangle> rectangulos;
+    MarProfundo mar;
+    LinkedList<MarProfundo> mares;
     Rectangle aux;
     Color color;
-    
-    protected HashMap <JButton,ContenedorPreContinente> islas;
+
+    protected HashMap<JButton, ContenedorPreContinente> islas;
 
     public ContenedorPremapa(int x, int y, int width, int heigth) {
         this.x = x;
@@ -38,9 +42,11 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         this.width = width;
         this.heigth = heigth;
         this.rectangulos = new LinkedList<>();
+        this.mares = new LinkedList<>();
         this.ColocarContinente = false;
+        this.mar = new MarProfundo();
         this.color = Color.GREEN;
-        this.islas =  new HashMap<>();
+        this.islas = new HashMap<>();
         iniciarComponentes();
     }
 
@@ -53,11 +59,14 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        g.drawImage(imgFondo, 0, 0, this.width , this.heigth, null);
         if (ColocarContinente) {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
         }
+        mares.forEach((m) -> {
+            g.drawLine(m.getOrigen().x, m.getOrigen().y, m.getDestino().x, m.getDestino().x);
+        });
         repaint();
     }
 
@@ -89,8 +98,8 @@ public class ContenedorPremapa extends javax.swing.JPanel {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(imgFondo, 0, 0, this.width, this.heigth - 50,null);
-        this.setOpaque(false);
+
+        //this.setOpaque(false);
         super.paint(g);
     }
 
@@ -113,6 +122,20 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             } else {
                 this.color = Color.GREEN;
             }
+        }
+    }
+
+    public void DibujarLineas(int x, int y) {
+        if (NoColisiona(new Rectangle(x, y, 10, 10))) {
+            if (this.mar.puesto == false) {
+                this.mar.setOrigen(new Point(x, y));
+                this.mar.puesto = true;
+            } else if (this.mar.puesto == true) {
+                this.mar.setDestino(new Point(x, y));
+                this.mares.add(mar);
+                this.mar.puesto = false;
+            }
+
         }
     }
 

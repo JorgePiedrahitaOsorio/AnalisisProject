@@ -38,13 +38,15 @@ public class ContenedorHerramientasContinentes extends ContenedorTools {
 
     private void crearContinentes() {
         for (int i = 1; i < 7; i++) {
-            agregarContinente("../Imagenes/continente"+String.valueOf(i)+".png",50, 20 * i
+            agregarContinente("../Imagenes/continente" + String.valueOf(i) + ".png", String.valueOf(i) + ".png", 50, 20 * i
                     + (100 * (i - 1)), 100, 100);
+            //agregarContinente(String.valueOf(i) + ".png", 50, 20 * i + (100 * (i - 1)), 100, 100);
         }
     }
 
-    private void agregarContinente(String url, int x, int y, int width, int height) {
-        ContenedorImagen contenedorImagen = new ContenedorImagen(url,x, y, width, height);
+    private void agregarContinente(String url, String url2, int x, int y, int width, int height) {
+        ContenedorImagen contenedorImagen = new ContenedorImagen(url, x, y, width, height);
+        contenedorImagen.setUrl2(url2);
         this.add(contenedorImagen);
     }
 

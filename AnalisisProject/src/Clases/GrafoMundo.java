@@ -27,7 +27,7 @@ public class GrafoMundo {
     }
 
     public void AñadirMarProfundo(Point origen, Point destino, double distancia, int peso) {
-        this.aristas.add(new MarProfundo(origen, destino, distancia, peso));
+        //this.aristas.add(new MarProfundo(origen, destino, distancia, peso));
     }
 
     /**

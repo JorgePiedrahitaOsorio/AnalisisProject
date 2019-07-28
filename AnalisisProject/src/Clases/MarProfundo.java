@@ -5,40 +5,48 @@
  */
 package Clases;
 
+import java.awt.Graphics;
 import java.awt.Point;
+
 
 /**
  *
  * @author JORGE OSORIO
  */
 public class MarProfundo {
-
     private Point origen;
     private Point destino;
-    private double distacia;
+    private int distacia;
     private int peso;
+    public boolean puesto;
 
     public MarProfundo() {
     }
 
-    public MarProfundo(Point origen, Point destino, double distacia, int peso) {
+    public MarProfundo(Point origen, Point destino, int distacia, int peso) {
         this.origen = origen;
         this.destino = destino;
         this.distacia = distacia;
         this.peso = peso;
+        this.puesto = false;
     }
+    
+    public void Dibujar(Graphics g){
+        g.drawLine(this.origen.x, this.origen.y, this.destino.x, this.destino.y);
+    }
+
     
     /**
      * @return the distacia
      */
-    public double getDistacia() {
+    public int getDistacia() {
         return distacia;
     }
 
     /**
      * @param distacia the distacia to set
      */
-    public void setDistacia(double distacia) {
+    public void setDistacia(int distacia) {
         this.distacia = distacia;
     }
 
@@ -83,5 +91,9 @@ public class MarProfundo {
     public void setDestino(Point destino) {
         this.destino = destino;
     }
+    
+    
+    
+   
 
 }

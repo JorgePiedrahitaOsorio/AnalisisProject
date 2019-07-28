@@ -29,13 +29,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private JPanel contenedorIzquierda;
     private JPanel contenedorDerecha;
     private ContenedorTools contenedorTools;
-    private Thread hilo;
+    private final Thread hilo;
     private ContenedorImagen auxContenedorImagen;
 
     public static String urlElemento;
     public static boolean estadoEdicion;
     public static JButton referenciaContinente;
     public static boolean continenteClickeado;
+
+    private boolean ponerMar;
 
     static {
         urlElemento = "";
@@ -48,7 +50,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
         iniciarComponentes();
         this.hilo = new Thread(this);
         this.contenedorDerecha.setVisible(false);
-        this.Start();
+        this.ponerMar = false;
+        //this.Start();
         caracteristicasAuxContenedorImagen();
         this.AñadirMenu();
     }
@@ -66,11 +69,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void Start() {
         this.hilo.start();
     }
-    private void AñadirMenu(){
+
+    private void AñadirMenu() {
         JMenuBar barra = new JMenuBar();
         JMenu menu = new JMenu("OPCIONES");
-        JMenuItem item = new JMenuItem("Añadir Continente",new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
-        JMenuItem item2 = new JMenuItem("Añadir Mar",new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
+        JMenuItem item = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente1.png")));
+        JMenuItem item2 = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
         barra.add(menu);
         menu.add(item);
         menu.add(item2);
@@ -82,15 +86,17 @@ public class VistaConstructor extends javax.swing.JFrame implements
             AñadirMarAction(evt);
         });
     }
-    
-    private void AñadirContinenteAction(java.awt.event.ActionEvent evt){
-       this.contenedorDerecha.setVisible(true);
+
+    private void AñadirContinenteAction(java.awt.event.ActionEvent evt) {
+        this.contenedorDerecha.setVisible(true);
     }
-    
-    private void AñadirMarAction(java.awt.event.ActionEvent evt){
-      this.contenedorDerecha.setVisible(false);
+
+    private void AñadirMarAction(java.awt.event.ActionEvent evt) {
+        this.contenedorDerecha.setVisible(false);
+        System.out.println("Entra");
+        this.ponerMar = true;
     }
-    
+
     private Dimension tamañoPantalla() {
         Toolkit t = Toolkit.getDefaultToolkit();
         return Toolkit.getDefaultToolkit().getScreenSize();
@@ -155,8 +161,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
-                
-                if(continenteClickeado){
+
+                if (continenteClickeado) {
                     cambioContenedorIzq();
                 }
                 Thread.sleep(100);
@@ -166,18 +172,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
         }
     }
-    
+
     /**
-    Este método se encarga de cambiar el panel que se aloja en la parte izquierda
-    del constructor del mapa
-    * version 1.0
-    */
-    public void cambioContenedorIzq(){
+     * Este método se encarga de cambiar el panel que se aloja en la parte
+     * izquierda del constructor del mapa version 1.0
+     */
+    public void cambioContenedorIzq() {
         ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
         this.contenedorIzquierda.remove(this.contenedorPremapa);
         this.contenedorPremapa.setVisible(false);
         this.contenedorIzquierda.add(aux);
     }
+
     @Override
     public void mouseMoved(MouseEvent e) {
         if (estadoEdicion) {
@@ -189,9 +195,10 @@ public class VistaConstructor extends javax.swing.JFrame implements
             this.contenedorPremapa.repaint();
         }
     }
+
     /*
         Metodo encargado de insertar el continente al mapa y adicionarlos a la hashMap
-    */
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (estadoEdicion) {
@@ -200,13 +207,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 this.contenedorPremapa.remove(this.auxContenedorImagen);
                 ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 100, 100);
                 this.contenedorPremapa.islas.put(contenedorFijo, new ContenedorPreContinente(this.contenedorPremapa.getX(),
-                this.contenedorPremapa.getY(),this.contenedorPremapa.getWidth(),this.contenedorPremapa.getHeight()));
+                        this.contenedorPremapa.getY(), this.contenedorPremapa.getWidth(), this.contenedorPremapa.getHeight()));
                 this.contenedorPremapa.add(contenedorFijo);
                 estadoEdicion = false;
             } else {
                 JOptionPane.showMessageDialog(this, "LOS CONTINENTES NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
             }
+
         }
+        if (this.ponerMar) {
+            this.contenedorPremapa.DibujarLineas(e.getX(), e.getY());
+        }
+
     }
 
     @Override
