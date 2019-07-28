@@ -82,15 +82,19 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void AñadirMenu() {
         JMenuBar barra = new JMenuBar();
         JMenu Añadir = new JMenu("Añadir");
-        JMenu menu2 = new JMenu("Opciones");
+        JMenu Opciones = new JMenu("Opciones");
         JMenuItem itemContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
         JMenuItem itemMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
         JMenuItem itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png")));
+        JMenuItem itemSimular = new JMenuItem("Run", new ImageIcon(getClass().getResource("../Imagenes/IconoSimular.png")));
+        JMenuItem itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png")));
         barra.add(Añadir);
-        barra.add(menu2);
+        barra.add(Opciones);
         Añadir.add(itemContinente);
         Añadir.add(itemMar);
-        menu2.add(itemGuardar);
+        Opciones.add(itemGuardar);
+        Opciones.add(itemEditar);
+        Opciones.add(itemSimular);
         setJMenuBar(barra);
         itemContinente.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirContinenteAction(evt);
