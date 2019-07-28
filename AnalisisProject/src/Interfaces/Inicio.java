@@ -9,6 +9,8 @@ import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,52 +53,96 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         dibujosInicio1 = new Interfaces.DibujosInicio();
-        btnComenzar = new javax.swing.JButton();
         btnCargarMapa = new javax.swing.JButton();
+        btnComenzar = new javax.swing.JButton();
         btnInstrucciones = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnComenzar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnComenzar.png"))); // NOI18N
-        btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnComenzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnComenzar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        btnComenzar.addActionListener(new java.awt.event.ActionListener() {
+        btnCargarMapa.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnCargarMapa.setForeground(new java.awt.Color(255, 255, 255));
+        btnCargarMapa.setText("CARGAR MAPA");
+        btnCargarMapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCargarMapa.setContentAreaFilled(false);
+        btnCargarMapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComenzarActionPerformed(evt);
+                btnCargarMapaActionPerformed(evt);
             }
         });
 
-        btnCargarMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCargarMapa.png"))); // NOI18N
-        btnCargarMapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCargarMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnComenzar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnComenzar.setForeground(new java.awt.Color(255, 255, 255));
+        btnComenzar.setText("COMENZAR");
+        btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnComenzar.setContentAreaFilled(false);
 
-        btnInstrucciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnInstrucciones.png"))); // NOI18N
+        btnInstrucciones.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnInstrucciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnInstrucciones.setText("INSTRUCCIONES");
         btnInstrucciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnInstrucciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInstrucciones.setContentAreaFilled(false);
+        btnInstrucciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInstruccionesActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setAutoscrolls(true);
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("JORGE OSORIO - WILLIAM VASQUEZ");
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Icono2x.png"))); // NOI18N
+        jLabel3.setText("PIRATAS POR EL MUNDO");
 
         javax.swing.GroupLayout dibujosInicio1Layout = new javax.swing.GroupLayout(dibujosInicio1);
         dibujosInicio1.setLayout(dibujosInicio1Layout);
         dibujosInicio1Layout.setHorizontalGroup(
             dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(219, 219, 219))
+                    .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(200, 200, 200))
+            .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         dibujosInicio1Layout.setVerticalGroup(
             dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
-                .addContainerGap(230, Short.MAX_VALUE)
-                .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+            .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel1)
+                .addGap(10, 10, 10)
+                .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,9 +159,19 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
-        System.out.println("Probando");
-    }//GEN-LAST:event_btnComenzarActionPerformed
+    private void btnCargarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarMapaActionPerformed
+        JFileChooser selectorArchivo = new JFileChooser();
+        int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
+        if(seleccion == selectorArchivo.getApproveButtonMnemonic()){
+            
+        }else{
+            System.out.println("Pulso cancelar");
+        }
+    }//GEN-LAST:event_btnCargarMapaActionPerformed
+
+    private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
+        JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_btnInstruccionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,5 +213,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnComenzar;
     private javax.swing.JButton btnInstrucciones;
     private Interfaces.DibujosInicio dibujosInicio1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

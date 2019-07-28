@@ -23,7 +23,8 @@ public class ContenedorImagen extends javax.swing.JButton {
     private final int y;
     private final int width;
     private final int height;
-    
+    private String url2;
+
     public ContenedorImagen(String url, int x, int y, int width, int height) {
         this.url = url;
         this.x = x;
@@ -54,24 +55,32 @@ public class ContenedorImagen extends javax.swing.JButton {
     }
 
     private void accionClick(ActionEvent e) {
-        urlElemento = this.url;
+        urlElemento = "../Imagenes/Sepiacontinente" + this.url2;
         estadoEdicion = true;
     }
-    
-    public void mover(int x,int y){
-        this.setBounds(x, y,this.width,this.height);
+
+    public void mover(int x, int y) {
+        this.setBounds(x, y, this.width, this.height);
     }
-    public void setUrl(String url){
+
+    public void setUrl(String url) {
         this.url = url;
         dibujarFondo();
     }
-    
-    public void eliminarEventoClick(){
+
+    public void eliminarEventoClick() {
         this.removeActionListener(actionListener);
     }
-    
-    private void decoracion(){
+
+    private void decoracion() {
         this.setBorder(null);
         this.setContentAreaFilled(false);
+    }
+
+    /**
+     * @param url2 the url2 to set
+     */
+    public void setUrl2(String url2) {
+        this.url2 = url2;
     }
 }

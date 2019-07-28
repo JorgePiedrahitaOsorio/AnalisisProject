@@ -11,6 +11,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import static pruebas.VistaConstructor.referenciaContinente;
 import static pruebas.VistaConstructor.continenteClickeado;
+import static pruebas.VistaConstructor.estadoEdicionMar;
+
 /**
  *
  * @author Thebest
@@ -53,12 +55,20 @@ public class ContenedorNodo extends javax.swing.JButton {
     }
 
     private void accionClick(ActionEvent e) {
-       referenciaContinente = this;
-       continenteClickeado = true;
+        if (estadoEdicionMar) {
+            
+        } else {
+            referenciaContinente = this;
+            continenteClickeado = true;
+        }
+    }
+    
+    private void dibujarBorde(){
+        this.setBorderPainted(true);
     }
 
     private void decoracion() {
-        this.setBorder(null);
+        this.setBorderPainted(false);
         this.setContentAreaFilled(false);
     }
 
