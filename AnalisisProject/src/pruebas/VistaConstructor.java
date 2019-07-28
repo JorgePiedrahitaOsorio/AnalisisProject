@@ -33,6 +33,10 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private ContenedorImagen auxContenedorImagen;
 
     public static boolean estadoEdicionMar;
+    public static ContenedorNodo referenciaContinente1;
+    public static ContenedorNodo referenciaContinente2;
+    public static boolean banderaDibujarMar;
+
     public static String urlElemento;
     public static boolean estadoEdicion;
     public static JButton referenciaContinente;
@@ -46,6 +50,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         referenciaContinente = new JButton();
         continenteClickeado = false;
         estadoEdicionMar = false;
+        referenciaContinente1 = null;
+        referenciaContinente2 = null;
+        banderaDibujarMar = false;
     }
 
     public VistaConstructor() {
@@ -53,7 +60,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.hilo = new Thread(this);
         this.contenedorDerecha.setVisible(false);
         this.ponerMar = false;
-        //this.Start();
+        this.Start();
         caracteristicasAuxContenedorImagen();
         this.AñadirMenu();
     }
@@ -101,6 +108,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.contenedorDerecha.setVisible(false);
         System.out.println("Entra");
         this.ponerMar = true;
+        estadoEdicionMar = true;
     }
 
     private Dimension tamañoPantalla() {
@@ -147,7 +155,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.contenedorIzquierda = this.contenedorPremapa;
         this.getContentPane().add(this.contenedorIzquierda);
         this.contenedorTools = new ContenedorHerramientasContinentes(
-                this.contenedorPremapa.getWidth() , 0, 200, this.pantallaTamano.height);
+                this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height);
         this.contenedorDerecha = this.contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
     }
@@ -167,9 +175,25 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
-
+                /**
+                 * Jorge no toque esto remk
+                 * metodos abajo muy importantes 
+                 * calmese!!!!!!!!!!!!!!!!
+                 */
                 if (continenteClickeado) {
                     cambioContenedorIzq();
+                }
+
+                if (banderaDibujarMar) {
+                    this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
+                            referenciaContinente2));
+                    Thread.sleep(400);
+                    referenciaContinente1.desDibujarBorde();
+                    referenciaContinente2.desDibujarBorde();
+                    banderaDibujarMar = false;
+                    estadoEdicionMar = false;
+                    referenciaContinente1 = null;
+                    referenciaContinente2 = null;
                 }
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
@@ -221,10 +245,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
             }
 
         }
-        if (this.ponerMar) {
-            this.contenedorPremapa.DibujarLineas(e.getX(), e.getY());
-        }
-
     }
 
     @Override
