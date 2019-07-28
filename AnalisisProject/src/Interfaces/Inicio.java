@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,6 +84,11 @@ public class Inicio extends javax.swing.JFrame {
         btnInstrucciones.setText("INSTRUCCIONES");
         btnInstrucciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnInstrucciones.setContentAreaFilled(false);
+        btnInstrucciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInstruccionesActionPerformed(evt);
+            }
+        });
 
         jLabel1.setAutoscrolls(true);
 
@@ -162,6 +168,10 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("Pulso cancelar");
         }
     }//GEN-LAST:event_btnCargarMapaActionPerformed
+
+    private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
+        JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_btnInstruccionesActionPerformed
 
     /**
      * @param args the command line arguments
