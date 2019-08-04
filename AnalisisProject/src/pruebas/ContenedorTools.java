@@ -5,7 +5,6 @@
  */
 package pruebas;
 
-import java.awt.Color;
 
 /**
  *

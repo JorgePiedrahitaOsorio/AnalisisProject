@@ -282,6 +282,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void CambiarPanelHerramientasContinente() {
         this.getContentPane().remove(this.contenedorDerecha);
+        this.contenedorDerecha = null;
         this.contenedorTools = new ContenedorHerramientasContinentes(
                 this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height);
         this.contenedorDerecha = contenedorTools;
@@ -291,8 +292,11 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void CambiarPanelParametrosIsla(ParametrosIsla pIsla) {
         this.getContentPane().remove(this.contenedorDerecha);
+        this.contenedorDerecha = null;
         this.contenedorParametros = new ContenedorHerramientaPersonalizarIsla(this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height, pIsla);
         this.contenedorDerecha = this.contenedorParametros;
+        this.contenedorDerecha.setFocusable(true);
+        this.contenedorDerecha.setEnabled(true);
         this.getContentPane().add(this.contenedorDerecha);
         this.contenedorDerecha.setVisible(true);
     }
@@ -304,13 +308,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
             try {
                 if (estadoEdicion || estadoEdicionIsla) {
                     this.setCursor(Cursor.HAND_CURSOR);
-                }
-                else if(estadoParametrizacionIsla)
-                {
+                } else if (estadoParametrizacionIsla) {
                     this.setCursor(Cursor.TEXT_CURSOR);
-                }
-                else {
+                } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
+                }
+                if (this.contenedorDerecha != null) {
+                    this.contenedorDerecha.repaint(100);
+                }
+                if (this.contenedorIzquierda != null) {
+                    this.contenedorIzquierda.repaint(100);
                 }
                 /**
                  * Jorge no toque esto remk metodos abajo muy importantes
@@ -323,9 +330,10 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     CambiarItemsMenuIsla();
                 }
                 if (mundoClickeado) {
-                    this.contenedorDerecha.setVisible(false);
                     this.cambiarContenedorIzq();
+                    this.CambiarPanelHerramientasContinente();
                     CambiarItemsMenuContinente();
+                    estadoParametrizacionIsla = false;
                     mundoClickeado = false;
                 }
                 if (estadoParametrizacionIsla) {
@@ -342,12 +350,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     referenciaContinente1 = null;
                     referenciaContinente2 = null;
                 }
-                if (this.contenedorDerecha != null) {
-                    this.contenedorDerecha.repaint();
-                }
-                if (this.contenedorIzquierda != null) {
-                    this.contenedorIzquierda.repaint();
-                }
+
             } catch (InterruptedException ex) {
                 System.out.println("Todo es culpa de jorge!!!!");
             }
@@ -423,6 +426,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 this.contenedorPremapa.islas.put(contenedorFijo, new ContenedorPreContinente(this.contenedorPremapa.getX(),
                         this.contenedorPremapa.getY(), this.contenedorPremapa.getWidth(), this.contenedorPremapa.getHeight(), this, this));
                 this.contenedorPremapa.add(contenedorFijo);
+                this.contenedorPremapa.repaint();
                 this.ApagarBanderas();
             } else {
                 JOptionPane.showMessageDialog(this, "LOS CONTINENTES NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
@@ -434,6 +438,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 ContenedorNodoIsla contenedorFijoIsla = new ContenedorNodoIsla(urlElemento, e.getX() + 25, e.getY() + 25, 150, 150);
                 this.contenedorPreContinente.islas.put(contenedorFijoIsla, new ParametrosIsla());
                 this.contenedorPreContinente.add(contenedorFijoIsla);
+                this.contenedorPreContinente.repaint();
                 this.ApagarBanderas();
             } else {
                 JOptionPane.showMessageDialog(this, "LOS ISLAS NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);

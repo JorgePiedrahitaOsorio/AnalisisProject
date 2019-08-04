@@ -6,6 +6,8 @@
 package pruebas;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     private int esclavosAdultos;
     private int esclavosViejos;
     private String nombreIsla;
+    private ImageIcon imagenFondo;
 
     public ContenedorHerramientaPersonalizarIsla(int x, int y, int width, int height, ParametrosIsla p) {
         super(x, y, width, height);
@@ -32,6 +35,12 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         this.agregarEtiquetas();
         this.agregarCajasTextos();
         this.AñadirBotonGuardar();
+        this.AñadirFondo();
+
+    }
+
+    private void AñadirFondo() {
+        this.imagenFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo3.jpg"));
     }
 
     private void agregarEtiquetas() {
@@ -58,7 +67,6 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
         JTextField aux = new JTextField();
         aux.setBounds(15, 40, 170, 30);
-        aux.setEditable(true);
         this.add(aux);
         aux = new JTextField();
         aux.setBounds(15, 110, 170, 30);
@@ -114,4 +122,12 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     public void aspecto() {
         this.setBackground(Color.WHITE);
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(this.imagenFondo.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        repaint();
+    }
+
 }
