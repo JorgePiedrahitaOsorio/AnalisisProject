@@ -24,6 +24,8 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     private int esclavosViejos;
     private String nombreIsla;
     private ImageIcon imagenFondo;
+    
+    private JTextField[] camposTexto;
 
     public ContenedorHerramientaPersonalizarIsla(int x, int y, int width, int height, ParametrosIsla p) {
         super(x, y, width, height);
@@ -32,6 +34,7 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         this.esclavosAdultos = p.getEsclavosAdultos();
         this.esclavosViejos = p.getEsclavosViejos();
         this.nombreIsla = p.getNombreIsla();
+        this.camposTexto = new JTextField[5];
         this.agregarEtiquetas();
         this.agregarCajasTextos();
         this.AñadirBotonGuardar();
@@ -67,18 +70,28 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
         JTextField aux = new JTextField();
         aux.setBounds(15, 40, 170, 30);
+        aux.setText("" + this.tamañoTesoro);
+        this.camposTexto[0] = aux;
         this.add(aux);
         aux = new JTextField();
         aux.setBounds(15, 110, 170, 30);
+        aux.setText("" + this.esclavosJovenes);
+        this.camposTexto[1] = aux;
         this.add(aux);
         aux = new JTextField();
         aux.setBounds(15, 180, 170, 30);
+        aux.setText("" + this.esclavosAdultos);
+        this.camposTexto[2] = aux;
         this.add(aux);
         aux = new JTextField();
         aux.setBounds(15, 250, 170, 30);
+        aux.setText("" + this.esclavosViejos);
+        this.camposTexto[3] = aux;
         this.add(aux);
         aux = new JTextField();
         aux.setBounds(15, 320, 170, 30);
+        aux.setText(this.nombreIsla);
+        this.camposTexto[4] = aux;
         this.add(aux);
     }
 
@@ -120,7 +133,7 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
     @Override
     public void aspecto() {
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.CYAN);
     }
 
     @Override

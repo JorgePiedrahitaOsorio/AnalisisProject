@@ -117,7 +117,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private ContenedorPreContinente contenedorPreContinente;
 
-    private ContenedorHerramientaPersonalizarIsla contenedorParametros;
 
     private JMenuBar barraMenu;
     private JMenu menuAñadir;
@@ -288,15 +287,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.contenedorDerecha = contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
         this.contenedorDerecha.setVisible(true);
+        this.getContentPane().repaint();
     }
 
     private void CambiarPanelParametrosIsla(ParametrosIsla pIsla) {
         this.getContentPane().remove(this.contenedorDerecha);
         this.contenedorDerecha = null;
-        this.contenedorParametros = new ContenedorHerramientaPersonalizarIsla(this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height, pIsla);
-        this.contenedorDerecha = this.contenedorParametros;
-        this.contenedorDerecha.setFocusable(true);
-        this.contenedorDerecha.setEnabled(true);
+        this.contenedorTools = new ContenedorHerramientaPersonalizarIsla(
+                this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height, pIsla);
+        this.contenedorDerecha = this.contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
         this.contenedorDerecha.setVisible(true);
     }
@@ -308,9 +307,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
             try {
                 if (estadoEdicion || estadoEdicionIsla) {
                     this.setCursor(Cursor.HAND_CURSOR);
-                } else if (estadoParametrizacionIsla) {
-                    this.setCursor(Cursor.TEXT_CURSOR);
-                } else {
+                }
+//                else if(estadoParametrizacionIsla)
+//                {
+////                    this.setCursor(Cursor.TEXT_CURSOR);
+//                }
+                else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
                 if (this.contenedorDerecha != null) {
@@ -336,9 +338,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     estadoParametrizacionIsla = false;
                     mundoClickeado = false;
                 }
-                if (estadoParametrizacionIsla) {
-                    this.CambiarPanelParametrosIsla(this.contenedorPreContinente.islas.get(referenciaIsla));
-                }
+//                if (estadoParametrizacionIsla) {
+//                    this.CambiarPanelParametrosIsla(this.contenedorPreContinente.islas.get(referenciaIsla));
+//                }
                 if (banderaDibujarMar) {
                     this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
                             referenciaContinente2));
@@ -380,6 +382,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.contenedorDerecha = contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
         this.contenedorDerecha.setVisible(true);
+        this.getContentPane().repaint();
     }
 
     /**
