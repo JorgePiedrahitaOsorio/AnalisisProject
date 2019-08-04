@@ -15,6 +15,7 @@ import static pruebas.VistaConstructor.estadoEdicionMar;
 import static pruebas.VistaConstructor.referenciaContinente1;
 import static pruebas.VistaConstructor.referenciaContinente2;
 import static pruebas.VistaConstructor.banderaDibujarMar;
+
 /**
  *
  * @author Thebest
@@ -26,7 +27,6 @@ public class ContenedorNodo extends javax.swing.JButton {
     private final int y;
     private final int width;
     private final int height;
-    
 
     public ContenedorNodo(String url, int x, int y, int width, int height) {
         this.url = url;
@@ -60,23 +60,23 @@ public class ContenedorNodo extends javax.swing.JButton {
     private void accionClick(ActionEvent e) {
         if (estadoEdicionMar) {
             dibujarBorde();
-            if(referenciaContinente1 == null){
+            if (referenciaContinente1 == null) {
                 referenciaContinente1 = this;
-            }else{
+            } else {
                 referenciaContinente2 = this;
                 banderaDibujarMar = true;
-           }
+            }
         } else {
             referenciaContinente = this;
             continenteClickeado = true;
         }
     }
-    
-    private void dibujarBorde(){
+
+    private void dibujarBorde() {
         this.setBorderPainted(true);
     }
-    
-    public void desDibujarBorde(){
+
+    public void desDibujarBorde() {
         this.setBorderPainted(false);
     }
 

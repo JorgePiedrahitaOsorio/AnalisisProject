@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import static pruebas.VistaConstructor.urlElemento;
 import static pruebas.VistaConstructor.estadoEdicion;
+import static pruebas.VistaConstructor.estadoEdicionIsla;
 
 /**
  *
@@ -57,6 +58,9 @@ public class ContenedorImagen extends javax.swing.JButton {
     private void accionClick(ActionEvent e) {
         urlElemento = "../Imagenes/Sepiacontinente" + this.url2;
         estadoEdicion = true;
+        if (estadoEdicionIsla) {
+            urlElemento = this.url;
+        }
     }
 
     public void mover(int x, int y) {
