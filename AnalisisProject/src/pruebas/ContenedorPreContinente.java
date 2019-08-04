@@ -54,7 +54,6 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println("No Cargo Fondo, Error: " + e);
         }
-
     }
 
     /**
