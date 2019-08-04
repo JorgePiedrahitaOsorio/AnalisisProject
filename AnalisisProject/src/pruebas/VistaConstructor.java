@@ -94,6 +94,11 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     public static boolean continenteClickeado;
     /**
+     * referencia hacia el boton de la isla clickeado fuera de cualquier modo de
+     * edicion
+     */
+    public static ContenedorNodoIsla referenciaIsla;
+    /**
      * Bandera creada por Jorge para indicar que en el constructor de islas se
      * pulso el boton mundo para retornar al panel de añadir continentes
      */
@@ -103,6 +108,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
      * edicion de islas
      */
     public static boolean estadoEdicionIsla;
+    /**
+     * Bandera creada por Jorge y William para indicar que se ha clickeado una
+     * isla, es decir, que sera parametrizada para agregarle nombre y demas
+     * atributos propios de esta
+     */
+    public static boolean estadoParametrizacionIsla;
+
+    private ContenedorPreContinente contenedorPreContinente;
+
+    private ContenedorHerramientaPersonalizarIsla contenedorParametros;
 
     private JMenuBar barraMenu;
     private JMenu menuAñadir;
@@ -117,11 +132,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
     static {
         urlElemento = "";
         estadoEdicion = false;
+        estadoEdicionIsla = false;
+        estadoParametrizacionIsla = false;
         referenciaContinente = null;
         continenteClickeado = false;
         estadoEdicionMar = false;
         referenciaContinente1 = null;
         referenciaContinente2 = null;
+        referenciaIsla = null;
         banderaDibujarMar = false;
         mundoClickeado = false;
     }
@@ -143,6 +161,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void agregarInterfacesMapa() {
         this.contenedorPremapa.addMouseListener(this);
         this.contenedorPremapa.addMouseMotionListener(this);
+
     }
 
     private void Start() {
@@ -157,7 +176,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.itemAñadirContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
         this.itemAñadirIsla = new JMenuItem("Añadir Isla", new ImageIcon(getClass().getResource("../Imagenes/IconoIsla.png")));
         this.AñadirItem(this.menuAñadir, this.itemAñadirContinente);
-        this.AñadirItem(this.menuAñadir, this.itemAñadirIsla);
         this.AñadirItem(this.menuAñadir, this.itemAñadirMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png"))));
@@ -186,7 +204,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void AñadirContinenteAction(java.awt.event.ActionEvent evt) {
-        this.contenedorDerecha.setVisible(true);
+        this.CambiarPanelHerramientasContinente();
     }
 
     private void AñadirMarAction(java.awt.event.ActionEvent evt) {
@@ -195,7 +213,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void AñadirIslaAction(java.awt.event.ActionEvent evt) {
-        estadoEdicionIsla = true;
+        CambiarPanelHerramientasIsla();
     }
 
     private Dimension tamañoPantalla() {
@@ -253,7 +271,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void CambiarItemsMenuIsla() {
-
         this.menuAñadir.remove(this.itemAñadirContinente);
         this.menuAñadir.add(this.itemAñadirIsla);
     }
@@ -263,22 +280,21 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.menuAñadir.remove(this.itemAñadirIsla);
     }
 
-    private void CambiarPanelHerramientasIsla() {
-        this.getContentPane().remove(this.contenedorDerecha);
-        this.contenedorTools = new ContenedorHerramientasIsla(
-                this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height);
-        this.contenedorDerecha = contenedorTools;
-        this.getContentPane().add(this.contenedorDerecha);
-        this.getContentPane().repaint();
-    }
-
     private void CambiarPanelHerramientasContinente() {
         this.getContentPane().remove(this.contenedorDerecha);
         this.contenedorTools = new ContenedorHerramientasContinentes(
                 this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height);
         this.contenedorDerecha = contenedorTools;
         this.getContentPane().add(this.contenedorDerecha);
-        this.getContentPane().repaint();
+        this.contenedorDerecha.setVisible(true);
+    }
+
+    private void CambiarPanelParametrosIsla(ParametrosIsla pIsla) {
+        this.getContentPane().remove(this.contenedorDerecha);
+        this.contenedorParametros = new ContenedorHerramientaPersonalizarIsla(this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height, pIsla);
+        this.contenedorDerecha = this.contenedorParametros;
+        this.getContentPane().add(this.contenedorDerecha);
+        this.contenedorDerecha.setVisible(true);
     }
 
     @Override
@@ -286,9 +302,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
         boolean detener = true;
         while (detener) {
             try {
-                if (estadoEdicion) {
+                if (estadoEdicion || estadoEdicionIsla) {
                     this.setCursor(Cursor.HAND_CURSOR);
-                } else {
+                }
+                else if(estadoParametrizacionIsla)
+                {
+                    this.setCursor(Cursor.TEXT_CURSOR);
+                }
+                else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
                 /**
@@ -296,18 +317,19 @@ public class VistaConstructor extends javax.swing.JFrame implements
                  * calmese!!!!!!!!!!!!!!!!
                  */
                 if (continenteClickeado) {
+                    this.contenedorDerecha.setVisible(false);
                     continenteClickeado = false;
-                    cambioContenedorIzq();
-                   // CambiarItemsMenuIsla();
-                    CambiarPanelHerramientasIsla();
-                } else {
-                    CambiarItemsMenuContinente();
+                    this.cambioContenedorIzq();
+                    CambiarItemsMenuIsla();
                 }
                 if (mundoClickeado) {
+                    this.contenedorDerecha.setVisible(false);
                     this.cambiarContenedorIzq();
-                    //CambiarItemsMenuContinente();
-                    CambiarPanelHerramientasContinente();
+                    CambiarItemsMenuContinente();
                     mundoClickeado = false;
+                }
+                if (estadoParametrizacionIsla) {
+                    this.CambiarPanelParametrosIsla(this.contenedorPreContinente.islas.get(referenciaIsla));
                 }
                 if (banderaDibujarMar) {
                     this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
@@ -319,6 +341,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     estadoEdicionMar = false;
                     referenciaContinente1 = null;
                     referenciaContinente2 = null;
+                }
+                if (this.contenedorDerecha != null) {
+                    this.contenedorDerecha.repaint();
+                }
+                if (this.contenedorIzquierda != null) {
+                    this.contenedorIzquierda.repaint();
                 }
             } catch (InterruptedException ex) {
                 System.out.println("Todo es culpa de jorge!!!!");
@@ -332,17 +360,23 @@ public class VistaConstructor extends javax.swing.JFrame implements
      * izquierda del constructor del mapa version 1.0
      */
     public void cambioContenedorIzq() {
-        this.contenedorPremapa.setVisible(false);
         this.getContentPane().remove(this.contenedorIzquierda);
         this.contenedorIzquierda = null;
-        ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
-        this.contenedorIzquierda = aux;
+        this.contenedorPreContinente = contenedorPremapa.islas.get(referenciaContinente);
+        this.contenedorIzquierda = this.contenedorPreContinente;
         this.getContentPane().add(this.contenedorIzquierda);
         this.CambiarItemsMenuIsla();
+        this.contenedorPreContinente.setVisible(true);
     }
 
-    public void Basura() {
-
+    private void CambiarPanelHerramientasIsla() {
+        this.getContentPane().remove(this.contenedorDerecha);
+        this.contenedorDerecha = null;
+        this.contenedorTools = new ContenedorHerramientasIsla(
+                this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height);
+        this.contenedorDerecha = contenedorTools;
+        this.getContentPane().add(this.contenedorDerecha);
+        this.contenedorDerecha.setVisible(true);
     }
 
     /**
@@ -350,12 +384,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
      * panel de construccion de islas al momento de pulsar el boton mundo
      */
     public void cambiarContenedorIzq() {
-        this.contenedorPremapa.setVisible(true);
         this.getContentPane().remove(this.contenedorIzquierda);
         this.contenedorIzquierda = null;
         this.contenedorIzquierda = contenedorPremapa;
         this.getContentPane().add(this.contenedorIzquierda);
         this.CambiarItemsMenuIsla();
+        this.contenedorPremapa.setVisible(true);
     }
 
     @Override
@@ -367,15 +401,13 @@ public class VistaConstructor extends javax.swing.JFrame implements
             this.auxContenedorImagen.setUrl(urlElemento);
             this.auxContenedorImagen.mover(e.getX() + 25, e.getY() + 25);
             this.contenedorPremapa.repaint();
-        }
-        if (estadoEdicionIsla) {
-            ContenedorPreContinente aux = contenedorPremapa.islas.get(referenciaContinente);
-            aux.setColocarIsla(true);
-            aux.DibujarRectanguloVerdeRojo(e.getX() + 25, e.getY() + 25);
-            aux.add(this.auxContenedorImagen);
+        } else if (estadoEdicionIsla) {
+            this.contenedorPreContinente.setColocarIsla(true);
+            this.contenedorPreContinente.DibujarRectanguloVerdeRojo(e.getX() + 25, e.getY() + 25);
+            this.contenedorPreContinente.add(this.auxContenedorImagen);
             this.auxContenedorImagen.setUrl(urlElemento);
             this.auxContenedorImagen.mover(e.getX() + 25, e.getY() + 25);
-            aux.repaint();
+            this.contenedorPreContinente.repaint();
         }
     }
 
@@ -385,19 +417,34 @@ public class VistaConstructor extends javax.swing.JFrame implements
     @Override
     public void mouseClicked(MouseEvent e) {
         if (estadoEdicion) {
-            //estadoEdicion = false;
             if (this.contenedorPremapa.DibujarRectangulos(e.getX() + 25, e.getY() + 25)) {
                 this.contenedorPremapa.remove(this.auxContenedorImagen);
                 ContenedorNodo contenedorFijo = new ContenedorNodo(urlElemento, e.getX() + 25, e.getY() + 25, 150, 150);
                 this.contenedorPremapa.islas.put(contenedorFijo, new ContenedorPreContinente(this.contenedorPremapa.getX(),
-                        this.contenedorPremapa.getY(), this.contenedorPremapa.getWidth(), this.contenedorPremapa.getHeight()));
+                        this.contenedorPremapa.getY(), this.contenedorPremapa.getWidth(), this.contenedorPremapa.getHeight(), this, this));
                 this.contenedorPremapa.add(contenedorFijo);
-                estadoEdicion = false;
+                this.ApagarBanderas();
             } else {
                 JOptionPane.showMessageDialog(this, "LOS CONTINENTES NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
             }
-
         }
+        if (estadoEdicionIsla) {
+            if (this.contenedorPreContinente.DibujarRectangulos(e.getX() + 25, e.getY())) {
+                this.contenedorPreContinente.remove(this.auxContenedorImagen);
+                ContenedorNodoIsla contenedorFijoIsla = new ContenedorNodoIsla(urlElemento, e.getX() + 25, e.getY() + 25, 150, 150);
+                this.contenedorPreContinente.islas.put(contenedorFijoIsla, new ParametrosIsla());
+                this.contenedorPreContinente.add(contenedorFijoIsla);
+                this.ApagarBanderas();
+            } else {
+                JOptionPane.showMessageDialog(this, "LOS ISLAS NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
+            }
+        }
+    }
+
+    private void ApagarBanderas() {
+        estadoEdicion = false;
+        estadoEdicionIsla = false;
+        estadoEdicionMar = false;
     }
 
     @Override

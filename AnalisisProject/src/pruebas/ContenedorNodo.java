@@ -15,6 +15,9 @@ import static pruebas.VistaConstructor.estadoEdicionMar;
 import static pruebas.VistaConstructor.referenciaContinente1;
 import static pruebas.VistaConstructor.referenciaContinente2;
 import static pruebas.VistaConstructor.banderaDibujarMar;
+import static pruebas.VistaConstructor.estadoEdicion;
+import static pruebas.VistaConstructor.estadoEdicionIsla;
+
 
 /**
  *
@@ -58,6 +61,7 @@ public class ContenedorNodo extends javax.swing.JButton {
     }
 
     private void accionClick(ActionEvent e) {
+        estadoEdicion = false;
         if (estadoEdicionMar) {
             dibujarBorde();
             if (referenciaContinente1 == null) {
@@ -69,6 +73,9 @@ public class ContenedorNodo extends javax.swing.JButton {
         } else {
             referenciaContinente = this;
             continenteClickeado = true;
+        }
+        if(estadoEdicionIsla){
+            
         }
     }
 

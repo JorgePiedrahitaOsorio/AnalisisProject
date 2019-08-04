@@ -5,6 +5,8 @@
  */
 package pruebas;
 
+import static pruebas.VistaConstructor.estadoEdicionIsla;
+
 import java.awt.Color;
 
 /**
@@ -44,12 +46,19 @@ public final class ContenedorHerramientasIsla extends ContenedorTools {
 
     private void agregarIsla(String url, int x, int y, int width, int height) {
         ContenedorImagen contenedorImagen = new ContenedorImagen(url, x, y, width, height);
+        contenedorImagen.addActionListener((java.awt.event.ActionEvent evt) -> {
+            AñadirBotonAction(evt);
+        });
         this.add(contenedorImagen);
     }
 
     @Override
     public void aspecto() {
         this.setBackground(Color.BLACK);
+    }
+
+    public void AñadirBotonAction(java.awt.event.ActionEvent evt) {
+        estadoEdicionIsla = true;
     }
 
 }

@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -32,7 +35,9 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
     private Rectangle aux;
     private Color color;
 
-    public ContenedorPreContinente(int x, int y, int width, int heigth) {
+    protected HashMap<ContenedorNodoIsla, ParametrosIsla> islas;
+
+    public ContenedorPreContinente(int x, int y, int width, int heigth, MouseMotionListener MouseMotion, MouseListener MouseListener) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -41,6 +46,9 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.rectangulos = new LinkedList<>();
         this.aux = new Rectangle();
         this.color = Color.GREEN;
+        this.islas = new HashMap<>();
+        this.addMouseListener(MouseListener);
+        this.addMouseMotionListener(MouseMotion);
         iniciarComponentes();
     }
 
