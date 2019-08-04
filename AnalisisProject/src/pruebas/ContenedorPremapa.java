@@ -47,7 +47,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     }
 
     private void dibujarAristas(ContenedorNodo origen, ContenedorNodo destino, Graphics g) {
-        g.setColor(color.WHITE);
+        g.setColor(Color.WHITE);
         g.drawLine(origen.getX() + origen.getWidth() / 2, origen.getY() + origen.getHeight() / 2,
                 destino.getX() + destino.getWidth() / 2, destino.getY() + destino.getHeight() / 2);
     }
@@ -68,12 +68,9 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
         }
-
-        for (int i = 0; i < this.marProfundo.size(); i++) {
-            Arista aux = this.marProfundo.get(i);
-            dibujarAristas(aux.getContinenteOrigen(), aux.getContinenteDestino(), g);
-        }
-
+        this.marProfundo.forEach((marAux) -> {
+            dibujarAristas(marAux.getContinenteOrigen(), marAux.getContinenteDestino(), g);
+        });
         repaint();
     }
 
@@ -113,6 +110,8 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         }
         return false;
     }
+    
+    
 
     public void DibujarRectanguloVerdeRojo(int x, int y) {
         if (ColocarContinente) {

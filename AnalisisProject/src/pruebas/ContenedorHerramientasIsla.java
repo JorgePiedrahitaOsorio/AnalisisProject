@@ -12,13 +12,13 @@ import java.awt.Color;
  * @author Thebest
  */
 public final class ContenedorHerramientasIsla extends ContenedorTools {
-    
-    public ContenedorHerramientasIsla(int x, int y, int width, int heigth){
-        super(x,y,width,heigth);
+
+    public ContenedorHerramientasIsla(int x, int y, int width, int heigth) {
+        super(x, y, width, heigth);
         iniciarComponentes();
     }
 
-  @Override
+    @Override
     public void tamaño() {
         this.setBounds(x, y, width, heigth);
     }
@@ -35,22 +35,21 @@ public final class ContenedorHerramientasIsla extends ContenedorTools {
         agregarLayout();
         crearIsla();
     }
-    
-    private void crearIsla(){
-        for (int i = 1; i < 5; i++) {
-            agregarIsla("../Imagenes/continente"+String.valueOf(i)+".png",50, 20 * i
-                    + (100 * (i - 1)), 100, 100);
-        }
+
+    private void crearIsla() {
+        agregarIsla("../Imagenes/isla1.png", 50, 20, 100, 100);
+        agregarIsla("../Imagenes/isla2.gif", 50, 140, 100, 100);
+        agregarIsla("../Imagenes/isla4.png", 50, 260, 100, 100);
     }
-    
-    private void agregarIsla(String url, int x, int y, int width, int height){
-        ContenedorImagen contenedorImagen = new ContenedorImagen(url,x, y, width, height);
+
+    private void agregarIsla(String url, int x, int y, int width, int height) {
+        ContenedorImagen contenedorImagen = new ContenedorImagen(url, x, y, width, height);
         this.add(contenedorImagen);
     }
 
     @Override
     public void aspecto() {
-        this.setBackground(Color.black);
+        this.setBackground(Color.BLACK);
     }
-    
+
 }
