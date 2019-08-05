@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import static pruebas.VistaConstructor.mundoClickeado;
+import static pruebas.VistaConstructor.banderaGuardar;
 
 /**
  *
@@ -37,6 +38,8 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
 
     protected HashMap<ContenedorNodoIsla, ParametrosIsla> islas;
 
+    protected LinkedList<AristaIsla> marProfundo;
+
     public ContenedorPreContinente(int x, int y, int width, int heigth, MouseMotionListener MouseMotion, MouseListener MouseListener) {
         this.x = x;
         this.y = y;
@@ -44,6 +47,7 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.heigth = heigth;
         this.colocarIsla = false;
         this.rectangulos = new LinkedList<>();
+        this.marProfundo = new LinkedList<>();
         this.aux = new Rectangle();
         this.color = Color.GREEN;
         this.islas = new HashMap<>();
@@ -88,6 +92,12 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return width;
     }
 
+    private void dibujarAristas(ContenedorNodoIsla origen, ContenedorNodoIsla destino, Graphics g) {
+        g.setColor(Color.WHITE);
+        g.drawLine(origen.getX() + origen.getWidth() / 2, origen.getY() + origen.getHeight() / 2,
+                destino.getX() + destino.getWidth() / 2, destino.getY() + destino.getHeight() / 2);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
@@ -96,6 +106,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
             g.setColor(this.color);
             g.drawRect(this.aux.x, this.aux.y, this.aux.width, this.aux.height);
         }
+        this.marProfundo.forEach((marAux) -> {
+            dibujarAristas(marAux.getOrigen(), marAux.getDestino(), g);
+        });
+
         repaint();
     }
 
@@ -149,6 +163,12 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
      */
     public void setColocarIsla(boolean colocarIsla) {
         this.colocarIsla = colocarIsla;
+    }
+
+    public void CambiarParametrizacion(ContenedorNodoIsla contenedor, ParametrosIsla parametros) {
+        this.islas.remove(contenedor);
+        this.islas.put(contenedor, parametros);
+        banderaGuardar = false;
     }
 
 }

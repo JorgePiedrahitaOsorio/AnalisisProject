@@ -115,8 +115,34 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     public static boolean estadoParametrizacionIsla;
 
-    private ContenedorPreContinente contenedorPreContinente;
+    /**
+     * Variables estaticas para la construccion de mar
+     *
+     * @serialField estadoEdicionMar indica que habilitado la creacion de una
+     * arista ,osea mar o mar profundo, ya sea el caso
+     *
+     */
+    public static boolean estadoEdicionMarIsla;
+    /**
+     * referencia a el primer contiennete clickeado
+     */
+    public static ContenedorNodoIsla referenciaContinenteIsla1;
+    /**
+     * referencia el segundo continente clickeado
+     */
+    public static ContenedorNodoIsla referenciaContinenteIsla2;
+    /**
+     * banderaDibujarMar bandera que indica que los continentes ya fueron
+     * seleccionados, or tal motivo, se dibuja la arista, ademas se deshabilita
+     * el modo edicion
+     */
+    public static boolean banderaDibujarMarIsla;
 
+    public static boolean banderaGuardar;
+    
+    public static ParametrosIsla pIslaReferencia;
+    
+    private ContenedorPreContinente contenedorPreContinente;
 
     private JMenuBar barraMenu;
     private JMenu menuAñadir;
@@ -127,6 +153,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private JMenuItem itemAñadirIsla;
     private JMenuItem itemAñadirMar;
     private JMenuItem itemSimular;
+    private JMenuItem itemAñadirMarIsla;
 
     static {
         urlElemento = "";
@@ -134,6 +161,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         estadoEdicionIsla = false;
         estadoParametrizacionIsla = false;
         referenciaContinente = null;
+        pIslaReferencia = new ParametrosIsla();
         continenteClickeado = false;
         estadoEdicionMar = false;
         referenciaContinente1 = null;
@@ -141,6 +169,11 @@ public class VistaConstructor extends javax.swing.JFrame implements
         referenciaIsla = null;
         banderaDibujarMar = false;
         mundoClickeado = false;
+        banderaDibujarMarIsla = false;
+        estadoEdicionMarIsla = false;
+        referenciaContinenteIsla1 = null;
+        referenciaContinenteIsla2 = null;
+        banderaGuardar = false;
     }
 
     public VistaConstructor() {
@@ -174,8 +207,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.AñadirAlMenu(this.menuOpciones = new JMenu("Opciones"));
         this.itemAñadirContinente = new JMenuItem("Añadir Continente", new ImageIcon(getClass().getResource("../Imagenes/IconoContinente5.png")));
         this.itemAñadirIsla = new JMenuItem("Añadir Isla", new ImageIcon(getClass().getResource("../Imagenes/IconoIsla.png")));
+        this.itemAñadirMarIsla = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png")));
         this.AñadirItem(this.menuAñadir, this.itemAñadirContinente);
-        this.AñadirItem(this.menuAñadir, this.itemAñadirMar = new JMenuItem("Añadir Mar", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png"))));
+        this.AñadirItem(this.menuAñadir, this.itemAñadirMar = new JMenuItem("Añadir Mar Profundo", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemSimular = new JMenuItem("Run", new ImageIcon(getClass().getResource("../Imagenes/IconoSimular.png"))));
@@ -191,6 +225,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         });
         this.itemAñadirIsla.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirIslaAction(evt);
+        });
+        this.itemAñadirMarIsla.addActionListener((java.awt.event.ActionEvent evt) -> {
+            AñadirMarIslaAction(evt);
         });
     }
 
@@ -213,6 +250,11 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void AñadirIslaAction(java.awt.event.ActionEvent evt) {
         CambiarPanelHerramientasIsla();
+    }
+
+    private void AñadirMarIslaAction(java.awt.event.ActionEvent evt) {
+        this.contenedorDerecha.setVisible(false);
+        estadoEdicionMarIsla = true;
     }
 
     private Dimension tamañoPantalla() {
@@ -271,12 +313,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void CambiarItemsMenuIsla() {
         this.menuAñadir.remove(this.itemAñadirContinente);
+        this.menuAñadir.remove(this.itemAñadirMar);
         this.menuAñadir.add(this.itemAñadirIsla);
+        this.menuAñadir.add(this.itemAñadirMarIsla);
     }
 
     private void CambiarItemsMenuContinente() {
         this.AñadirItem(this.menuAñadir, this.itemAñadirContinente);
+        this.AñadirItem(menuAñadir, this.itemAñadirMar);
         this.menuAñadir.remove(this.itemAñadirIsla);
+        this.menuAñadir.remove(this.itemAñadirMarIsla);
     }
 
     private void CambiarPanelHerramientasContinente() {
@@ -290,16 +336,6 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.getContentPane().repaint();
     }
 
-    private void CambiarPanelParametrosIsla(ParametrosIsla pIsla) {
-        this.getContentPane().remove(this.contenedorDerecha);
-        this.contenedorDerecha = null;
-        this.contenedorTools = new ContenedorHerramientaPersonalizarIsla(
-                this.contenedorPremapa.getWidth(), 0, 200, this.pantallaTamano.height, pIsla);
-        this.contenedorDerecha = this.contenedorTools;
-        this.getContentPane().add(this.contenedorDerecha);
-        this.contenedorDerecha.setVisible(true);
-    }
-
     @Override
     public void run() {
         boolean detener = true;
@@ -307,19 +343,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
             try {
                 if (estadoEdicion || estadoEdicionIsla) {
                     this.setCursor(Cursor.HAND_CURSOR);
-                }
-//                else if(estadoParametrizacionIsla)
-//                {
-////                    this.setCursor(Cursor.TEXT_CURSOR);
-//                }
-                else {
+                } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
                 if (this.contenedorDerecha != null) {
-                    this.contenedorDerecha.repaint(100);
+                    this.contenedorDerecha.repaint();
                 }
                 if (this.contenedorIzquierda != null) {
-                    this.contenedorIzquierda.repaint(100);
+                    this.contenedorIzquierda.repaint();
                 }
                 /**
                  * Jorge no toque esto remk metodos abajo muy importantes
@@ -338,9 +369,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     estadoParametrizacionIsla = false;
                     mundoClickeado = false;
                 }
-//                if (estadoParametrizacionIsla) {
-//                    this.CambiarPanelParametrosIsla(this.contenedorPreContinente.islas.get(referenciaIsla));
-//                }
+                if(banderaGuardar){
+                    this.contenedorPreContinente.CambiarParametrizacion(referenciaIsla, pIslaReferencia);
+                }
+                if (estadoParametrizacionIsla) {
+                    pIslaReferencia = this.contenedorPreContinente.islas.get(referenciaIsla);
+                }
                 if (banderaDibujarMar) {
                     this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
                             referenciaContinente2));
@@ -351,6 +385,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     estadoEdicionMar = false;
                     referenciaContinente1 = null;
                     referenciaContinente2 = null;
+                }
+
+                if (banderaDibujarMarIsla) {
+                    this.contenedorPreContinente.marProfundo.add(new AristaIsla(referenciaContinenteIsla1,
+                            referenciaContinenteIsla2));
+                    Thread.sleep(200);
+                    referenciaContinenteIsla1.desDibujarBorde();
+                    referenciaContinenteIsla2.desDibujarBorde();
+                    banderaDibujarMarIsla = false;
+                    estadoEdicionMarIsla = false;
+                    referenciaContinenteIsla1 = null;
+                    referenciaContinenteIsla2 = null;
                 }
 
             } catch (InterruptedException ex) {
@@ -453,6 +499,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         estadoEdicion = false;
         estadoEdicionIsla = false;
         estadoEdicionMar = false;
+        estadoEdicionMarIsla = false;
     }
 
     @Override

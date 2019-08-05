@@ -74,9 +74,7 @@ public class ContenedorNodo extends javax.swing.JButton {
             referenciaContinente = this;
             continenteClickeado = true;
         }
-        if(estadoEdicionIsla){
-            
-        }
+
     }
 
     private void dibujarBorde() {

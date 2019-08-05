@@ -43,7 +43,7 @@ public class Arista {
     
     private ContenedorNodo continenteOrigen;
     private ContenedorNodo continenteDestino;
-
+    
     public Arista(ContenedorNodo continenteOrigen,ContenedorNodo continenteDestino ) {
         this.continenteOrigen =  continenteOrigen;
         this.continenteDestino = continenteDestino;

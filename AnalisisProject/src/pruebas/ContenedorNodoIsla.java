@@ -9,12 +9,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import static pruebas.VistaConstructor.referenciaContinente;
-import static pruebas.VistaConstructor.continenteClickeado;
-import static pruebas.VistaConstructor.estadoEdicionMar;
-import static pruebas.VistaConstructor.referenciaContinente1;
-import static pruebas.VistaConstructor.referenciaContinente2;
-import static pruebas.VistaConstructor.banderaDibujarMar;
+import static pruebas.VistaConstructor.estadoEdicionMarIsla;
+import static pruebas.VistaConstructor.referenciaContinenteIsla1;
+import static pruebas.VistaConstructor.referenciaContinenteIsla2;
+import static pruebas.VistaConstructor.banderaDibujarMarIsla;
 import static pruebas.VistaConstructor.estadoEdicion;
 import static pruebas.VistaConstructor.estadoParametrizacionIsla;
 import static pruebas.VistaConstructor.referenciaIsla;
@@ -30,6 +28,8 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
     private final int y;
     private final int width;
     private final int height;
+    public static VistaPersonalizarIsla vista;
+    public static boolean abrir;
 
     public ContenedorNodoIsla(String url, int x, int y, int width, int height) {
         this.url = url;
@@ -37,6 +37,7 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
         this.y = y;
         this.width = width;
         this.height = height;
+        abrir = true;
         initComponents();
     }
 
@@ -62,20 +63,23 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
 
     private void accionClick(ActionEvent e) {
         estadoEdicion = false;
-//        if (estadoEdicionMar) {
-//            dibujarBorde();
-//            if (referenciaContinente1 == null) {
-//                referenciaContinente1 = this;
-//            } else {
-//                referenciaContinente2 = this;
-//                banderaDibujarMar = true;
-//            }
-//        } else {
-//            referenciaContinente = this;
-//            continenteClickeado = true;
-//        }
-        estadoParametrizacionIsla = true;
-        referenciaIsla = this;
+        
+        if (estadoEdicionMarIsla) {
+            dibujarBorde();
+            if (referenciaContinenteIsla1 == null) {
+                referenciaContinenteIsla1 = this;
+            } else {
+                referenciaContinenteIsla2 = this;
+                banderaDibujarMarIsla = true;
+            }
+        } else {
+            referenciaIsla = this;
+            estadoParametrizacionIsla = true;
+            if (abrir) {
+                vista = new VistaPersonalizarIsla();
+                vista.setVisible(true);
+            }
+        }
     }
 
     private void dibujarBorde() {

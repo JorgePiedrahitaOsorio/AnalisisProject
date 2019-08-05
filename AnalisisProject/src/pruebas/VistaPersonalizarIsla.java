@@ -6,6 +6,8 @@
 package pruebas;
 
 import javax.swing.ImageIcon;
+import static pruebas.ContenedorNodoIsla.abrir;
+import static pruebas.VistaConstructor.pIslaReferencia;
 
 /**
  *
@@ -16,7 +18,7 @@ public class VistaPersonalizarIsla extends javax.swing.JFrame {
     /**
      * Creates new form VistaPersonalizarIsla
      */
-    ContenedorHerramientaPersonalizarIsla contenedor;
+    private ContenedorHerramientaPersonalizarIsla contenedor;
 
     public VistaPersonalizarIsla() {
         initComponents();
@@ -26,7 +28,7 @@ public class VistaPersonalizarIsla extends javax.swing.JFrame {
     }
 
     private void AñadirPanel() {
-        this.contenedor = new ContenedorHerramientaPersonalizarIsla(0, 0, this.getWidth(), this.getHeight(), new ParametrosIsla());
+        this.contenedor = new ContenedorHerramientaPersonalizarIsla(0, 0, this.getWidth(), this.getHeight(), pIslaReferencia);
         this.add(this.contenedor);
     }
 
@@ -34,8 +36,9 @@ public class VistaPersonalizarIsla extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Datos");
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono2x.png")).getImage());
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono2x.png")).getImage());
+        abrir = false;
     }
 
     /**

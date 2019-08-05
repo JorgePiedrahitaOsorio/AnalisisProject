@@ -11,6 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import static pruebas.ContenedorNodoIsla.vista;
+import static pruebas.VistaConstructor.pIslaReferencia;
+import static pruebas.ContenedorNodoIsla.abrir;
+import static pruebas.VistaConstructor.banderaGuardar;
 
 /**
  *
@@ -24,7 +28,7 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     private int esclavosViejos;
     private String nombreIsla;
     private ImageIcon imagenFondo;
-    
+
     private JTextField[] camposTexto;
 
     public ContenedorHerramientaPersonalizarIsla(int x, int y, int width, int height, ParametrosIsla p) {
@@ -106,12 +110,20 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     }
 
     private void Guardar(java.awt.event.ActionEvent evt) {
-        System.out.println("WP");
+        guardado();
+        banderaGuardar = true;
+        vista.dispose();
+        abrir = true;
     }
 
-    public ParametrosIsla guardado(int tamañoTesoro, int esclavoJoven, int esclavoAdulto,
-            int esclavoViejo, String nombreIsla) {
-        return new ParametrosIsla(tamañoTesoro, esclavoJoven, esclavoAdulto, esclavoViejo, nombreIsla);
+    public void guardado() {
+        this.tamañoTesoro = Integer.parseInt(this.camposTexto[0].getText());
+        this.esclavosJovenes = Integer.parseInt(this.camposTexto[1].getText());
+        this.esclavosAdultos = Integer.parseInt(this.camposTexto[2].getText());
+        this.esclavosViejos = Integer.parseInt(this.camposTexto[3].getText());
+        this.nombreIsla = this.camposTexto[4].getText();
+        pIslaReferencia = new ParametrosIsla(this.tamañoTesoro, this.esclavosJovenes,
+                this.esclavosAdultos, this.esclavosViejos, this.nombreIsla);
     }
 
     @Override
