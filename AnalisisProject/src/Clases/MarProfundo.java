@@ -5,49 +5,66 @@
  */
 package Clases;
 
-import java.awt.Graphics;
-import java.awt.Point;
-
-
 /**
  *
  * @author JORGE OSORIO
  */
 public class MarProfundo {
-    private Point origen;
-    private Point destino;
-    private int distacia;
+
+    private Continente origen;
+    private Continente destino;
+    private int peligrosidad;
     private int peso;
-    public boolean puesto;
-
-    public MarProfundo() {
-    }
-
-    public MarProfundo(Point origen, Point destino, int distacia, int peso) {
+    private int distancia;
+    
+    public MarProfundo(Continente origen, Continente destino, int peligrosidad, int distancia){
         this.origen = origen;
         this.destino = destino;
-        this.distacia = distacia;
-        this.peso = peso;
-        this.puesto = false;
-    }
-    
-    public void Dibujar(Graphics g){
-        g.drawLine(this.origen.x, this.origen.y, this.destino.x, this.destino.y);
-    }
-
-    
-    /**
-     * @return the distacia
-     */
-    public int getDistacia() {
-        return distacia;
+        this.peligrosidad = peligrosidad;
+        this.distancia = distancia;
+        this.peso = this.distancia + this.peligrosidad;
     }
 
     /**
-     * @param distacia the distacia to set
+     * @return the origen
      */
-    public void setDistacia(int distacia) {
-        this.distacia = distacia;
+    public Continente getOrigen() {
+        return origen;
+    }
+
+    /**
+     * @param origen the origen to set
+     */
+    public void setOrigen(Continente origen) {
+        this.origen = origen;
+    }
+
+    /**
+     * @return the destino
+     */
+    public Continente getDestino() {
+        return destino;
+    }
+
+    /**
+     * @param destino the destino to set
+     */
+    public void setDestino(Continente destino) {
+        this.destino = destino;
+    }
+
+    /**
+     * @return the peligrosidad
+     */
+    public int getPeligrosidad() {
+        return peligrosidad;
+    }
+
+    /**
+     * @param peligrosidad the peligrosidad to set
+     */
+    public void setPeligrosidad(int peligrosidad) {
+        this.peligrosidad = peligrosidad;
     }
 
     /**
@@ -65,35 +82,17 @@ public class MarProfundo {
     }
 
     /**
-     * @return the origen
+     * @return the distancia
      */
-    public Point getOrigen() {
-        return origen;
+    public int getDistancia() {
+        return distancia;
     }
 
     /**
-     * @param origen the origen to set
+     * @param distancia the distancia to set
      */
-    public void setOrigen(Point origen) {
-        this.origen = origen;
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
     }
-
-    /**
-     * @return the destino
-     */
-    public Point getDestino() {
-        return destino;
-    }
-
-    /**
-     * @param destino the destino to set
-     */
-    public void setDestino(Point destino) {
-        this.destino = destino;
-    }
-    
-    
-    
-   
 
 }

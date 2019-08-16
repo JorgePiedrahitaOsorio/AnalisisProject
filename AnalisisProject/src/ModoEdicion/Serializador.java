@@ -10,5 +10,12 @@ package ModoEdicion;
  * @author JORGE OSORIO
  */
 public class Serializador {
+
+    public Serializador() {
+    }
+    /**
+     * Serializar clase mundo
+     * Esta contiene lista de continentes y mares
+     */
     
 }

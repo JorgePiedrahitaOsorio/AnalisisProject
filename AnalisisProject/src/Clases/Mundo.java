@@ -5,29 +5,20 @@
  */
 package Clases;
 
-import java.awt.Point;
 import java.util.LinkedList;
 
 /**
  *
  * @author JORGE OSORIO
  */
-public class GrafoMundo {
+public class Mundo {
 
     private LinkedList<Continente> nodos;
     private LinkedList<MarProfundo> aristas;
 
-    public GrafoMundo() {
+    public Mundo() {
         this.nodos = new LinkedList<>();
         this.aristas = new LinkedList<>();
-    }
-
-    public void AñadirContinente(Continente continente) {
-        this.nodos.add(continente);
-    }
-
-    public void AñadirMarProfundo(Point origen, Point destino, double distancia, int peso) {
-        //this.aristas.add(new MarProfundo(origen, destino, distancia, peso));
     }
 
     /**
@@ -38,10 +29,24 @@ public class GrafoMundo {
     }
 
     /**
+     * @param nodos the nodos to set
+     */
+    public void setNodos(LinkedList<Continente> nodos) {
+        this.nodos = nodos;
+    }
+
+    /**
      * @return the aristas
      */
     public LinkedList<MarProfundo> getAristas() {
         return aristas;
+    }
+
+    /**
+     * @param aristas the aristas to set
+     */
+    public void setAristas(LinkedList<MarProfundo> aristas) {
+        this.aristas = aristas;
     }
 
 }

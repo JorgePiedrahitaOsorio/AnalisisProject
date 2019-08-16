@@ -6,6 +6,7 @@
 package Clases;
 
 import java.awt.Point;
+import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,21 +17,33 @@ public class Continente {
     private Point ubicacion;
     private int ancho;
     private int alto;
-    private String ruta;
     private ImageIcon imagen;
-    GrafoIslas grafoIslas;
-    
-    public Continente(Point ubicacion, int ancho, int alto, String ruta) {
+    private LinkedList<Isla> islas;
+    private LinkedList<MarProfundo> maresProfundos;
+
+    public Continente(Point ubicacion, int ancho, int alto, ImageIcon imagen, LinkedList<Isla> islas, LinkedList<MarProfundo> maresProfundos) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
-        this.imagen = new ImageIcon(getClass().getResource(ruta));
+        this.imagen = imagen;
+        this.islas = islas;
+        this.maresProfundos = maresProfundos;
     }
 
-    public Continente() {
+    /**
+     * @return the ubicacion
+     */
+    public Point getUbicacion() {
+        return ubicacion;
     }
 
-   
+    /**
+     * @param ubicacion the ubicacion to set
+     */
+    public void setUbicacion(Point ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     /**
      * @return the ancho
      */
@@ -60,20 +73,6 @@ public class Continente {
     }
 
     /**
-     * @return the ruta
-     */
-    public String getRuta() {
-        return ruta;
-    }
-
-    /**
-     * @param ruta the ruta to set
-     */
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-    }
-
-    /**
      * @return the imagen
      */
     public ImageIcon getImagen() {
@@ -88,19 +87,35 @@ public class Continente {
     }
 
     /**
-     * @return the ubicacion
+     * @return the islas
      */
-    public Point getUbicacion() {
-        return ubicacion;
+    public LinkedList<Isla> getIslas() {
+        return islas;
     }
 
     /**
-     * @param ubicacion the ubicacion to set
+     * @param islas the islas to set
      */
-    public void setUbicacion(Point ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setIslas(LinkedList<Isla> islas) {
+        this.islas = islas;
     }
 
+    /**
+     * @return the maresProfundos
+     */
+    public LinkedList<MarProfundo> getMaresProfundos() {
+        return maresProfundos;
+    }
+
+    /**
+     * @param maresProfundos the maresProfundos to set
+     */
+    public void setMaresProfundos(LinkedList<MarProfundo> maresProfundos) {
+        this.maresProfundos = maresProfundos;
+    }
+    
+    
+    
     
     
 }
