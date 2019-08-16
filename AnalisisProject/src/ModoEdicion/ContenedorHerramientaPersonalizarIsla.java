@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,10 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import static pruebas.ContenedorNodoIsla.vista;
-import static pruebas.VistaConstructor.pIslaReferencia;
-import static pruebas.ContenedorNodoIsla.abrir;
-import static pruebas.VistaConstructor.banderaGuardar;
+import static ModoEdicion.ContenedorNodoIsla.vista;
+import static ModoEdicion.VistaConstructor.pIslaReferencia;
+import static ModoEdicion.ContenedorNodoIsla.abrir;
+import static ModoEdicion.VistaConstructor.banderaGuardar;
 
 /**
  *

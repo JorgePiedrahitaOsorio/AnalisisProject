@@ -3,30 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import static pruebas.VistaConstructor.urlElemento;
-import static pruebas.VistaConstructor.estadoEdicion;
-import static pruebas.VistaConstructor.estadoEdicionIsla;
+import static ModoEdicion.VistaConstructor.referenciaContinente;
+import static ModoEdicion.VistaConstructor.continenteClickeado;
+import static ModoEdicion.VistaConstructor.estadoEdicionMar;
+import static ModoEdicion.VistaConstructor.referenciaContinente1;
+import static ModoEdicion.VistaConstructor.referenciaContinente2;
+import static ModoEdicion.VistaConstructor.banderaDibujarMar;
+import static ModoEdicion.VistaConstructor.estadoEdicion;
+import static ModoEdicion.VistaConstructor.estadoEdicionIsla;
+
 
 /**
  *
  * @author Thebest
  */
-public class ContenedorImagen extends javax.swing.JButton {
+public class ContenedorNodo extends javax.swing.JButton {
 
     private String url;
     private final int x;
     private final int y;
     private final int width;
     private final int height;
-    private String url2;
 
-    public ContenedorImagen(String url, int x, int y, int width, int height) {
+    public ContenedorNodo(String url, int x, int y, int width, int height) {
         this.url = url;
         this.x = x;
         this.y = y;
@@ -56,38 +61,33 @@ public class ContenedorImagen extends javax.swing.JButton {
     }
 
     private void accionClick(ActionEvent e) {
-        if (estadoEdicionIsla) {
-            estadoEdicion = false;
-            urlElemento = this.url;
+        estadoEdicion = false;
+        if (estadoEdicionMar) {
+            dibujarBorde();
+            if (referenciaContinente1 == null) {
+                referenciaContinente1 = this;
+            } else {
+                referenciaContinente2 = this;
+                banderaDibujarMar = true;
+            }
         } else {
-            urlElemento = "../Imagenes/Sepiacontinente" + this.url2;
-            estadoEdicionIsla = false;
-            estadoEdicion = true;
+            referenciaContinente = this;
+            continenteClickeado = true;
         }
+
     }
 
-    public void mover(int x, int y) {
-        this.setBounds(x, y, this.width, this.height);
+    private void dibujarBorde() {
+        this.setBorderPainted(true);
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-        dibujarFondo();
-    }
-
-    public void eliminarEventoClick() {
-        this.removeActionListener(actionListener);
+    public void desDibujarBorde() {
+        this.setBorderPainted(false);
     }
 
     private void decoracion() {
-        this.setBorder(null);
+        this.setBorderPainted(false);
         this.setContentAreaFilled(false);
     }
 
-    /**
-     * @param url2 the url2 to set
-     */
-    public void setUrl2(String url2) {
-        this.url2 = url2;
-    }
 }

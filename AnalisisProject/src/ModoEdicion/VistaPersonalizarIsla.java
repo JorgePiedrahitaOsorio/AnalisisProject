@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import javax.swing.ImageIcon;
-import static pruebas.ContenedorNodoIsla.abrir;
-import static pruebas.VistaConstructor.pIslaReferencia;
+import static ModoEdicion.ContenedorNodoIsla.abrir;
+import static ModoEdicion.VistaConstructor.pIslaReferencia;
 
 /**
  *

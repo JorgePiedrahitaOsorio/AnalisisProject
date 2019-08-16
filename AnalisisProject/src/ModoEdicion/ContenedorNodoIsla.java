@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import static pruebas.VistaConstructor.estadoEdicionMarIsla;
-import static pruebas.VistaConstructor.referenciaContinenteIsla1;
-import static pruebas.VistaConstructor.referenciaContinenteIsla2;
-import static pruebas.VistaConstructor.banderaDibujarMarIsla;
-import static pruebas.VistaConstructor.estadoEdicion;
-import static pruebas.VistaConstructor.estadoParametrizacionIsla;
-import static pruebas.VistaConstructor.referenciaIsla;
+import static ModoEdicion.VistaConstructor.estadoEdicionMarIsla;
+import static ModoEdicion.VistaConstructor.referenciaContinenteIsla1;
+import static ModoEdicion.VistaConstructor.referenciaContinenteIsla2;
+import static ModoEdicion.VistaConstructor.banderaDibujarMarIsla;
+import static ModoEdicion.VistaConstructor.estadoEdicion;
+import static ModoEdicion.VistaConstructor.estadoParametrizacionIsla;
+import static ModoEdicion.VistaConstructor.referenciaIsla;
 
 /**
  *

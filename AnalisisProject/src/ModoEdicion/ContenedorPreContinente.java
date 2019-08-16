@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,8 +16,8 @@ import java.util.LinkedList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import static pruebas.VistaConstructor.mundoClickeado;
-import static pruebas.VistaConstructor.banderaGuardar;
+import static ModoEdicion.VistaConstructor.mundoClickeado;
+import static ModoEdicion.VistaConstructor.banderaGuardar;
 
 /**
  *

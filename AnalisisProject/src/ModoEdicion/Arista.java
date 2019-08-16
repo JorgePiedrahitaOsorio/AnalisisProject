@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
-
-import javax.swing.JButton;
+package ModoEdicion;
 
 /**
  *
  * @author Thebest
  */
 public class Arista {
+
+    private int peligrosidad;
+
+   
 
     /**
      * @return the continenteOrigen
@@ -40,14 +42,27 @@ public class Arista {
     public void setContinenteDestino(ContenedorNodo continenteDestino) {
         this.continenteDestino = continenteDestino;
     }
-    
+
     private ContenedorNodo continenteOrigen;
     private ContenedorNodo continenteDestino;
-    
-    public Arista(ContenedorNodo continenteOrigen,ContenedorNodo continenteDestino ) {
-        this.continenteOrigen =  continenteOrigen;
+
+    public Arista(ContenedorNodo continenteOrigen, ContenedorNodo continenteDestino) {
+        this.continenteOrigen = continenteOrigen;
         this.continenteDestino = continenteDestino;
     }
-    
-    
+
+    /**
+     * @return the peligrosidad
+     */
+    public int getPeligrosidad() {
+        return peligrosidad;
+    }
+
+    /**
+     * @param peligrosidad the peligrosidad to set
+     */
+    public void setPeligrosidad(int peligrosidad) {
+        this.peligrosidad = peligrosidad;
+    }
+
 }

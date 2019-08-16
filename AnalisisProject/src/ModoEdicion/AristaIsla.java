@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 /**
  *
@@ -11,6 +11,9 @@ package pruebas;
  */
 public class AristaIsla {
 
+    private int peligrosidad;
+
+    
     /**
      * @return the origen
      */
@@ -45,6 +48,20 @@ public class AristaIsla {
     public AristaIsla(ContenedorNodoIsla origen , ContenedorNodoIsla destino){
         this.origen = origen;
         this.destino = destino;
+    }
+
+    /**
+     * @return the peligrosidad
+     */
+    public int getPeligrosidad() {
+        return peligrosidad;
+    }
+
+    /**
+     * @param peligrosidad the peligrosidad to set
+     */
+    public void setPeligrosidad(int peligrosidad) {
+        this.peligrosidad = peligrosidad;
     }
     
 }

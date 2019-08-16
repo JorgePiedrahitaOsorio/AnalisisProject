@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package ModoEdicion;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -139,9 +139,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
     public static boolean banderaDibujarMarIsla;
 
     public static boolean banderaGuardar;
-    
+
     public static ParametrosIsla pIslaReferencia;
-    
+
     private ContenedorPreContinente contenedorPreContinente;
 
     private JMenuBar barraMenu;
@@ -369,15 +369,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     estadoParametrizacionIsla = false;
                     mundoClickeado = false;
                 }
-                if(banderaGuardar){
+                if (banderaGuardar) {
                     this.contenedorPreContinente.CambiarParametrizacion(referenciaIsla, pIslaReferencia);
                 }
                 if (estadoParametrizacionIsla) {
                     pIslaReferencia = this.contenedorPreContinente.islas.get(referenciaIsla);
                 }
                 if (banderaDibujarMar) {
-                    this.contenedorPremapa.marProfundo.add(new Arista(referenciaContinente1,
-                            referenciaContinente2));
+                    if (referenciaContinente2 != null) {
+                        Arista aristaAux = new Arista(referenciaContinente1, referenciaContinente2);
+                        aristaAux.setPeligrosidad(Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese peligrosidad")));
+                        this.contenedorPremapa.marProfundo.add(aristaAux);
+                    }
                     Thread.sleep(200);
                     referenciaContinente1.desDibujarBorde();
                     referenciaContinente2.desDibujarBorde();
@@ -388,8 +391,11 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 }
 
                 if (banderaDibujarMarIsla) {
-                    this.contenedorPreContinente.marProfundo.add(new AristaIsla(referenciaContinenteIsla1,
-                            referenciaContinenteIsla2));
+                    if (referenciaContinenteIsla2 != null) {
+                        AristaIsla aristaAux = new AristaIsla(referenciaContinenteIsla1, referenciaContinenteIsla2);
+                        aristaAux.setPeligrosidad(Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese peligrosidad")));
+                        this.contenedorPreContinente.marProfundo.add(aristaAux);
+                    }
                     Thread.sleep(200);
                     referenciaContinenteIsla1.desDibujarBorde();
                     referenciaContinenteIsla2.desDibujarBorde();
