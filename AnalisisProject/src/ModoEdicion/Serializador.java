@@ -33,18 +33,19 @@ public class Serializador {
     public Serializador() {
     }
 
-    public void ReadArchivo(String ruta) {
+    public Mundo ReadArchivo(String ruta) {
         String linea;
         this.archivo = new File(ruta);
         try {
             this.reader = new FileReader(this.archivo);
             this.buffer = new BufferedReader(this.reader);
-            while ((linea = this.buffer.readLine()) != null) {
-                this.ReadJSON(linea);
+            if ((linea = this.buffer.readLine()) != null) {
+                return this.ReadJSON(linea);
             }
         } catch (IOException e) {
             System.out.println("Se putio");
         }
+        return null;
     }
 
     private void WriteArchivo(String contenido) {
@@ -67,12 +68,13 @@ public class Serializador {
         WriteArchivo(new Gson().toJson(mundo));
     }
 
-    public void ReadJSON(String JSON) {
+    public Mundo ReadJSON(String JSON) {
         Gson gson = new Gson();
         Mundo mundo = gson.fromJson(JSON, Mundo.class);
 
         mundo.getNodos().forEach((cont) -> {
             System.out.println(cont.getUbicacion());
         });
+        return mundo;
     }
 }
