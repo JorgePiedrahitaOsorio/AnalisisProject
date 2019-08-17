@@ -5,7 +5,7 @@
  */
 package ModoEdicion;
 
-
+import Clases.Continente;
 import Clases.Mundo;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -32,17 +32,18 @@ public class Serializador {
 
     public Serializador() {
     }
-    
-    public void ReadArchivo() {
+
+    public void ReadArchivo(String ruta) {
         String linea;
+        this.archivo = new File(ruta);
         try {
             this.reader = new FileReader(this.archivo);
             this.buffer = new BufferedReader(this.reader);
             while ((linea = this.buffer.readLine()) != null) {
-                //archivoRead.add(linea);
                 this.ReadJSON(linea);
             }
         } catch (IOException e) {
+            System.out.println("Se putio");
         }
     }
 
@@ -63,18 +64,15 @@ public class Serializador {
     }
 
     public void WriteJSON(Mundo mundo) {
-         WriteArchivo(new Gson().toJson(mundo));
+        WriteArchivo(new Gson().toJson(mundo));
     }
 
     public void ReadJSON(String JSON) {
         Gson gson = new Gson();
-        Object[] objetos = gson.fromJson(JSON, Object[].class);
-        for (Object obj : objetos) {
-           System.out.println(obj.toString());
-        }
-    }
-    /**
-     * Serializar clase mundo Esta contiene lista de continentes y mares
-     */
+        Mundo mundo = gson.fromJson(JSON, Mundo.class);
 
+        mundo.getNodos().forEach((cont) -> {
+            System.out.println(cont.getUbicacion());
+        });
+    }
 }

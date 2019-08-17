@@ -233,6 +233,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.itemSimular.addActionListener((java.awt.event.ActionEvent evt) -> {
             SimularAction(evt);
         });
+        this.itemGuardar.addActionListener((java.awt.event.ActionEvent evt) -> {
+            GuardarAction(evt);
+        });
     }
 
     public void AñadirAlMenu(JMenu menu) {
@@ -252,6 +255,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
         estadoEdicionMar = true;
     }
 
+    private void GuardarAction(java.awt.event.ActionEvent evt) {
+        /*
+        Estas dos lineas siguientes son solo para pruebas de que si se puede deserializar el objeto
+        */
+        Serializador serializador = new Serializador();
+        serializador.ReadArchivo("../mapa1.txt");
+//        Serializar();
+    }
+
     private void AñadirIslaAction(java.awt.event.ActionEvent evt) {
         CambiarPanelHerramientasIsla();
     }
@@ -264,10 +276,10 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void SimularAction(java.awt.event.ActionEvent evt) {
         Serializar();
     }
-    
-    private void Serializar(){
+
+    private void Serializar() {
         Mundo mundo = new Mundo();
-        mundo.setNodos(contenedorPremapa.getContinentes()); 
+        mundo.setNodos(contenedorPremapa.getContinentes());
         mundo.setAristas(contenedorPremapa.getMares());
         Serializador serializador = new Serializador();
         serializador.WriteJSON(mundo);
