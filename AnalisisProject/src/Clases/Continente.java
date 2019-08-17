@@ -14,20 +14,21 @@ import javax.swing.ImageIcon;
  * @author JORGE OSORIO
  */
 public class Continente {
+
     private Point ubicacion;
     private int ancho;
     private int alto;
     private ImageIcon imagen;
     private LinkedList<Isla> islas;
-    private LinkedList<MarProfundo> maresProfundos;
+    private LinkedList<Mar> mares;
 
-    public Continente(Point ubicacion, int ancho, int alto, ImageIcon imagen, LinkedList<Isla> islas, LinkedList<MarProfundo> maresProfundos) {
+    public Continente(Point ubicacion, int ancho, int alto, ImageIcon imagen, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
         this.imagen = imagen;
         this.islas = islas;
-        this.maresProfundos = maresProfundos;
+        this.mares = mares;
     }
 
     /**
@@ -103,19 +104,15 @@ public class Continente {
     /**
      * @return the maresProfundos
      */
-    public LinkedList<MarProfundo> getMaresProfundos() {
-        return maresProfundos;
+    public LinkedList<Mar> getMares() {
+        return mares;
     }
 
     /**
-     * @param maresProfundos the maresProfundos to set
+     * @param mares the mares to set
      */
-    public void setMaresProfundos(LinkedList<MarProfundo> maresProfundos) {
-        this.maresProfundos = maresProfundos;
+    public void setMaresProfundos(LinkedList<Mar> mares) {
+        this.mares = mares;
     }
-    
-    
-    
-    
-    
+
 }

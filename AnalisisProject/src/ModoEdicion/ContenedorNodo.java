@@ -16,7 +16,6 @@ import static ModoEdicion.VistaConstructor.referenciaContinente1;
 import static ModoEdicion.VistaConstructor.referenciaContinente2;
 import static ModoEdicion.VistaConstructor.banderaDibujarMar;
 import static ModoEdicion.VistaConstructor.estadoEdicion;
-import static ModoEdicion.VistaConstructor.estadoEdicionIsla;
 
 
 /**
@@ -25,7 +24,7 @@ import static ModoEdicion.VistaConstructor.estadoEdicionIsla;
  */
 public class ContenedorNodo extends javax.swing.JButton {
 
-    private String url;
+    private final String url;
     private final int x;
     private final int y;
     private final int width;
@@ -54,7 +53,7 @@ public class ContenedorNodo extends javax.swing.JButton {
     }
 
     private void dibujarFondo() {
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource(url));
+        ImageIcon imgIcon = new ImageIcon(getClass().getResource(getUrl()));
         Icon iconoEscalado = new ImageIcon(imgIcon.getImage().getScaledInstance(this.getWidth(),
                 this.getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(iconoEscalado);
@@ -88,6 +87,13 @@ public class ContenedorNodo extends javax.swing.JButton {
     private void decoracion() {
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
+    }
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
     }
 
 }

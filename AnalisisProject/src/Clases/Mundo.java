@@ -20,6 +20,14 @@ public class Mundo {
         this.nodos = new LinkedList<>();
         this.aristas = new LinkedList<>();
     }
+    
+    public void addContinente(Continente continente){
+        this.nodos.add(continente);
+    }
+    
+    public void addArista(MarProfundo marProfundo){
+        this.aristas.add(marProfundo);
+    }
 
     /**
      * @return the nodos

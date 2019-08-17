@@ -5,6 +5,7 @@
  */
 package ModoEdicion;
 
+import Clases.Mundo;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -229,6 +230,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.itemAñadirMarIsla.addActionListener((java.awt.event.ActionEvent evt) -> {
             AñadirMarIslaAction(evt);
         });
+        this.itemSimular.addActionListener((java.awt.event.ActionEvent evt) -> {
+            SimularAction(evt);
+        });
     }
 
     public void AñadirAlMenu(JMenu menu) {
@@ -255,6 +259,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void AñadirMarIslaAction(java.awt.event.ActionEvent evt) {
         this.contenedorDerecha.setVisible(false);
         estadoEdicionMarIsla = true;
+    }
+
+    private void SimularAction(java.awt.event.ActionEvent evt) {
+        Serializar();
+    }
+    
+    private void Serializar(){
+        Mundo mundo = new Mundo();
+        mundo.setNodos(contenedorPremapa.getContinentes()); 
+        mundo.setAristas(contenedorPremapa.getMares());
+        Serializador serializador = new Serializador();
+        serializador.WriteJSON(mundo);
     }
 
     private Dimension tamañoPantalla() {

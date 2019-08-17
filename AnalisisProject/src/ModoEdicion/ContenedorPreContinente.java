@@ -5,6 +5,8 @@
  */
 package ModoEdicion;
 
+import Clases.Isla;
+import Clases.Mar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -18,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import static ModoEdicion.VistaConstructor.mundoClickeado;
 import static ModoEdicion.VistaConstructor.banderaGuardar;
+import java.awt.Point;
 
 /**
  *
@@ -62,6 +65,37 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         agregarLayout();
         AgregarFondo();
         AñadirBotonMundo();
+    }
+
+    public LinkedList<Isla> getIslas() {
+        LinkedList<Isla> isla = new LinkedList<>();
+        this.islas.keySet().forEach((contenedor) -> {
+            ParametrosIsla parametros = this.islas.get(contenedor);
+            isla.add(new Isla(new Point(contenedor.getX(), contenedor.getY()), contenedor.getWidth(), contenedor.getHeight(),
+                    new ImageIcon(getClass().getResource(contenedor.getUrl())), parametros.getTamañoTesoro(), parametros.getEsclavosJovenes(),
+                    parametros.getEsclavosAdultos(), parametros.getEsclavosViejos(), parametros.getNombreIsla()));
+        });
+        return isla;
+    }
+
+    public LinkedList<Mar> getMar() {
+        LinkedList<Mar> mares = new LinkedList<>();
+        this.marProfundo.forEach((arista) -> {
+            Isla isla1 = getIsla(arista.getOrigen().getX(), arista.getOrigen().getY());
+            Isla isla2 = getIsla(arista.getDestino().getX(), arista.getDestino().getY());
+            mares.add(new Mar(isla1, isla2, arista.getPeligrosidad(), 0));
+        });
+        return mares;
+    }
+
+    private Isla getIsla(int x, int y) {
+        LinkedList<Isla> islasbuscar = this.getIslas();
+        for (Isla isla : islasbuscar) {
+            if (isla.getUbicacion().equals(new Point(x, y))) {
+                return isla;
+            }
+        }
+        return null;
     }
 
     private void tamaño() {

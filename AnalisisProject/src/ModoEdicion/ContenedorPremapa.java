@@ -5,9 +5,13 @@
  */
 package ModoEdicion;
 
+import Clases.Continente;
+import Clases.Isla;
+import Clases.MarProfundo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,7 +49,38 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         this.marProfundo = new LinkedList<>();
         iniciarComponentes();
     }
-
+    
+    public LinkedList<Continente> getContinentes(){
+        LinkedList<Continente> continentes = new LinkedList<>();
+        this.islas.keySet().forEach((contenedor) -> {
+            ContenedorPreContinente cP = this.islas.get(contenedor);
+            continentes.add(new Continente(contenedor.getLocation(), contenedor.getWidth(), contenedor.getHeight(), 
+                    new ImageIcon(getClass().getResource(contenedor.getUrl())), cP.getIslas(), cP.getMar()));
+        });
+        return continentes;
+    }
+    
+    public LinkedList<MarProfundo> getMares(){
+        LinkedList<MarProfundo> mares = new LinkedList<>();
+        this.marProfundo.forEach((arista) -> {
+            Continente c1 = this.getContinente(arista.getContinenteOrigen().getX(), arista.getContinenteOrigen().getY());
+            Continente c2 = this.getContinente(arista.getContinenteDestino().getX(), arista.getContinenteDestino().getY());
+            mares.add(new MarProfundo(c1, c2, HEIGHT, WIDTH));
+        });
+        return mares;
+    }
+    
+    private Continente getContinente(int x, int y){
+        LinkedList<Continente> continentebuscar = this.getContinentes();
+        for (Continente continente : continentebuscar) {
+            if (continente.getUbicacion().equals(new Point(x, y))) {
+                return continente;
+            }
+        }
+        return null;
+    }
+    
+    
     private void dibujarAristas(ContenedorNodo origen, ContenedorNodo destino, Graphics g) {
         g.setColor(Color.WHITE);
         g.drawLine(origen.getX() + origen.getWidth() / 2, origen.getY() + origen.getHeight() / 2,

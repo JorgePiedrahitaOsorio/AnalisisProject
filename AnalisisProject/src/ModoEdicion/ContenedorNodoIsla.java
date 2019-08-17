@@ -51,11 +51,11 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
     }
 
     private void tamaño() {
-        this.setBounds(x, y, width, height);
+        this.setBounds(getX(), getY(), getWidth(), getHeight());
     }
 
     private void dibujarFondo() {
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource(url));
+        ImageIcon imgIcon = new ImageIcon(getClass().getResource(getUrl()));
         Icon iconoEscalado = new ImageIcon(imgIcon.getImage().getScaledInstance(this.getWidth(),
                 this.getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(iconoEscalado);
@@ -95,4 +95,44 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
         this.setContentAreaFilled(false);
     }
 
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @return the x
+     */
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @return the y
+     */
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @return the width
+     */
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * @return the height
+     */
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    
 }
