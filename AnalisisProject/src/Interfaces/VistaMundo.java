@@ -48,11 +48,16 @@ public class VistaMundo extends javax.swing.JPanel {
         }
     }
 
-    public void paint(Graphics g) {
-        for (MarProfundo m : this.maresProfundos) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        this.maresProfundos.forEach((m) -> {
             colocarMaresProfundos(g,m.getOrigen(),m.getDestino());
-        }
+        });
+        repaint();
     }
+
+    
 
     private void colocarMaresProfundos(Graphics g, Continente origen, Continente destino) {
         if (origen.getUbicacion().x < destino.getUbicacion().x) {

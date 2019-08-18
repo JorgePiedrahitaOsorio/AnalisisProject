@@ -6,6 +6,7 @@
 package ModoEdicion;
 
 import Clases.Mundo;
+import Interfaces.Simulación;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -274,15 +275,18 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void SimularAction(java.awt.event.ActionEvent evt) {
-        Serializar();
+        Simulación simulacion = new Simulación(Serializar());
+        simulacion.setVisible(true);
+        this.dispose();
     }
 
-    private void Serializar() {
+    private Mundo Serializar() {
         Mundo mundo = new Mundo();
         mundo.setNodos(contenedorPremapa.getContinentes());
         mundo.setAristas(contenedorPremapa.getMares());
         Serializador serializador = new Serializador();
         serializador.WriteJSON(mundo);
+        return mundo;
     }
 
     private Dimension tamañoPantalla() {

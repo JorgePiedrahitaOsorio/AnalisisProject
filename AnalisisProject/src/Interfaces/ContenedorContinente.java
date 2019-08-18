@@ -31,7 +31,7 @@ public class ContenedorContinente extends JLabel {
 
     private void caracteristicasVisuales() {
         this.setBounds(x, y, width,height);
-        this.setOpaque(true);
+        this.setOpaque(false);
         agregarImagenFondo();
     }
 
