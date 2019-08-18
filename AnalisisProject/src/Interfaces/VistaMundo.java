@@ -44,8 +44,8 @@ public class VistaMundo extends javax.swing.JPanel {
     
     private void colocarContinentes(){
         for(Continente c : continentes){
-            this.add(new ContenedorContinente(c.getUbicacion().x,c.getUbicacion().y,c.getAncho(),
-                    c.getAlto(),c.getImagen()));
+//            this.add(new ContenedorContinente(c.getUbicacion().x,c.getUbicacion().y,c.getAncho(),
+//                    c.getAlto(),c.getImagen()));
         }
     }
     
