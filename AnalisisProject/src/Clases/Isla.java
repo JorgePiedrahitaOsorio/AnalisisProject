@@ -18,6 +18,7 @@ public class Isla {
     private Point ubicacion;
     private int ancho;
     private int alto;
+    private String ruta;
     private ImageIcon imagen;
     private int tamañoTesoro;
     private int esclavosJovenes;
@@ -26,11 +27,12 @@ public class Isla {
     private String nombreIsla;
     private LinkedList<Estrella> estrellas;
 
-    public Isla(Point ubicacion, int ancho, int alto, ImageIcon imagen, int tamañoTesoro, int esclavosJovenes, int esclavosAdultos, int esclavosViejos, String nombreIsla) {
+    public Isla(Point ubicacion, int ancho, int alto, String ruta, int tamañoTesoro, int esclavosJovenes, int esclavosAdultos, int esclavosViejos, String nombreIsla) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
-        this.imagen = imagen;
+        this.ruta = ruta;
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
         this.tamañoTesoro = tamañoTesoro;
         this.esclavosJovenes = esclavosJovenes;
         this.esclavosAdultos = esclavosAdultos;
@@ -177,6 +179,20 @@ public class Isla {
      */
     public void setEstrellas(LinkedList<Estrella> estrellas) {
         this.estrellas = estrellas;
+    }
+
+    /**
+     * @return the ruta
+     */
+    public String getRuta() {
+        return ruta;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 
 }

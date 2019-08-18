@@ -5,7 +5,6 @@
  */
 package ModoEdicion;
 
-import Clases.Continente;
 import Clases.Mundo;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -70,11 +69,6 @@ public class Serializador {
 
     public Mundo ReadJSON(String JSON) {
         Gson gson = new Gson();
-        Mundo mundo = gson.fromJson(JSON, Mundo.class);
-
-        mundo.getNodos().forEach((cont) -> {
-            System.out.println(cont.getUbicacion());
-        });
-        return mundo;
+        return gson.fromJson(JSON, Mundo.class);
     }
 }

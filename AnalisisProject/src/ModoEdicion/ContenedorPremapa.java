@@ -49,28 +49,29 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         this.marProfundo = new LinkedList<>();
         iniciarComponentes();
     }
-    
-    public LinkedList<Continente> getContinentes(){
+
+    public LinkedList<Continente> getContinentes() {
         LinkedList<Continente> continentes = new LinkedList<>();
         this.islas.keySet().forEach((contenedor) -> {
             ContenedorPreContinente cP = this.islas.get(contenedor);
-            continentes.add(new Continente(contenedor.getLocation(), contenedor.getWidth(), contenedor.getHeight(), 
-                    new ImageIcon(getClass().getResource(contenedor.getUrl())), cP.getIslas(), cP.getMar()));
+            continentes.add(new Continente(contenedor.getLocation(), contenedor.getWidth(), contenedor.getHeight(),
+                    contenedor.getUrl(), cP.getIslas(), cP.getMar()));
         });
         return continentes;
     }
-    
-    public LinkedList<MarProfundo> getMares(){
+
+    public LinkedList<MarProfundo> getMares() {
         LinkedList<MarProfundo> mares = new LinkedList<>();
         this.marProfundo.forEach((arista) -> {
             Continente c1 = this.getContinente(arista.getContinenteOrigen().getX(), arista.getContinenteOrigen().getY());
             Continente c2 = this.getContinente(arista.getContinenteDestino().getX(), arista.getContinenteDestino().getY());
-            mares.add(new MarProfundo(c1, c2, HEIGHT, WIDTH));
+            int distancia = distancia(arista.getContinenteOrigen().getX(), arista.getContinenteOrigen().getY(), arista.getContinenteDestino().getX(), arista.getContinenteDestino().getY());
+            mares.add(new MarProfundo(c1, c2, arista.getPeligrosidad(), distancia));
         });
         return mares;
     }
-    
-    private Continente getContinente(int x, int y){
+
+    private Continente getContinente(int x, int y) {
         LinkedList<Continente> continentebuscar = this.getContinentes();
         for (Continente continente : continentebuscar) {
             if (continente.getUbicacion().equals(new Point(x, y))) {
@@ -79,8 +80,11 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         }
         return null;
     }
-    
-    
+
+    private int distancia(int x1, int x2, int y1, int y2) {
+        return (int) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
     private void dibujarAristas(ContenedorNodo origen, ContenedorNodo destino, Graphics g) {
         g.setColor(Color.WHITE);
         g.drawLine(origen.getX() + origen.getWidth() / 2, origen.getY() + origen.getHeight() / 2,
@@ -107,6 +111,10 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             dibujarAristas(marAux.getContinenteOrigen(), marAux.getContinenteDestino(), g);
         });
         repaint();
+    }
+
+    public void cambiarFondo(ImageIcon imagen) {
+        this.imgFondo = imagen.getImage();
     }
 
     private boolean NoColisiona(Rectangle aux) {
@@ -145,8 +153,6 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         }
         return false;
     }
-    
-    
 
     public void DibujarRectanguloVerdeRojo(int x, int y) {
         if (ColocarContinente) {

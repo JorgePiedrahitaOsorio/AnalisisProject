@@ -18,15 +18,17 @@ public class Continente {
     private Point ubicacion;
     private int ancho;
     private int alto;
+    private String ruta;
     private ImageIcon imagen;
     private LinkedList<Isla> islas;
     private LinkedList<Mar> mares;
 
-    public Continente(Point ubicacion, int ancho, int alto, ImageIcon imagen, LinkedList<Isla> islas, LinkedList<Mar> mares) {
+    public Continente(Point ubicacion, int ancho, int alto, String ruta, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;
         this.alto = alto;
-        this.imagen = imagen;
+        this.ruta = ruta;
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
         this.islas = islas;
         this.mares = mares;
     }
@@ -113,6 +115,20 @@ public class Continente {
      */
     public void setMaresProfundos(LinkedList<Mar> mares) {
         this.mares = mares;
+    }
+
+    /**
+     * @return the ruta
+     */
+    public String getRuta() {
+        return ruta;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 
 }

@@ -72,7 +72,7 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.islas.keySet().forEach((contenedor) -> {
             ParametrosIsla parametros = this.islas.get(contenedor);
             isla.add(new Isla(new Point(contenedor.getX(), contenedor.getY()), contenedor.getWidth(), contenedor.getHeight(),
-                    new ImageIcon(getClass().getResource(contenedor.getUrl())), parametros.getTamañoTesoro(), parametros.getEsclavosJovenes(),
+                    contenedor.getUrl(), parametros.getTamañoTesoro(), parametros.getEsclavosJovenes(),
                     parametros.getEsclavosAdultos(), parametros.getEsclavosViejos(), parametros.getNombreIsla()));
         });
         return isla;
@@ -83,10 +83,18 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.marProfundo.forEach((arista) -> {
             Isla isla1 = getIsla(arista.getOrigen().getX(), arista.getOrigen().getY());
             Isla isla2 = getIsla(arista.getDestino().getX(), arista.getDestino().getY());
-            mares.add(new Mar(isla1, isla2, arista.getPeligrosidad(), 0));
+            int distancia = distancia(arista.getOrigen().getX(), arista.getOrigen().getY(), arista.getDestino().getX(), arista.getDestino().getY());
+            System.out.println(distancia);
+            mares.add(new Mar(isla1, isla2, arista.getPeligrosidad(), distancia));
         });
         return mares;
     }
+
+    private int distancia(int x1, int x2, int y1, int y2) {
+        return (int) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+    
+    
 
     private Isla getIsla(int x, int y) {
         LinkedList<Isla> islasbuscar = this.getIslas();
