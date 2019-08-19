@@ -91,9 +91,9 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     }
 
     public void obtenerAristas(LinkedList<MarProfundo> mares) {
-        marProfundo.forEach((m) -> {
-            ContenedorNodo cnO = obtenerContenedorNodo(m.getContinenteOrigen().getX(), m.getContinenteOrigen().getY());
-            ContenedorNodo cnD = obtenerContenedorNodo(m.getContinenteDestino().getX(), m.getContinenteDestino().getY());
+        mares.forEach((m) -> {
+            ContenedorNodo cnO = obtenerContenedorNodo(m.getOrigen().getUbicacion().x, m.getOrigen().getUbicacion().y);
+            ContenedorNodo cnD = obtenerContenedorNodo(m.getDestino().getUbicacion().x, m.getDestino().getUbicacion().y);
             Arista arista = new Arista(cnO, cnD);
             arista.setPeligrosidad(m.getPeligrosidad());
             this.marProfundo.add(arista);
