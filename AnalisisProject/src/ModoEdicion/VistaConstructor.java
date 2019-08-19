@@ -249,6 +249,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void CargarPremapa() {
         this.contenedorPremapa.obtenerContinentes(mundo.getNodos(), this, this);
         this.contenedorPremapa.obtenerAristas(mundo.getAristas());
+        this.contenedorPremapa.obtenerContinentes(mundo.getNodos(), this, this);
     }
 
     private void caracteristicasAuxContenedorImagen() {

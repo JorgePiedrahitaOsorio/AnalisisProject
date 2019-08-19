@@ -96,16 +96,22 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     }
 
     public void obtenerAristas(LinkedList<MarProfundo> mares) {
-        marProfundo.forEach((m) -> {
-            Arista arista = new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), m.getContinenteOrigen().getX(),
-                    m.getContinenteOrigen().getY(), m.getContinenteOrigen().getWidth(), m.getContinenteOrigen().getHeight()),
-                    new ContenedorNodo(m.getContinenteDestino().getUrl(), m.getContinenteDestino().getX(),
-                            m.getContinenteDestino().getY(), m.getContinenteDestino().getWidth(), m.getContinenteDestino().getHeight()));
+        mares.forEach((m) -> {
+            ContenedorNodo cnO = obtenerContenedorNodo(m.getOrigen().getUbicacion().x, m.getOrigen().getUbicacion().y);
+            ContenedorNodo cnD = obtenerContenedorNodo(m.getDestino().getUbicacion().x, m.getDestino().getUbicacion().y);
+            Arista arista = new Arista(cnO, cnD);
             arista.setPeligrosidad(m.getPeligrosidad());
             this.marProfundo.add(arista);
-            repaint();
-            System.out.println("aristas " + this.marProfundo.size());
         });
+    }
+
+    public ContenedorNodo obtenerContenedorNodo(int x, int y) {
+        for (ContenedorNodo cn : this.islas.keySet()) {
+            if (cn.getX() == x && cn.getY() == y) {
+                return cn;
+            }
+        }
+        return null;
     }
 
     private int distancia(int x1, int x2, int y1, int y2) {
