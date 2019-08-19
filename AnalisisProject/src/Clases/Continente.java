@@ -22,6 +22,7 @@ public class Continente {
     private ImageIcon imagen;
     private LinkedList<Isla> islas;
     private LinkedList<Mar> mares;
+    private int id;
 
     public Continente(Point ubicacion, int ancho, int alto, String ruta, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.ubicacion = ubicacion;
@@ -31,6 +32,14 @@ public class Continente {
         this.imagen = new ImageIcon(getClass().getResource(ruta));
         this.islas = islas;
         this.mares = mares;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return this.id;
     }
 
     /**
