@@ -81,24 +81,32 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         }
         return null;
     }
-    
-    public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml){
+
+    public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml) {
         System.out.println(continentes.getFirst().getRuta());
-        continentes.forEach((c) -> { 
-            this.islas.put(new ContenedorNodo(c.getRuta(), (int)c.getUbicacion().getX(),(int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()), 
+        continentes.forEach((c) -> {
+            this.islas.put(new ContenedorNodo(c.getRuta(), (int) c.getUbicacion().getX(), (int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()),
                     new ContenedorPreContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto(), Mml, mL));
-        });    
+        });
     }
-    
-    public void obtenerAristas(LinkedList<MarProfundo> mares){ 
-        marProfundo.forEach((m) ->{
-            Arista arista = new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), m.getContinenteOrigen().getX(), 
-                    m.getContinenteOrigen().getY(), m.getContinenteOrigen().getWidth(),  m.getContinenteOrigen().getHeight()),  
-                    new ContenedorNodo(m.getContinenteDestino().getUrl(), m.getContinenteDestino().getX(), 
-                    m.getContinenteDestino().getY(), m.getContinenteDestino().getWidth(),  m.getContinenteDestino().getHeight()));
+
+    public void obtenerAristas(LinkedList<MarProfundo> mares) {
+        marProfundo.forEach((m) -> {
+            ContenedorNodo cnO = obtenerContenedorNodo(m.getContinenteOrigen().getX(), m.getContinenteOrigen().getY());
+            ContenedorNodo cnD = obtenerContenedorNodo(m.getContinenteDestino().getX(), m.getContinenteDestino().getY());
+            Arista arista = new Arista(cnO, cnD);
             arista.setPeligrosidad(m.getPeligrosidad());
             this.marProfundo.add(arista);
         });
+    }
+
+    public ContenedorNodo obtenerContenedorNodo(int x, int y) {
+        for (ContenedorNodo cn : this.islas.keySet()) {
+            if (cn.getX() == x && cn.getY() == y) {
+                return cn;
+            }
+        }
+        return null;
     }
 
     private int distancia(int x1, int x2, int y1, int y2) {
@@ -193,24 +201,25 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     public int getWidth() {
         return width;
     }
-    
-    public void eliminarArista(ContenedorNodo continente){
-        for(Arista a : this.marProfundo){
-            if(a.getContinenteOrigen().equals(continente) || 
-                    a.getContinenteDestino().equals(continente)){
+
+    public void eliminarArista(ContenedorNodo continente) {
+        for (Arista a : this.marProfundo) {
+            if (a.getContinenteOrigen().equals(continente)
+                    || a.getContinenteDestino().equals(continente)) {
                 this.marProfundo.remove(a);
             }
         }
     }
-    
-    public void eliminarRectanguloColision(ContenedorNodo continente){
-        for (Rectangle r: this.rectangulos) {
-            if(continente.getX() == r.x && continente.getY() == r.y){
+
+    public void eliminarRectanguloColision(ContenedorNodo continente) {
+        for (Rectangle r : this.rectangulos) {
+            if (continente.getX() == r.x && continente.getY() == r.y) {
                 this.rectangulos.remove(r);
             }
         }
     }
-    public void eliminarContinente(ContenedorNodo continente){
+
+    public void eliminarContinente(ContenedorNodo continente) {
         this.islas.remove(continente);
     }
 
