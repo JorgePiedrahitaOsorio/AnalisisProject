@@ -6,7 +6,12 @@
 package Interfaces;
 
 import Clases.Continente;
+import Clases.Isla;
+import Clases.Mar;
 import Clases.MarProfundo;
+import Grafo.Grafo;
+import Grafo.Nodo;
+import Grafo.AristaGrafo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -33,6 +38,13 @@ public class VistaMundo extends javax.swing.JPanel {
     private Image imgFondo;
     private JButton barcoSearch;
     private final HashMap<String, String> rutasImagenes;
+    
+    private Grafo grafo;        
+    private HashMap<Integer,LinkedList<Nodo>> gruposContinentes;        
+    private int idContinente;
+    
+    private Isla islaActual;
+    private int continenactual;
 
     public VistaMundo(int x, int y, int width, int height, LinkedList<Continente> continentes, LinkedList<MarProfundo> maresProfundos) {
         this.x = x;
@@ -42,6 +54,9 @@ public class VistaMundo extends javax.swing.JPanel {
         this.continentes = continentes;
         this.maresProfundos = maresProfundos;
         this.rutasImagenes = new HashMap<>();
+        this.idContinente = 1;
+        this.grafo = new Grafo();
+        this.gruposContinentes = new HashMap<>();
         llenarRutasHashMap();
         caracteristicasVisuales();
         colocarContinentes();
@@ -59,8 +74,64 @@ public class VistaMundo extends javax.swing.JPanel {
         continentes.forEach((c) -> {
             this.add(new ContenedorContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(),
                     c.getAlto(), rutaImagencontinente(c.getRuta())));
+            c.setId(idContinente);
+            idContinente++;
+            crearNodos(c);
         });
+        crearAristasDesdeMaresProfundo();
     }
+    
+    private void crearNodos(Continente c){
+        LinkedList<Nodo>aux = new LinkedList<>();
+        for (Isla i: c.getIslas()) {
+            aux.add(new Nodo(i,c.getId()));
+        }
+        this.gruposContinentes.put(c.getId(),aux);
+        
+        crearAristas(aux,c);
+        
+        generarNodoPuerta(aux);
+    }
+    
+    private void crearAristas(LinkedList<Nodo> nodos,Continente c){
+        for (Mar m: c.getMares()) {
+            Nodo[] aux = buscarNodos(m.getOrigen(),m.getDestino(), nodos);
+            this.grafo.addAristaGrafo(new AristaGrafo(aux[0],aux[1],m.getPeso()));
+        }
+    }
+    
+    private void crearAristasDesdeMaresProfundo(){
+        for (MarProfundo m : this.maresProfundos) {
+            grafo.addAristaGrafo(new AristaGrafo(BuscarNodoPuerta(m.getOrigen().getId())
+                    ,BuscarNodoPuerta(m.getDestino().getId()),m.getPeso()));
+        }
+    }
+    
+    private Nodo[] buscarNodos(Isla i1, Isla i2,LinkedList<Nodo> nodos){
+        Nodo[] aux = new Nodo[2];
+        for(Nodo i : nodos) {
+            if(i.isla.equals(i1)){
+                aux[0] = i;
+            }else if(i.isla.equals(i2)){
+                aux[1] = i;
+            }
+        }
+        return aux;
+    }
+    
+    private Nodo BuscarNodoPuerta(int c){
+        for (Nodo i: this.gruposContinentes.get(c)) {
+            if(i.getIsDoor()){
+                return i;
+            }
+        }
+        return null;
+    }
+    
+    private void generarNodoPuerta(LinkedList<Nodo> nodos){
+        nodos.get((int)(Math.random()*nodos.size() - 1)).trueIsDoor();
+    }
+    
 
     private String rutaImagencontinente(String rutaSepia) {
         return this.rutasImagenes.get(rutaSepia);
