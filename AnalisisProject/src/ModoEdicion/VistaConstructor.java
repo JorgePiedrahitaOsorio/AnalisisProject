@@ -17,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static Interfaces.Inicio.opcionSimulacion;
 
 /**
  *
@@ -376,10 +377,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void SimularAction(java.awt.event.ActionEvent evt) {
-        Simulación simulacion = new Simulación(Serializar());
-        simulacion.setVisible(true);
-        this.detener = false;
-        this.dispose();
+        VistaSeleccionModoSimulacion vSeleccion = new VistaSeleccionModoSimulacion();
+        vSeleccion.setVisible(true);
+        if (opcionSimulacion != 0) {
+            Simulación simulacion = new Simulación(Serializar(), opcionSimulacion);
+            simulacion.setVisible(true);
+            this.detener = false;
+            this.dispose();
+        }
     }
 
     private Mundo Serializar() {
