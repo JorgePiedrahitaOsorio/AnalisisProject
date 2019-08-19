@@ -148,6 +148,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     public static boolean banderaGuardar;
 
+    ///////
+    public static boolean modoMoverContinente;
+    public static boolean modoOn;
+    public static ContenedorNodo referenciaMoverContinente;
+
+    public static boolean modoMoverIsla;
+    public static boolean modoOnIsla;
+    public static ContenedorNodoIsla referenciaMoverIsla;
+
+    //////
     public static ParametrosIsla pIslaReferencia;
 
     private ContenedorPreContinente contenedorPreContinente;
@@ -191,6 +201,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
         referenciaContinenteIsla1 = null;
         referenciaContinenteIsla2 = null;
         banderaGuardar = false;
+        referenciaMoverContinente = null;
+        modoMoverContinente = false;
+        modoOn = false;
+        referenciaMoverIsla = null;
+        modoMoverIsla = false;
+        modoOnIsla = false;
     }
 
     public VistaConstructor() {
@@ -280,7 +296,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         }
         //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
         //adicion o eliminacion de estos si los hashmaps estan vacion
-        
+
     }
 
     private void EditarAction(java.awt.event.ActionEvent evt) {
@@ -289,6 +305,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
             /**
              * Willi implementa todo codigo aca
              */
+            modoMoverIsla = true;
+        } else {
+            modoMoverContinente = true;
         }
         //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
         //adicion o eliminacion de estos si los hashmaps estan vacion
@@ -580,6 +599,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
             this.auxContenedorImagen.setUrl(urlElemento);
             this.auxContenedorImagen.mover(e.getX() + 25, e.getY() + 25);
             this.contenedorPreContinente.repaint();
+        } else if (modoMoverContinente && modoOn) {
+            referenciaMoverContinente.setBounds(e.getX() + 25, e.getY() + 25,
+                    referenciaMoverContinente.getWidth(), referenciaMoverContinente.getHeight());
+            this.contenedorPremapa.repaint();
+        }else if (modoMoverIsla && modoOnIsla) {
+            referenciaMoverIsla.dibujarBorde();
+            referenciaMoverIsla.setBounds(e.getX() + 25, e.getY() + 25,
+                    referenciaMoverIsla.getWidth(), referenciaMoverIsla.getHeight());
+            this.contenedorPreContinente.repaint();
         }
     }
 
@@ -600,8 +628,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
             } else {
                 JOptionPane.showMessageDialog(this, "LOS CONTINENTES NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
             }
-        }
-        if (estadoEdicionIsla) {
+        } else if (estadoEdicionIsla) {
             if (this.contenedorPreContinente.DibujarRectangulos(e.getX() + 25, e.getY())) {
                 this.contenedorPreContinente.remove(this.auxContenedorImagen);
                 ContenedorNodoIsla contenedorFijoIsla = new ContenedorNodoIsla(urlElemento, e.getX() + 25, e.getY() + 25, 150, 150);
@@ -612,6 +639,14 @@ public class VistaConstructor extends javax.swing.JFrame implements
             } else {
                 JOptionPane.showMessageDialog(this, "LOS ISLAS NO SE PUEDEN SOLAPAR", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
             }
+        } else if (modoMoverContinente && modoOn) {
+            modoOn = false;
+            modoMoverContinente = false;
+            this.contenedorPremapa.repaint();
+        } else if (modoMoverIsla && modoOnIsla) {
+            modoOnIsla = false;
+            modoMoverIsla = false;
+            this.contenedorPreContinente.repaint();
         }
     }
 
@@ -624,10 +659,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     @Override
     public void mousePressed(MouseEvent e) {
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override

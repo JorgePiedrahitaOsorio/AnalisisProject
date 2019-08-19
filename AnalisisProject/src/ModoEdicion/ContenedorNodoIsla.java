@@ -15,7 +15,10 @@ import static ModoEdicion.VistaConstructor.referenciaContinenteIsla2;
 import static ModoEdicion.VistaConstructor.banderaDibujarMarIsla;
 import static ModoEdicion.VistaConstructor.estadoEdicion;
 import static ModoEdicion.VistaConstructor.estadoParametrizacionIsla;
+import static ModoEdicion.VistaConstructor.modoMoverIsla;
+import static ModoEdicion.VistaConstructor.modoOnIsla;
 import static ModoEdicion.VistaConstructor.referenciaIsla;
+import static ModoEdicion.VistaConstructor.referenciaMoverIsla;
 
 /**
  *
@@ -72,7 +75,11 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
                 referenciaContinenteIsla2 = this;
                 banderaDibujarMarIsla = true;
             }
-        } else {
+        }else if(modoMoverIsla){
+            referenciaMoverIsla = this;
+            modoOnIsla = true;
+        }
+        else {
             referenciaIsla = this;
             estadoParametrizacionIsla = true;
             if (abrir) {
@@ -82,7 +89,7 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
         }
     }
 
-    private void dibujarBorde() {
+    public void dibujarBorde() {
         this.setBorderPainted(true);
     }
 
