@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
@@ -80,15 +82,22 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         return null;
     }
     
-    public void obtenerContinentes(LinkedList<Continente> continentes){
-        continentes.forEach((c) -> {
-            this.islas.put(new ContenedorNodo(c.getRuta(), (int)c.getUbicacion().getX(),(int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()), null);
+    public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml){
+        System.out.println(continentes.getFirst().getRuta());
+        continentes.forEach((c) -> { 
+            this.islas.put(new ContenedorNodo(c.getRuta(), (int)c.getUbicacion().getX(),(int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()), 
+                    new ContenedorPreContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto(), Mml, mL));
         });    
     }
     
-    public void obtenerAristas(LinkedList<MarProfundo> mares){
+    public void obtenerAristas(LinkedList<MarProfundo> mares){ 
         marProfundo.forEach((m) ->{
-            //this.marProfundo.add(new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), x, y, WIDTH, HEIGHT), continenteDestino));
+            Arista arista = new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), m.getContinenteOrigen().getX(), 
+                    m.getContinenteOrigen().getY(), m.getContinenteOrigen().getWidth(),  m.getContinenteOrigen().getHeight()),  
+                    new ContenedorNodo(m.getContinenteDestino().getUrl(), m.getContinenteDestino().getX(), 
+                    m.getContinenteDestino().getY(), m.getContinenteDestino().getWidth(),  m.getContinenteDestino().getHeight()));
+            arista.setPeligrosidad(m.getPeligrosidad());
+            this.marProfundo.add(arista);
         });
     }
 
@@ -118,6 +127,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
         }
+        System.out.println(marProfundo.size());
         this.marProfundo.forEach((marAux) -> {
             dibujarAristas(marAux.getContinenteOrigen(), marAux.getContinenteDestino(), g);
         });

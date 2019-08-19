@@ -182,6 +182,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
      */
     private boolean banderaItem;
 
+    private Mundo mundo;
+
     static {
         urlElemento = "";
         estadoEdicion = false;
@@ -228,7 +230,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.detener = true;
         caracteristicasAuxContenedorImagen();
         this.CrearMenu();
+        this.mundo = mundo;
         this.Start();
+        CargarPremapa();
+
+    }
+
+    private void CargarPremapa() {
+        this.contenedorPremapa.obtenerAristas(mundo.getAristas());
+        //this.contenedorPremapa.obtenerContinentes(mundo.getNodos(), this, this);
     }
 
     private void caracteristicasAuxContenedorImagen() {
@@ -615,7 +625,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
             referenciaMoverContinente.setBounds(e.getX() + 25, e.getY() + 25,
                     referenciaMoverContinente.getWidth(), referenciaMoverContinente.getHeight());
             this.contenedorPremapa.repaint();
-        }else if (modoMoverIsla && modoOnIsla) {
+        } else if (modoMoverIsla && modoOnIsla) {
             referenciaMoverIsla.dibujarBorde();
             referenciaMoverIsla.setBounds(e.getX() + 25, e.getY() + 25,
                     referenciaMoverIsla.getWidth(), referenciaMoverIsla.getHeight());

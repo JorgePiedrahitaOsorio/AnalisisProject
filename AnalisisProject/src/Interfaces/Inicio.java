@@ -5,12 +5,15 @@
  */
 package Interfaces;
 
+import ModoEdicion.Serializador;
+import ModoEdicion.VistaConstructor;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -26,13 +29,14 @@ public class Inicio extends javax.swing.JFrame {
         this.Configuraciones();
         this.CambiarCursorBotones();
     }
-    
-    private void Configuraciones(){
+
+    private void Configuraciones() {
         this.setTitle("PIRATAS POR EL MUNDO");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
     }
+
     private void CambiarCursorBotones() {
         Cursor cursor;
         ImageIcon imagenes = new ImageIcon(getClass().getResource("../Imagenes/espada.png"));
@@ -41,6 +45,7 @@ public class Inicio extends javax.swing.JFrame {
         this.btnCargarMapa.setCursor(cursor);
         this.btnInstrucciones.setCursor(cursor);
         this.btnComenzar.setCursor(cursor);
+        this.btnModificarMapa.setCursor(cursor);
     }
 
     /**
@@ -59,6 +64,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnModificarMapa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,9 +81,14 @@ public class Inicio extends javax.swing.JFrame {
 
         btnComenzar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnComenzar.setForeground(new java.awt.Color(255, 255, 255));
-        btnComenzar.setText("COMENZAR");
+        btnComenzar.setText("DISEÑAR MAPA");
         btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnComenzar.setContentAreaFilled(false);
+        btnComenzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComenzarActionPerformed(evt);
+            }
+        });
 
         btnInstrucciones.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnInstrucciones.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,12 +105,23 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("JORGE OSORIO - WILLIAM VASQUEZ");
+        jLabel2.setText("JORGE PIEDRAHITA - WILLIAM VASQUEZ");
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Icono2x.png"))); // NOI18N
         jLabel3.setText("PIRATAS POR EL MUNDO");
+
+        btnModificarMapa.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnModificarMapa.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarMapa.setText("MODIFICAR MAPA");
+        btnModificarMapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModificarMapa.setContentAreaFilled(false);
+        btnModificarMapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarMapaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dibujosInicio1Layout = new javax.swing.GroupLayout(dibujosInicio1);
         dibujosInicio1.setLayout(dibujosInicio1Layout);
@@ -112,16 +134,16 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(dibujosInicio1Layout.createSequentialGroup()
                         .addGap(184, 184, 184)
-                        .addComponent(jLabel1)
+                        .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(200, 200, 200))
             .addGroup(dibujosInicio1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
@@ -130,19 +152,25 @@ public class Inicio extends javax.swing.JFrame {
         dibujosInicio1Layout.setVerticalGroup(
             dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dibujosInicio1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(10, 10, 10)
-                .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(11, 11, 11)
                 .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,16 +190,39 @@ public class Inicio extends javax.swing.JFrame {
     private void btnCargarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarMapaActionPerformed
         JFileChooser selectorArchivo = new JFileChooser();
         int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
-        if(seleccion == selectorArchivo.getApproveButtonMnemonic()){
-            
-        }else{
+        if (seleccion == selectorArchivo.getApproveButtonMnemonic()) {
+            Serializador serializador = new Serializador();
+            Simulación simulacion = new Simulación(serializador.ReadArchivo(selectorArchivo.getSelectedFile().getPath()));
+            simulacion.setVisible(true);
+            this.dispose();
+        } else {
             System.out.println("Pulso cancelar");
         }
+
     }//GEN-LAST:event_btnCargarMapaActionPerformed
 
     private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
         JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
     }//GEN-LAST:event_btnInstruccionesActionPerformed
+
+    private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
+        VistaConstructor vistC = new VistaConstructor();
+        vistC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnComenzarActionPerformed
+
+    private void btnModificarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMapaActionPerformed
+        JFileChooser selectorArchivo = new JFileChooser();
+        int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
+        if (seleccion == selectorArchivo.getApproveButtonMnemonic()) {
+            Serializador serializador = new Serializador();
+            VistaConstructor vc = new VistaConstructor(serializador.ReadArchivo(selectorArchivo.getSelectedFile().getPath()));
+            vc.setVisible(true);
+            this.dispose();
+        } else {
+            System.out.println("Pulso cancelar");
+        }
+    }//GEN-LAST:event_btnModificarMapaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,7 +250,11 @@ public class Inicio extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -212,6 +267,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnCargarMapa;
     private javax.swing.JButton btnComenzar;
     private javax.swing.JButton btnInstrucciones;
+    private javax.swing.JButton btnModificarMapa;
     private Interfaces.DibujosInicio dibujosInicio1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
