@@ -16,6 +16,9 @@ import static ModoEdicion.VistaConstructor.referenciaContinente1;
 import static ModoEdicion.VistaConstructor.referenciaContinente2;
 import static ModoEdicion.VistaConstructor.banderaDibujarMar;
 import static ModoEdicion.VistaConstructor.estadoEdicion;
+import static ModoEdicion.VistaConstructor.modoMoverContinente;
+import static ModoEdicion.VistaConstructor.referenciaMoverContinente;
+import static ModoEdicion.VistaConstructor.modoOn;
 
 
 /**
@@ -69,7 +72,11 @@ public class ContenedorNodo extends javax.swing.JButton {
                 referenciaContinente2 = this;
                 banderaDibujarMar = true;
             }
-        } else {
+        }else if(modoMoverContinente){
+            referenciaMoverContinente = this;
+            modoOn = true;
+        }
+        else {
             referenciaContinente = this;
             continenteClickeado = true;
         }
