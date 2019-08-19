@@ -19,6 +19,8 @@ import static ModoEdicion.VistaConstructor.estadoEdicion;
 import static ModoEdicion.VistaConstructor.modoMoverContinente;
 import static ModoEdicion.VistaConstructor.referenciaMoverContinente;
 import static ModoEdicion.VistaConstructor.modoOn;
+import static ModoEdicion.VistaConstructor.eliminarContinente;
+import static ModoEdicion.VistaConstructor.referenciaContinenteEliminar;
 
 
 /**
@@ -75,6 +77,8 @@ public class ContenedorNodo extends javax.swing.JButton {
         }else if(modoMoverContinente){
             referenciaMoverContinente = this;
             modoOn = true;
+        }else if(eliminarContinente){
+            referenciaContinenteEliminar = this;
         }
         else {
             referenciaContinente = this;

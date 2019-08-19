@@ -212,5 +212,25 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.islas.put(contenedor, parametros);
         banderaGuardar = false;
     }
+    
+    public void eliminarArista(ContenedorNodoIsla isla){
+        for(AristaIsla a : this.marProfundo){
+            if(a.getOrigen().equals(isla) || 
+                    a.getDestino().equals(isla)){
+                this.marProfundo.remove(a);
+            }
+        }
+    }
+    
+    public void eliminarRectanguloColision(ContenedorNodoIsla isla){
+        for (Rectangle r: this.rectangulos) {
+            if(isla.getX() == r.x && isla.getY() == r.y){
+                this.rectangulos.remove(r);
+            }
+        }
+    }
+    public void eliminarContinente(ContenedorNodoIsla isla){
+        this.islas.remove(isla);
+    }
 
 }

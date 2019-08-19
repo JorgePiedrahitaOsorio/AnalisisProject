@@ -19,6 +19,8 @@ import static ModoEdicion.VistaConstructor.modoMoverIsla;
 import static ModoEdicion.VistaConstructor.modoOnIsla;
 import static ModoEdicion.VistaConstructor.referenciaIsla;
 import static ModoEdicion.VistaConstructor.referenciaMoverIsla;
+import static ModoEdicion.VistaConstructor.eliminarIsla;
+import static ModoEdicion.VistaConstructor.referenciaIslaEliminar;
 
 /**
  *
@@ -78,6 +80,8 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
         }else if(modoMoverIsla){
             referenciaMoverIsla = this;
             modoOnIsla = true;
+        }else if(eliminarIsla){
+            referenciaIslaEliminar = this;
         }
         else {
             referenciaIsla = this;
@@ -87,6 +91,10 @@ public class ContenedorNodoIsla extends javax.swing.JButton {
                 vista.setVisible(true);
             }
         }
+    }
+    
+    public void mover(int x, int y){
+        this.setBounds(x, y,this.width,this.height);
     }
 
     public void dibujarBorde() {
