@@ -9,6 +9,11 @@ package Clases;
  *
  * @author JORGE OSORIO
  */
-public class EsclavoViejo extends Esclavo{
-    
+public class EsclavoViejo extends Esclavo {
+
+    static final int HORASNAVEGACION = 2;
+
+    public EsclavoViejo() {
+        super(HORASNAVEGACION);
+    }
 }

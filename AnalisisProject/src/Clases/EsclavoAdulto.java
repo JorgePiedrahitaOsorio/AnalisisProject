@@ -11,8 +11,10 @@ package Clases;
  */
 public class EsclavoAdulto extends Esclavo {
 
+    static final int HORASNAVEGACION = 4;
+
     public EsclavoAdulto() {
-        super();
+        super(HORASNAVEGACION);
     }
 
 }

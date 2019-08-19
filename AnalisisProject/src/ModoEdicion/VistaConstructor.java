@@ -26,6 +26,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
         MouseMotionListener, Runnable, MouseListener {
 
     /**
+     * Variable que controla el ciclo de vida del hilo, esta bandera cambia de
+     * estado cuando el usuario selecciona la opcion "run" es decir deja de
+     * estar en modo edicion y pasa a mdoo simulacion
+     */
+    private boolean detener;
+    /**
      * toma el tamaño de la pantalla
      */
     private Dimension pantallaTamano;
@@ -150,12 +156,21 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private JMenu menuAñadir;
     private JMenu menuOpciones;
     private JMenuItem itemGuardar;
-    private JMenuItem itemEditar;
     private JMenuItem itemAñadirContinente;
     private JMenuItem itemAñadirIsla;
     private JMenuItem itemAñadirMar;
     private JMenuItem itemSimular;
     private JMenuItem itemAñadirMarIsla;
+    private JMenuItem itemEliminar;
+    private JMenuItem itemMover;
+    /**
+     * Se crea esta bandera para llevar el control de los item Editar y
+     * Eliminar, de este modo solo se habilitan cuando la cantidad de
+     * continentes o de islas es mayor a 0. Con esta bandera tambien se lleva el
+     * control de los textos que se encuentran dentro de los botones eliminar y
+     * editar, y se cambian por isla o continente respectivamente.
+     */
+    private boolean banderaItem;
 
     static {
         urlElemento = "";
@@ -182,6 +197,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
         iniciarComponentes();
         this.hilo = new Thread(this);
         this.contenedorDerecha.setVisible(false);
+        this.banderaItem = false;
+        this.detener = true;
         caracteristicasAuxContenedorImagen();
         this.CrearMenu();
         this.Start();
@@ -213,8 +230,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.AñadirItem(this.menuAñadir, this.itemAñadirContinente);
         this.AñadirItem(this.menuAñadir, this.itemAñadirMar = new JMenuItem("Añadir Mar Profundo", new ImageIcon(getClass().getResource("../Imagenes/IconoMar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemGuardar = new JMenuItem("Guardar", new ImageIcon(getClass().getResource("../Imagenes/IconoGuardar.png"))));
-        this.AñadirItem(this.menuOpciones, this.itemEditar = new JMenuItem("Editar", new ImageIcon(getClass().getResource("../Imagenes/IconoEditar.png"))));
         this.AñadirItem(this.menuOpciones, this.itemSimular = new JMenuItem("Run", new ImageIcon(getClass().getResource("../Imagenes/IconoSimular.png"))));
+        this.itemEliminar = new JMenuItem("Eliminar", new ImageIcon(getClass().getResource("../Imagenes/iconoEliminar.png")));
+        this.itemMover = new JMenuItem("Mover", new ImageIcon(getClass().getResource("../Imagenes/iconoMover.png")));
         this.CrearAccionesMenu();
     }
 
@@ -237,6 +255,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.itemGuardar.addActionListener((java.awt.event.ActionEvent evt) -> {
             GuardarAction(evt);
         });
+        this.itemEliminar.addActionListener((java.awt.event.ActionEvent evt) -> {
+            EliminarAction(evt);
+        });
+        this.itemMover.addActionListener((java.awt.event.ActionEvent evt) -> {
+            EditarAction(evt);
+        });
     }
 
     public void AñadirAlMenu(JMenu menu) {
@@ -245,6 +269,29 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     public void AñadirItem(JMenu menu, JMenuItem item) {
         menu.add(item);
+    }
+
+    private void EliminarAction(java.awt.event.ActionEvent evt) {
+        //Si la bandera item se encuentra en estado false, estamos en estado de eliminar o mover Continente
+        if (banderaItem) {
+            /**
+             * Willi implementa todo codigo aca
+             */
+        }
+        //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
+        //adicion o eliminacion de estos si los hashmaps estan vacion
+        
+    }
+
+    private void EditarAction(java.awt.event.ActionEvent evt) {
+        //Si la bandera item se encuentra en estado false, estamos en estado de eliminar o mover Continente
+        if (banderaItem) {
+            /**
+             * Willi implementa todo codigo aca
+             */
+        }
+        //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
+        //adicion o eliminacion de estos si los hashmaps estan vacion
     }
 
     private void AñadirContinenteAction(java.awt.event.ActionEvent evt) {
@@ -259,7 +306,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void GuardarAction(java.awt.event.ActionEvent evt) {
         /*
         Estas dos lineas siguientes son solo para pruebas de que si se puede deserializar el objeto
-        */
+         */
         Serializador serializador = new Serializador();
         serializador.ReadArchivo("../mapa1.txt");
 //        Serializar();
@@ -277,6 +324,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     private void SimularAction(java.awt.event.ActionEvent evt) {
         Simulación simulacion = new Simulación(Serializar());
         simulacion.setVisible(true);
+        this.detener = false;
         this.dispose();
     }
 
@@ -348,6 +396,35 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.menuAñadir.remove(this.itemAñadirMar);
         this.menuAñadir.add(this.itemAñadirIsla);
         this.menuAñadir.add(this.itemAñadirMarIsla);
+
+    }
+
+    private void CambiarItemsAñadirEliminar() {
+        if (contenedorPreContinente != null) {
+            if (banderaItem) {
+                if (this.contenedorPreContinente.islas.isEmpty()) {
+                    this.menuOpciones.remove(this.itemEliminar);
+                    this.menuOpciones.remove(this.itemMover);
+                } else {
+                    this.itemEliminar.setText("Eliminar Isla");
+                    this.menuOpciones.add(this.itemEliminar);
+                    this.itemMover.setText("Mover Isla");
+                    this.menuOpciones.add(this.itemMover);
+                }
+            }
+        }
+        if (!banderaItem) {
+            if (this.contenedorPremapa.islas.isEmpty()) {
+                this.menuOpciones.remove(this.itemEliminar);
+                this.menuOpciones.remove(this.itemMover);
+            } else {
+                this.itemEliminar.setText("Eliminar Continente");
+                this.menuOpciones.add(this.itemEliminar);
+                this.itemMover.setText("Mover Continente");
+                this.menuOpciones.add(this.itemMover);
+            }
+        }
+
     }
 
     private void CambiarItemsMenuContinente() {
@@ -355,6 +432,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.AñadirItem(menuAñadir, this.itemAñadirMar);
         this.menuAñadir.remove(this.itemAñadirIsla);
         this.menuAñadir.remove(this.itemAñadirMarIsla);
+
     }
 
     private void CambiarPanelHerramientasContinente() {
@@ -370,14 +448,15 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     @Override
     public void run() {
-        boolean detener = true;
         while (detener) {
             try {
+                CambiarItemsAñadirEliminar();
                 if (estadoEdicion || estadoEdicionIsla) {
                     this.setCursor(Cursor.HAND_CURSOR);
                 } else {
                     this.setCursor(Cursor.DEFAULT_CURSOR);
                 }
+
                 if (this.contenedorDerecha != null) {
                     this.contenedorDerecha.repaint();
                 }
@@ -393,13 +472,16 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     continenteClickeado = false;
                     this.cambioContenedorIzq();
                     CambiarItemsMenuIsla();
+                    this.banderaItem = true;
                 }
+
                 if (mundoClickeado) {
                     this.cambiarContenedorIzq();
                     this.CambiarPanelHerramientasContinente();
                     CambiarItemsMenuContinente();
                     estadoParametrizacionIsla = false;
                     mundoClickeado = false;
+                    this.banderaItem = false;
                 }
                 if (banderaGuardar) {
                     this.contenedorPreContinente.CambiarParametrizacion(referenciaIsla, pIslaReferencia);
