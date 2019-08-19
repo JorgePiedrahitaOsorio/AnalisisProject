@@ -83,11 +83,17 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     }
 
     public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml) {
-        System.out.println(continentes.getFirst().getRuta());
         continentes.forEach((c) -> {
-            this.islas.put(new ContenedorNodo(c.getRuta(), (int) c.getUbicacion().getX(), (int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()),
-                    new ContenedorPreContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto(), Mml, mL));
+            ContenedorNodo cn = new ContenedorNodo(c.getRuta(), c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto());
+            this.rectangulos.add(new Rectangle(c.getUbicacion().x, c.getUbicacion().y, 150, 150));
+            this.islas.put(cn, new ContenedorPreContinente(0, 0, this.width, this.heigth, Mml, mL));
+            agregarContinente(cn);
+            this.repaint();
         });
+    }
+
+    private void agregarContinente(ContenedorNodo c) {
+        this.add(c);
     }
 
     public void obtenerAristas(LinkedList<MarProfundo> mares) {
@@ -135,7 +141,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
         }
-        System.out.println(marProfundo.size());
+
         this.marProfundo.forEach((marAux) -> {
             dibujarAristas(marAux.getContinenteOrigen(), marAux.getContinenteDestino(), g);
         });

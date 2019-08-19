@@ -160,10 +160,10 @@ public class VistaConstructor extends javax.swing.JFrame implements
     //////
     public static boolean eliminarContinente;
     public static ContenedorNodo referenciaContinenteEliminar;
-    
+
     public static boolean eliminarIsla;
     public static ContenedorNodoIsla referenciaIslaEliminar;
-   ///////
+    ///////
     public static ParametrosIsla pIslaReferencia;
 
     private ContenedorPreContinente contenedorPreContinente;
@@ -247,6 +247,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void CargarPremapa() {
+        this.contenedorPremapa.obtenerContinentes(mundo.getNodos(), this, this);
         this.contenedorPremapa.obtenerAristas(mundo.getAristas());
         this.contenedorPremapa.obtenerContinentes(mundo.getNodos(), this, this);
     }
@@ -325,12 +326,12 @@ public class VistaConstructor extends javax.swing.JFrame implements
              * Willi implementa todo codigo aca
              */
             eliminarIsla = true;
-        }else{
+        } else {
             eliminarContinente = true;
         }
         //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
         //adicion o eliminacion de estos si los hashmaps estan vacion
-        
+
     }
 
     private void EditarAction(java.awt.event.ActionEvent evt) {
@@ -517,8 +518,8 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 if (this.contenedorIzquierda != null) {
                     this.contenedorIzquierda.repaint();
                 }
-                
-                if(this.contenedorPreContinente != null){
+
+                if (this.contenedorPreContinente != null) {
                     this.contenedorPreContinente.repaint();
                 }
                 /**
@@ -576,9 +577,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
                     referenciaContinenteIsla1 = null;
                     referenciaContinenteIsla2 = null;
                 }
-                
-                if(eliminarContinente){
-                    if(referenciaContinenteEliminar != null){
+
+                if (eliminarContinente) {
+                    if (referenciaContinenteEliminar != null) {
                         this.contenedorPremapa.eliminarArista(referenciaContinenteEliminar);
                         this.contenedorPremapa.eliminarContinente(referenciaContinenteEliminar);
                         this.contenedorPremapa.eliminarRectanguloColision(referenciaContinenteEliminar);
@@ -588,9 +589,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
                         this.contenedorPremapa.repaint();
                     }
                 }
-                
-                if(eliminarIsla){
-                    if(referenciaIslaEliminar != null){
+
+                if (eliminarIsla) {
+                    if (referenciaIslaEliminar != null) {
                         this.contenedorPreContinente.eliminarArista(referenciaIslaEliminar);
                         this.contenedorPreContinente.eliminarContinente(referenciaIslaEliminar);
                         this.contenedorPreContinente.eliminarRectanguloColision(referenciaIslaEliminar);
@@ -600,7 +601,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                         this.contenedorPreContinente.repaint();
                     }
                 }
-                
+
             } catch (InterruptedException ex) {
                 System.out.println("Todo es culpa de jorge!!!!");
             }
@@ -666,7 +667,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
             referenciaMoverContinente.setBounds(e.getX() + 25, e.getY() + 25,
                     referenciaMoverContinente.getWidth(), referenciaMoverContinente.getHeight());
             this.contenedorPremapa.repaint();
-        }else if (modoMoverIsla && modoOnIsla) {
+        } else if (modoMoverIsla && modoOnIsla) {
             referenciaMoverIsla.mover(e.getX() + 25, e.getY() + 25);
             this.contenedorPreContinente.repaint();
         }
