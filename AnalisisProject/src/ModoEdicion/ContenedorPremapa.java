@@ -6,7 +6,6 @@
 package ModoEdicion;
 
 import Clases.Continente;
-import Clases.Isla;
 import Clases.MarProfundo;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -171,6 +170,26 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     @Override
     public int getWidth() {
         return width;
+    }
+    
+    public void eliminarArista(ContenedorNodo continente){
+        for(Arista a : this.marProfundo){
+            if(a.getContinenteOrigen().equals(continente) || 
+                    a.getContinenteDestino().equals(continente)){
+                this.marProfundo.remove(a);
+            }
+        }
+    }
+    
+    public void eliminarRectanguloColision(ContenedorNodo continente){
+        for (Rectangle r: this.rectangulos) {
+            if(continente.getX() == r.x && continente.getY() == r.y){
+                this.rectangulos.remove(r);
+            }
+        }
+    }
+    public void eliminarContinente(ContenedorNodo continente){
+        this.islas.remove(continente);
     }
 
 }
