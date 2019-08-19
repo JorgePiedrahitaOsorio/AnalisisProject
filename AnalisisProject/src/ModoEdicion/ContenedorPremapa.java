@@ -81,23 +81,30 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         }
         return null;
     }
-    
-    public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml){
-        System.out.println(continentes.getFirst().getRuta());
-        continentes.forEach((c) -> { 
-            this.islas.put(new ContenedorNodo(c.getRuta(), (int)c.getUbicacion().getX(),(int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()), 
-                    new ContenedorPreContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto(), Mml, mL));
-        });    
+
+    public void obtenerContinentes(LinkedList<Continente> continentes, MouseListener mL, MouseMotionListener Mml) {
+        continentes.forEach((c) -> {
+            ContenedorNodo aux = new ContenedorNodo(c.getRuta(), c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto());
+            this.islas.put(aux, new ContenedorPreContinente(0, 0, this.width, this.heigth, Mml, mL));
+            agregarContinente(aux);
+            this.repaint();
+        });
     }
-    
-    public void obtenerAristas(LinkedList<MarProfundo> mares){ 
-        marProfundo.forEach((m) ->{
-            Arista arista = new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), m.getContinenteOrigen().getX(), 
-                    m.getContinenteOrigen().getY(), m.getContinenteOrigen().getWidth(),  m.getContinenteOrigen().getHeight()),  
-                    new ContenedorNodo(m.getContinenteDestino().getUrl(), m.getContinenteDestino().getX(), 
-                    m.getContinenteDestino().getY(), m.getContinenteDestino().getWidth(),  m.getContinenteDestino().getHeight()));
+
+    private void agregarContinente(ContenedorNodo c) {
+        this.add(c);
+    }
+
+    public void obtenerAristas(LinkedList<MarProfundo> mares) {
+        marProfundo.forEach((m) -> {
+            Arista arista = new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), m.getContinenteOrigen().getX(),
+                    m.getContinenteOrigen().getY(), m.getContinenteOrigen().getWidth(), m.getContinenteOrigen().getHeight()),
+                    new ContenedorNodo(m.getContinenteDestino().getUrl(), m.getContinenteDestino().getX(),
+                            m.getContinenteDestino().getY(), m.getContinenteDestino().getWidth(), m.getContinenteDestino().getHeight()));
             arista.setPeligrosidad(m.getPeligrosidad());
             this.marProfundo.add(arista);
+            repaint();
+            System.out.println("aristas " + this.marProfundo.size());
         });
     }
 
@@ -127,7 +134,7 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             g.setColor(color);
             g.drawRect(aux.x, aux.y, aux.width, aux.height);
         }
-        System.out.println(marProfundo.size());
+
         this.marProfundo.forEach((marAux) -> {
             dibujarAristas(marAux.getContinenteOrigen(), marAux.getContinenteDestino(), g);
         });
@@ -193,24 +200,25 @@ public class ContenedorPremapa extends javax.swing.JPanel {
     public int getWidth() {
         return width;
     }
-    
-    public void eliminarArista(ContenedorNodo continente){
-        for(Arista a : this.marProfundo){
-            if(a.getContinenteOrigen().equals(continente) || 
-                    a.getContinenteDestino().equals(continente)){
+
+    public void eliminarArista(ContenedorNodo continente) {
+        for (Arista a : this.marProfundo) {
+            if (a.getContinenteOrigen().equals(continente)
+                    || a.getContinenteDestino().equals(continente)) {
                 this.marProfundo.remove(a);
             }
         }
     }
-    
-    public void eliminarRectanguloColision(ContenedorNodo continente){
-        for (Rectangle r: this.rectangulos) {
-            if(continente.getX() == r.x && continente.getY() == r.y){
+
+    public void eliminarRectanguloColision(ContenedorNodo continente) {
+        for (Rectangle r : this.rectangulos) {
+            if (continente.getX() == r.x && continente.getY() == r.y) {
                 this.rectangulos.remove(r);
             }
         }
     }
-    public void eliminarContinente(ContenedorNodo continente){
+
+    public void eliminarContinente(ContenedorNodo continente) {
         this.islas.remove(continente);
     }
 
