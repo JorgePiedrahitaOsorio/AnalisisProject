@@ -6,7 +6,6 @@
 package ModoEdicion;
 
 import Clases.Continente;
-import Clases.Isla;
 import Clases.MarProfundo;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -79,6 +78,18 @@ public class ContenedorPremapa extends javax.swing.JPanel {
             }
         }
         return null;
+    }
+    
+    public void obtenerContinentes(LinkedList<Continente> continentes){
+        continentes.forEach((c) -> {
+            this.islas.put(new ContenedorNodo(c.getRuta(), (int)c.getUbicacion().getX(),(int) c.getUbicacion().getY(), c.getAncho(), c.getAlto()), null);
+        });    
+    }
+    
+    public void obtenerAristas(LinkedList<MarProfundo> mares){
+        marProfundo.forEach((m) ->{
+            //this.marProfundo.add(new Arista(new ContenedorNodo(m.getContinenteOrigen().getUrl(), x, y, WIDTH, HEIGHT), continenteDestino));
+        });
     }
 
     private int distancia(int x1, int x2, int y1, int y2) {

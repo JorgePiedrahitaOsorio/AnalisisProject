@@ -8,6 +8,7 @@ package Interfaces;
 import Clases.Mundo;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -41,6 +42,8 @@ public class Simulación extends javax.swing.JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setLayout(null);
         this.getContentPane().setBackground(Color.white);
+        this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
+        this.setTitle("MODO SIMULACION");
 
     }
 //    public static void main(String[] args) {

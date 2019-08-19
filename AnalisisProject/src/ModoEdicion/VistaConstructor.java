@@ -204,6 +204,17 @@ public class VistaConstructor extends javax.swing.JFrame implements
         this.Start();
     }
 
+    public VistaConstructor(Mundo mundo) {
+        iniciarComponentes();
+        this.hilo = new Thread(this);
+        this.contenedorDerecha.setVisible(false);
+        this.banderaItem = false;
+        this.detener = true;
+        caracteristicasAuxContenedorImagen();
+        this.CrearMenu();
+        this.Start();
+    }
+
     private void caracteristicasAuxContenedorImagen() {
         this.auxContenedorImagen = new ContenedorImagen("", 0, 0, 150, 150);
         this.auxContenedorImagen.eliminarEventoClick();
@@ -280,7 +291,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
         }
         //En el hilo esta el metodo cambiarItemAñadirEliminar() para poder realizar los cambios de txt de los botones, y la
         //adicion o eliminacion de estos si los hashmaps estan vacion
-        
+
     }
 
     private void EditarAction(java.awt.event.ActionEvent evt) {
@@ -343,7 +354,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void ConfiguracionesIniciales() {
-        this.setTitle("MAPA CONTINENTES");
+        this.setTitle("MODO EDICION");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -369,6 +380,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
 
     private void aspecto() {
         this.getContentPane().setBackground(Color.white);
+        this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
     }
 
     private void agregarLayout() {
