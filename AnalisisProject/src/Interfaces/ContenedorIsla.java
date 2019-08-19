@@ -14,12 +14,12 @@ import javax.swing.JLabel;
  *
  * @author Thebest
  */
-public class ContenedorContinente extends JLabel {
+public class ContenedorIsla extends JLabel{
 
     private int x, y, width, height;
     private String url;
 
-    public ContenedorContinente(int x, int y, int width, int height, String url) {
+    public ContenedorIsla(int x, int y, int width, int height, String url) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -29,7 +29,7 @@ public class ContenedorContinente extends JLabel {
     }
 
     private void caracteristicasVisuales() {
-        this.setBounds(x, y, width,height);
+        this.setBounds(x, y, width, height);
         this.setOpaque(false);
         agregarImagenFondo();
     }
@@ -44,5 +44,5 @@ public class ContenedorContinente extends JLabel {
             System.out.println("No agrego Fondo");
         }
     }
-
+    
 }

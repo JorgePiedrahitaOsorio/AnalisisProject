@@ -15,6 +15,13 @@ import javax.swing.ImageIcon;
  */
 public class Isla {
 
+    /**
+     * @return the numeroDeEstrellas
+     */
+    public int getNumeroDeEstrellas() {
+        return numeroDeEstrellas;
+    }
+
     private Point ubicacion;
     private int ancho;
     private int alto;
@@ -25,7 +32,8 @@ public class Isla {
     private int esclavosAdultos;
     private int esclavosViejos;
     private String nombreIsla;
-    private LinkedList<Estrella> estrellas;
+    private int numeroDeEstrellas;
+    private LinkedList<Esclavo> esclavos;
 
     public Isla(Point ubicacion, int ancho, int alto, String ruta, int tamañoTesoro, int esclavosJovenes, int esclavosAdultos, int esclavosViejos, String nombreIsla) {
         this.ubicacion = ubicacion;
@@ -38,7 +46,61 @@ public class Isla {
         this.esclavosAdultos = esclavosAdultos;
         this.esclavosViejos = esclavosViejos;
         this.nombreIsla = nombreIsla;
-        this.estrellas = new LinkedList<>();
+        this.numeroDeEstrellas = calcularEstrellas();
+        this.esclavos = new LinkedList<>();
+        crearEsclavos();
+    }
+    
+    private void crearEsclavos(){
+        for (int i = 0; i < this.esclavosJovenes; i++) {
+            this.esclavos.add(new EsclavoJoven());
+        }
+        for (int i = 0; i < this.esclavosViejos; i++) {
+            this.esclavos.add(new EsclavoViejo());
+        }
+        for (int i = 0; i < this.esclavosAdultos; i++) {
+            this.esclavos.add(new EsclavoAdulto());
+        }
+    }
+
+    private int calcularEstrellas() {
+        if (this.tamañoTesoro < 10) {
+            if (calcularPonderadoEsclavos() > 5) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else if (this.tamañoTesoro >= 10 && this.tamañoTesoro < 100) {
+            if (calcularPonderadoEsclavos() > 5) {
+                return 1;
+            } else {
+                return 0;
+            }
+
+        } else if (this.tamañoTesoro >= 100 && this.tamañoTesoro < 200) {
+            if (calcularPonderadoEsclavos() >= 5) {
+                return 1;
+            } else if (calcularPonderadoEsclavos() >= 15) {
+                return 2;
+            } else {
+                return 0;
+            }
+        } else {
+            if(calcularPonderadoEsclavos() >=5){
+                return 1;
+            }else if(calcularPonderadoEsclavos() >= 15){
+                return 2;
+            }else if(calcularPonderadoEsclavos() >= 30){
+                return 30;
+            }
+        }
+        return 0;
+    }
+
+    private int calcularPonderadoEsclavos() {
+        double adultos = this.esclavosAdultos * 0.75;
+        double viejos = this.esclavosViejos * 0.5;
+        return this.esclavosJovenes + (int) adultos + (int) viejos;
     }
 
     /**
@@ -167,19 +229,7 @@ public class Isla {
         this.nombreIsla = nombreIsla;
     }
 
-    /**
-     * @return the estrellas
-     */
-    public LinkedList<Estrella> getEstrellas() {
-        return estrellas;
-    }
-
-    /**
-     * @param estrellas the estrellas to set
-     */
-    public void setEstrellas(LinkedList<Estrella> estrellas) {
-        this.estrellas = estrellas;
-    }
+   
 
     /**
      * @return the ruta

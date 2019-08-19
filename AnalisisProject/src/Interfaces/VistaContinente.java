@@ -5,31 +5,30 @@
  */
 package Interfaces;
 
-import Clases.Continente;
-import Clases.MarProfundo;
+import Clases.Isla;
+import Clases.Mar;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.LinkedList;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Thebest
  */
-public class VistaMundo extends javax.swing.JPanel {
+public class VistaContinente extends JPanel {
 
     private int x, y, width, height;
-    private LinkedList<Continente> continentes;
-    private LinkedList<MarProfundo> maresProfundos;
-    private Image imgFondo;
+    private LinkedList<Isla> islas;
+    private LinkedList<Mar> mares;
 
-    public VistaMundo(int x, int y, int width, int height, LinkedList<Continente> continentes, LinkedList<MarProfundo> maresProfundos) {
+    public VistaContinente(int x, int y, int width, int height, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.continentes = continentes;
-        this.maresProfundos = maresProfundos;
+        this.islas = islas;
+        this.mares = mares;
         caracteristicasVisuales();
         colocarContinentes();
     }
@@ -41,30 +40,28 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     private void colocarContinentes() {
-        for (Continente c : continentes) {
-            this.add(new ContenedorContinente(c.getUbicacion().x,c.getUbicacion().y,c.getAncho(),
-                    c.getAlto(),c.getRuta()));
+        for (Isla i : this.islas) {
+            this.add(new ContenedorIsla(i.getUbicacion().x, i.getUbicacion().y,
+                    i.getAncho(), i.getAlto(), i.getRuta()));
         }
     }
     
-
-    @Override
+     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.maresProfundos.forEach((m) -> {
-            colocarMaresProfundos(g,m.getOrigen(),m.getDestino());
+        this.mares.forEach((m) -> {
+            colocarMares(g,m.getOrigen(),m.getDestino());
         });
         repaint();
     }
 
-
-    private void colocarMaresProfundos(Graphics g, Continente origen, Continente destino) {
+    private void colocarMares(Graphics g, Isla origen, Isla destino) {
         if (origen.getUbicacion().x < destino.getUbicacion().x) {
             g.drawLine(origen.getUbicacion().x + origen.getAncho() / 2,
                     origen.getUbicacion().y + origen.getAlto() / 2, destino.getUbicacion().x
                     + destino.getAncho() / 2, destino.getUbicacion().y + destino.getAlto() / 2);
         } else {
-             g.drawLine(destino.getUbicacion().x + destino.getAncho() / 2,
+            g.drawLine(destino.getUbicacion().x + destino.getAncho() / 2,
                     destino.getUbicacion().y + destino.getAlto() / 2, origen.getUbicacion().x
                     + origen.getAncho() / 2, origen.getUbicacion().y + origen.getAlto() / 2);
         }
