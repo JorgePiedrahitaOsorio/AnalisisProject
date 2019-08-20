@@ -38,11 +38,11 @@ public class VistaMundo extends javax.swing.JPanel {
     private Image imgFondo;
     private JButton barcoSearch;
     private final HashMap<String, String> rutasImagenes;
-    
-    private Grafo grafo;        
-    private HashMap<Integer,LinkedList<Nodo>> gruposContinentes;        
+
+    private Grafo grafo;
+    private HashMap<Integer, LinkedList<Nodo>> gruposContinentes;
     private int idContinente;
-    
+
     private Isla islaActual;
     private int continenactual;
 
@@ -67,7 +67,7 @@ public class VistaMundo extends javax.swing.JPanel {
         this.setBounds(getX(), getY(), getWidth(), getHeight());
         this.setLayout(null);
         this.setBackground(new Color(0, 205, 199));
-        
+
     }
 
     private void colocarContinentes() {
@@ -78,60 +78,86 @@ public class VistaMundo extends javax.swing.JPanel {
             idContinente++;
             crearNodos(c);
         });
+        idContinente = 0;
         crearAristasDesdeMaresProfundo();
+//        grafo.traerNodos(enviarListNodos());
+//        grafo.llenarAdyacencias();
     }
-    
-    private void crearNodos(Continente c){
-        LinkedList<Nodo>aux = new LinkedList<>();
-        for (Isla i: c.getIslas()) {
-            aux.add(new Nodo(i,c.getId()));
+
+    private LinkedList<Nodo> enviarListNodos() {
+        LinkedList<Nodo> aux = new LinkedList<>();
+        for (int i : this.gruposContinentes.keySet()) {
+            for (Nodo j : this.gruposContinentes.get(i)) {
+                aux.add(j);
+            }
         }
-        this.gruposContinentes.put(c.getId(),aux);
-        
-        crearAristas(aux,c);
-        
+        return aux;
+    }
+
+    private void crearNodos(Continente c) {
+        LinkedList<Nodo> aux = new LinkedList<>();
+        for (Isla i : c.getIslas()) {
+            aux.add(new Nodo(i, c.getId()));
+        }
+        this.gruposContinentes.put(c.getId(), aux);
+
+        crearAristas(aux, c);
+
         generarNodoPuerta(aux);
     }
-    
-    private void crearAristas(LinkedList<Nodo> nodos,Continente c){
-        for (Mar m: c.getMares()) {
-            Nodo[] aux = buscarNodos(m.getOrigen(),m.getDestino(), nodos);
-            this.grafo.addAristaGrafo(new AristaGrafo(aux[0],aux[1],m.getPeso()));
+
+    private void crearAristas(LinkedList<Nodo> nodos, Continente c) {
+        for (Mar m : c.getMares()) {
+            Nodo[] aux = buscarNodos(m.getOrigen(), m.getDestino(), nodos);
+            this.grafo.addAristaGrafo(new AristaGrafo(aux[0], aux[1], m.getPeso()));
         }
     }
-    
-    private void crearAristasDesdeMaresProfundo(){
+
+    private void crearAristasDesdeMaresProfundo() {
+        System.out.println("tamaño table:" + this.gruposContinentes.size());
+        for (int i : this.gruposContinentes.keySet()) {
+            System.out.println("key:" + i);
+        }
         for (MarProfundo m : this.maresProfundos) {
-            grafo.addAristaGrafo(new AristaGrafo(BuscarNodoPuerta(m.getOrigen().getId())
-                    ,BuscarNodoPuerta(m.getDestino().getId()),m.getPeso()));
+            System.out.println("llave1:" + m.getOrigen().getId());
+            System.out.println("llav2:" + m.getDestino().getId());
+            grafo.addAristaGrafo(new AristaGrafo(BuscarNodoPuerta(m.getOrigen().getId()),
+                     BuscarNodoPuerta(m.getDestino().getId()), m.getPeso()));
         }
     }
-    
-    private Nodo[] buscarNodos(Isla i1, Isla i2,LinkedList<Nodo> nodos){
+
+    private Nodo[] buscarNodos(Isla i1, Isla i2, LinkedList<Nodo> nodos) {
         Nodo[] aux = new Nodo[2];
-        for(Nodo i : nodos) {
-            if(i.isla.equals(i1)){
+        for (Nodo i : nodos) {
+            if (i.isla.equals(i1)) {
                 aux[0] = i;
-            }else if(i.isla.equals(i2)){
+            } else if (i.isla.equals(i2)) {
                 aux[1] = i;
             }
         }
         return aux;
     }
-    
-    private Nodo BuscarNodoPuerta(int c){
-        for (Nodo i: this.gruposContinentes.get(c)) {
-            if(i.getIsDoor()){
+
+    private Nodo BuscarNodoPuerta(int c) {
+        for (Nodo i : this.gruposContinentes.get(c)) {
+            System.out.println(i.getIsDoor());
+            if (i.getIsDoor()) {
                 return i;
             }
         }
         return null;
     }
-    
-    private void generarNodoPuerta(LinkedList<Nodo> nodos){
-        nodos.get((int)(Math.random()*nodos.size() - 1)).trueIsDoor();
+
+    private void generarNodoPuerta(LinkedList<Nodo> nodos) {
+        int num = -100;
+        try {
+            num = (int) (Math.random() * nodos.size() - 1);
+            nodos.get(num).trueIsDoor();
+        } catch (Exception e) {
+            System.out.println("numE: " + num);
+        }
+
     }
-    
 
     private String rutaImagencontinente(String rutaSepia) {
         return this.rutasImagenes.get(rutaSepia);
