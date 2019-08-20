@@ -84,7 +84,6 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
             Isla isla1 = getIsla(arista.getOrigen().getX(), arista.getOrigen().getY());
             Isla isla2 = getIsla(arista.getDestino().getX(), arista.getDestino().getY());
             int distancia = distancia(arista.getOrigen().getX(), arista.getOrigen().getY(), arista.getDestino().getX(), arista.getDestino().getY());
-            System.out.println(distancia);
             mares.add(new Mar(isla1, isla2, arista.getPeligrosidad(), distancia));
         });
         return mares;

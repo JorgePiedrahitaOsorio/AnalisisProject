@@ -23,18 +23,33 @@ public class VistaSeleccionModoSimulacion extends javax.swing.JFrame {
         this.Configuraciones();
     }
 
-    public VistaSeleccionModoSimulacion(int opcionSimulacion) {
-        initComponents();
-        this.Configuraciones();
-    }
-
     private void Configuraciones() {
         this.setTitle("MODO ELECCION");
         this.setAlwaysOnTop(true);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
+    }
+
+    public void OpcionSeleccionada() {
+
+        if (this.btnMBatallas.isSelected()) {
+            opcionSimulacion = 1;
+        } else if (this.btnMRutaHorasNav.isSelected()) {
+            opcionSimulacion = 2;
+        } else if (this.btnMRutasGanacias.isSelected()) {
+            opcionSimulacion = 3;
+        } else if (this.btnRecorrerTodo.isSelected()) {
+            opcionSimulacion = 4;
+        } else if (this.btnRmasCorta.isSelected()) {
+            opcionSimulacion = 5;
+        } else if (this.btnRmasCostosa.isSelected()) {
+            opcionSimulacion = 6;
+        } else {
+            opcionSimulacion = 7;
+        }
+        this.dispose();
     }
 
     /**
@@ -209,22 +224,7 @@ public class VistaSeleccionModoSimulacion extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         if (this.buttonGroup1.getSelection() != null) {
-            if (this.btnMBatallas.isSelected()) {
-                opcionSimulacion = 1;
-            } else if (this.btnMRutaHorasNav.isSelected()) {
-                opcionSimulacion = 2;
-            } else if (this.btnMRutasGanacias.isSelected()) {
-                opcionSimulacion = 3;
-            } else if (this.btnRecorrerTodo.isSelected()) {
-                opcionSimulacion = 4;
-            } else if (this.btnRmasCorta.isSelected()) {
-                opcionSimulacion = 5;
-            } else if (this.btnRmasCostosa.isSelected()) {
-                opcionSimulacion = 6;
-            } else {
-                opcionSimulacion = 7;
-            }
-            this.dispose();
+            OpcionSeleccionada();
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un modo de Simulacion", "ERROR!!", JOptionPane.ERROR_MESSAGE, null);
         }

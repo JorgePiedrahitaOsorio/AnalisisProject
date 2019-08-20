@@ -27,11 +27,15 @@ public class Inicio extends javax.swing.JFrame {
      */
     public static int opcionSimulacion;
 
+    static {
+        opcionSimulacion = 0;
+    }
+
     public Inicio() {
         initComponents();
         this.Configuraciones();
         this.CambiarCursorBotones();
-        opcionSimulacion = 0;
+
     }
 
     private void Configuraciones() {
@@ -196,6 +200,8 @@ public class Inicio extends javax.swing.JFrame {
         int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
         if (seleccion == selectorArchivo.getApproveButtonMnemonic()) {
             Serializador serializador = new Serializador();
+            VistaSeleccionModoSimulacion vs = new VistaSeleccionModoSimulacion();
+            vs.setVisible(true);
             Simulación simulacion = new Simulación(serializador.ReadArchivo(selectorArchivo.getSelectedFile().getPath()), opcionSimulacion);
             simulacion.setVisible(true);
             this.dispose();

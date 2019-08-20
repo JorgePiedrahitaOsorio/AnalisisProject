@@ -129,7 +129,7 @@ public class VistaMundo extends javax.swing.JPanel {
     }
     
     private void generarNodoPuerta(LinkedList<Nodo> nodos){
-        nodos.get((int)(Math.random()*nodos.size() - 1)).trueIsDoor();
+       // nodos.get((int)(Math.random()*nodos.size())).trueIsDoor();
     }
     
 
