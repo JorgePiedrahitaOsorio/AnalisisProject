@@ -17,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static Interfaces.Inicio.opcionSimulacion;
 
 /**
  *
@@ -376,19 +377,26 @@ public class VistaConstructor extends javax.swing.JFrame implements
     }
 
     private void SimularAction(java.awt.event.ActionEvent evt) {
-        Simulación simulacion = new Simulación(Serializar());
-        simulacion.setVisible(true);
-        this.detener = false;
-        this.dispose();
+        VistaSeleccionModoSimulacion vSeleccion = new VistaSeleccionModoSimulacion();
+        vSeleccion.setVisible(true);
+
+
     }
 
     private Mundo Serializar() {
-        Mundo mundo = new Mundo();
-        mundo.setNodos(contenedorPremapa.getContinentes());
-        mundo.setAristas(contenedorPremapa.getMares());
+        Mundo mun = new Mundo();
+        mun.setNodos(contenedorPremapa.getContinentes());
+        mun.setAristas(contenedorPremapa.getMares());
         Serializador serializador = new Serializador();
-        serializador.WriteJSON(mundo);
-        return mundo;
+        serializador.WriteJSON(mun);
+        return mun;
+    }
+    
+    public void Simular(){
+        Simulación simulacion = new Simulación(Serializar(), opcionSimulacion);
+        simulacion.setVisible(true);
+        this.detener = false;
+        this.dispose();
     }
 
     private Dimension tamañoPantalla() {
@@ -600,6 +608,9 @@ public class VistaConstructor extends javax.swing.JFrame implements
                         referenciaIslaEliminar = null;
                         this.contenedorPreContinente.repaint();
                     }
+                }
+                if(opcionSimulacion!=0){
+                    Simular();
                 }
 
             } catch (InterruptedException ex) {

@@ -7,12 +7,13 @@ package Interfaces;
 
 import ModoEdicion.Serializador;
 import ModoEdicion.VistaConstructor;
+import ModoEdicion.VistaSeleccionModoSimulacion;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+
 import javax.swing.UIManager;
 
 /**
@@ -24,10 +25,17 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    public static int opcionSimulacion;
+
+    static {
+        opcionSimulacion = 0;
+    }
+
     public Inicio() {
         initComponents();
         this.Configuraciones();
         this.CambiarCursorBotones();
+
     }
 
     private void Configuraciones() {
@@ -192,7 +200,9 @@ public class Inicio extends javax.swing.JFrame {
         int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
         if (seleccion == selectorArchivo.getApproveButtonMnemonic()) {
             Serializador serializador = new Serializador();
-            Simulación simulacion = new Simulación(serializador.ReadArchivo(selectorArchivo.getSelectedFile().getPath()));
+            VistaSeleccionModoSimulacion vs = new VistaSeleccionModoSimulacion();
+            vs.setVisible(true);
+            Simulación simulacion = new Simulación(serializador.ReadArchivo(selectorArchivo.getSelectedFile().getPath()), opcionSimulacion);
             simulacion.setVisible(true);
             this.dispose();
         } else {
@@ -202,7 +212,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCargarMapaActionPerformed
 
     private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
-        JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
+        //JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
+        VistaSeleccionModoSimulacion vSeleccion = new VistaSeleccionModoSimulacion();
+        vSeleccion.setVisible(true);
     }//GEN-LAST:event_btnInstruccionesActionPerformed
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed

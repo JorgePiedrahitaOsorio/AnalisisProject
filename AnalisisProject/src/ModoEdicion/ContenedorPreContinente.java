@@ -92,8 +92,44 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
     private int distancia(int x1, int x2, int y1, int y2) {
         return (int) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
-    
-    
+
+    public void obtenerIslas(LinkedList<Isla> islas) {
+        islas.forEach((isla) -> {
+            ContenedorNodoIsla cnI = new ContenedorNodoIsla(isla.getRuta(), isla.getUbicacion().x, isla.getUbicacion().y, isla.getAncho(), isla.getAncho());
+            this.rectangulos.add(new Rectangle(isla.getUbicacion().x, isla.getUbicacion().y, isla.getAncho(), isla.getAncho()));
+            agregarIsla(cnI);
+            ParametrosIsla pI = new ParametrosIsla(isla.getTamañoTesoro(), isla.getEsclavosJovenes(), isla.getEsclavosAdultos(),
+                    isla.getEsclavosViejos(), isla.getNombreIsla());
+            this.islas.put(cnI, pI);
+            this.repaint();
+        });
+
+    }
+
+    public void obtenerMares(LinkedList<Mar> mares) {
+        mares.stream().map((mar) -> {
+            ContenedorNodoIsla cO = obtenerContenedorIsla(mar.getOrigen().getUbicacion().x, mar.getOrigen().getUbicacion().y);
+            ContenedorNodoIsla cD = obtenerContenedorIsla(mar.getDestino().getUbicacion().x, mar.getDestino().getUbicacion().y);
+            AristaIsla arista = new AristaIsla(cO, cD);
+            arista.setPeligrosidad(mar.getPeligrosidad());
+            return arista;
+        }).forEachOrdered((arista) -> {
+            this.marProfundo.add(arista);
+        });
+    }
+
+    public ContenedorNodoIsla obtenerContenedorIsla(int x, int y) {
+        for (ContenedorNodoIsla cnI : this.islas.keySet()) {
+            if (cnI.getX() == x && cnI.getY() == y) {
+                return cnI;
+            }
+        }
+        return null;
+    }
+
+    private void agregarIsla(ContenedorNodoIsla cnI) {
+        this.add(cnI);
+    }
 
     private Isla getIsla(int x, int y) {
         LinkedList<Isla> islasbuscar = this.getIslas();
@@ -211,24 +247,25 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.islas.put(contenedor, parametros);
         banderaGuardar = false;
     }
-    
-    public void eliminarArista(ContenedorNodoIsla isla){
-        for(AristaIsla a : this.marProfundo){
-            if(a.getOrigen().equals(isla) || 
-                    a.getDestino().equals(isla)){
+
+    public void eliminarArista(ContenedorNodoIsla isla) {
+        for (AristaIsla a : this.marProfundo) {
+            if (a.getOrigen().equals(isla)
+                    || a.getDestino().equals(isla)) {
                 this.marProfundo.remove(a);
             }
         }
     }
-    
-    public void eliminarRectanguloColision(ContenedorNodoIsla isla){
-        for (Rectangle r: this.rectangulos) {
-            if(isla.getX() == r.x && isla.getY() == r.y){
+
+    public void eliminarRectanguloColision(ContenedorNodoIsla isla) {
+        for (Rectangle r : this.rectangulos) {
+            if (isla.getX() == r.x && isla.getY() == r.y) {
                 this.rectangulos.remove(r);
             }
         }
     }
-    public void eliminarContinente(ContenedorNodoIsla isla){
+
+    public void eliminarContinente(ContenedorNodoIsla isla) {
         this.islas.remove(isla);
     }
 

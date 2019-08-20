@@ -25,10 +25,12 @@ public class Simulación extends javax.swing.JFrame {
     JPanel VistaMundo;
     JPanel PanelInformativo;
     Mundo mundo;
+    private final int opcionSimulacion;
 
-    public Simulación(Mundo m) {
+    public Simulación(Mundo m, int opcionSimulacion) {
         panelIzquierda = new JPanel();
         panelDerecha = new JPanel();
+        this.opcionSimulacion = opcionSimulacion;
         this.mundo = m;
         caracteristicasVisuales();
         this.agregarPaneles();

@@ -86,7 +86,10 @@ public class ContenedorPremapa extends javax.swing.JPanel {
         continentes.forEach((c) -> {
             ContenedorNodo cn = new ContenedorNodo(c.getRuta(), c.getUbicacion().x, c.getUbicacion().y, c.getAncho(), c.getAlto());
             this.rectangulos.add(new Rectangle(c.getUbicacion().x, c.getUbicacion().y, 150, 150));
-            this.islas.put(cn, new ContenedorPreContinente(0, 0, this.width, this.heigth, Mml, mL));
+            ContenedorPreContinente cpC = new ContenedorPreContinente(0, 0, this.width, this.heigth, Mml, mL);
+            cpC.obtenerIslas(c.getIslas());
+            cpC.obtenerMares(c.getMares());
+            this.islas.put(cn, cpC);
             agregarContinente(cn);
             this.repaint();
         });
