@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que almacena la informacion logica de las aristas entre islas
+ * @author William Vasquez y Jorge Osorio
  */
 public class Mar {
     private Isla origen;
@@ -16,6 +11,13 @@ public class Mar {
     private int peso;
     private int distancia;
     
+    /**
+     * constructor que instancia una objeto de tipo mar
+     * @param origen isla origen de la arista
+     * @param destino isla detsino de la arista
+     * @param peligrosidad porcentaje de peligrosidad que tiene el hacer uso de la arista
+     * @param distancia distacia entre la isla de origen y la destino
+     */
     public Mar(Isla origen, Isla destino, int peligrosidad, int distancia){
         this.origen = origen;
         this.destino = destino;

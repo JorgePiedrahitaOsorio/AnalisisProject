@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que tiene el barco que dibujaremos y navegara durante la simulacion
+ * @author william Vasquez y Jorge Osorio
+ * @version 1.1
  */
 public class BarcoJugador implements Runnable{
 
@@ -22,6 +18,13 @@ public class BarcoJugador implements Runnable{
     private ImageIcon imagen;
     private LinkedList<Esclavo> esclavos;
 
+    /**
+     * constructor que instancia un barco 
+     * @param x posicion x del barco en algun lienzo
+     * @param y posicion y del barco en algun lienzo
+     * @param ancho ancho del barco
+     * @param alto alto del barco
+     */
     public BarcoJugador(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -31,6 +34,9 @@ public class BarcoJugador implements Runnable{
         this.calcularHorasNavegacion();
     }
 
+    /**
+     * metodo que calcula las horas de navegacion que tiene actualmente el barco
+     */
     private void calcularHorasNavegacion() {
         this.esclavos.forEach((esclavo) -> {
             this.horasNavegacion += esclavo.getHorasNavegacion();

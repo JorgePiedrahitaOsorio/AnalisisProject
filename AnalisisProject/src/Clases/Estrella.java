@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que almacena la informacion logica de la estrella
+ * @author Wlliam Vasquez y Jorge Osorio
+ * @version  1.0
  */
 public class Estrella implements Runnable {
 
@@ -25,6 +21,13 @@ public class Estrella implements Runnable {
     public Estrella() {
     }
 
+    /**
+     * Constructor que instacia un objeto del tipo estrella
+     * @param x  posicion en x de la estrella
+     * @param y posicion en y de la estrella
+     * @param ancho ancho de la estrella
+     * @param alto alto de la estrella
+     */
     public Estrella(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -37,10 +40,16 @@ public class Estrella implements Runnable {
         this.Start();
     }
 
+    /**
+     * metodo que inicia la ejecucion del hilo
+     */
     private void Start() {
         this.hilo.start();
     }
 
+    /**
+     * metodo que agrega las rutas de las imagenes para animar la estrella
+     */
     private void RutasImagenEstrella() {
         this.rutas.add("../Imagenes/estrella1.png");
         this.rutas.add("../Imagenes/estrella2.png");
@@ -50,6 +59,9 @@ public class Estrella implements Runnable {
         this.rutas.add("../Imagenes/estrella6.png");
     }
 
+    /**
+     * implementacion de la interfaz runnable donde ejecutamos la animacion del hilo
+     */
     @Override
     public void run() {
         int i = 1;

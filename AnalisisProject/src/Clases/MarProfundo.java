@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que guarda la informacion logica de la arista entre continentes
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.1
  */
 public class MarProfundo {
 
@@ -17,6 +13,13 @@ public class MarProfundo {
     private int peso;
     private int distancia;
     
+    /**
+     * Cosntructor que instancia un objeto marprofundo
+     * @param origen contiene el continente origen de la arista
+     * @param destino contiene el continente destino de la arista
+     * @param peligrosidad porcentaje de peligrosidad de la ruta
+     * @param distancia distancia entre el continente origen y continente destino
+     */
     public MarProfundo(Continente origen, Continente destino, int peligrosidad, int distancia){
         this.origen = origen;
         this.destino = destino;

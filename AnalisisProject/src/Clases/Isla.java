@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 import java.awt.Point;
@@ -10,8 +5,9 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que almacena la información lógica de las islas
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.0
  */
 public class Isla {
 
@@ -28,6 +24,18 @@ public class Isla {
     private int numeroDeEstrellas;
     private final LinkedList<Esclavo> esclavos;
 
+    /**
+     * constructor que insatcia un objeto del tipo isla
+     * @param ubicacion ubicacion d ela isla en x y y en el plano
+     * @param ancho ancho de la isla
+     * @param alto alto de la isla
+     * @param ruta caden aque representa la ruta de la imagen
+     * @param tamañoTesoro tamaño del tesoro de la isla
+     * @param esclavosJovenes cantidad de esclavos jovenes a crear
+     * @param esclavosAdultos cantidad de esclavos adultos a crear
+     * @param esclavosViejos cantidad de esclavos viejos a crear
+     * @param nombreIsla  cadena que representa el nombre de la isla
+     */
     public Isla(Point ubicacion, int ancho, int alto, String ruta, int tamañoTesoro, int esclavosJovenes, int esclavosAdultos, int esclavosViejos, String nombreIsla) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;

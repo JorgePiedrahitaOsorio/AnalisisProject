@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 import java.awt.Point;
@@ -10,8 +5,9 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author JORGE OSORIO
+ * clase que contiene la informacion logica de los continentes
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.1
  */
 public class Continente {
 
@@ -24,6 +20,15 @@ public class Continente {
     private LinkedList<Mar> mares;
     private int id;
 
+    /**
+     * constructor que instancia un objeto de la case continente 
+     * @param ubicacion ubicacion x y y del continente
+     * @param ancho ancho del continente
+     * @param alto alto del continente
+     * @param ruta cadena que representa la ruta de la imagen
+     * @param islas lista de islas que posee el continente
+     * @param mares lista de aristas entre islas que poseen el continente
+     */
     public Continente(Point ubicacion, int ancho, int alto, String ruta, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.ubicacion = ubicacion;
         this.ancho = ancho;

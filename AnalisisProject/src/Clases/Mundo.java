@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Clases;
 
 import java.util.LinkedList;
 
 /**
- *
+ * clase que almacena la informacion logica del mundo
  * @author JORGE OSORIO
  */
 public class Mundo {
@@ -16,15 +11,27 @@ public class Mundo {
     private LinkedList<Continente> nodos;
     private LinkedList<MarProfundo> aristas;
 
+    /**
+     * instacia un objeto del tipo mundo
+     */
     public Mundo() {
         this.nodos = new LinkedList<>();
         this.aristas = new LinkedList<>();
     }
     
+    /**
+     * metodo para agregar continente a la lista nodos
+     * @param continente continente a agregar
+     */
+    
     public void addContinente(Continente continente){
         this.nodos.add(continente);
     }
     
+    /**
+     * metodo para agregar aristas de continentes a la lista de aristas
+     * @param marProfundo arista a  agregar
+     */
     public void addArista(MarProfundo marProfundo){
         this.aristas.add(marProfundo);
     }
