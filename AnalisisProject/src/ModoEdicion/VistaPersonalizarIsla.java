@@ -10,16 +10,16 @@ import static ModoEdicion.ContenedorNodoIsla.abrir;
 import static ModoEdicion.VistaConstructor.pIslaReferencia;
 
 /**
- *
+ * @author TheBest (William)
  * @author JORGE OSORIO
  */
 public class VistaPersonalizarIsla extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VistaPersonalizarIsla
-     */
     private ContenedorHerramientaPersonalizarIsla contenedor;
 
+    /**
+     * Crea un nuevo formulario VistaPersonalizarIsla
+     */
     public VistaPersonalizarIsla() {
         initComponents();
         Configuraciones();
@@ -27,11 +27,22 @@ public class VistaPersonalizarIsla extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Agrega un panel de tipo ContenedorHerramientaPersonalizarIsla, este me
+     * permite tener acceso a una lista de campos que se deben llenar al momento
+     * de parametrizar una isla, es decir, agregar los atributos que esa isla
+     * debe tener
+     */
     private void AñadirPanel() {
         this.contenedor = new ContenedorHerramientaPersonalizarIsla(0, 0, this.getWidth(), this.getHeight(), pIslaReferencia);
         this.add(this.contenedor);
     }
 
+    /**
+     * Se encarga de añadir algunas configuraciones visuakes y logicas, tales
+     * como el nombre, posicion o la accion a realizar al momento de colapsar la
+     * ventana
+     */
     private void Configuraciones() {
         this.setResizable(false);
         this.setLocationRelativeTo(null);

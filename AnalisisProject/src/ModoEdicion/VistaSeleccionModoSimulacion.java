@@ -10,19 +10,24 @@ import javax.swing.JOptionPane;
 import static Interfaces.Inicio.opcionSimulacion;
 
 /**
- *
+ * @author TheBest (William)
  * @author JORGE OSORIO
  */
 public class VistaSeleccionModoSimulacion extends javax.swing.JFrame {
 
     /**
-     * Creates new form VistaSeleccionModoSimulacion
+     * Crea un nuevo form VistaSeleccionModoSimulacion
      */
     public VistaSeleccionModoSimulacion() {
         initComponents();
         this.Configuraciones();
     }
 
+    /**
+     * Se encarga de añadir algunas configuraciones visuakes y logicas, tales
+     * como el nombre, posicion o la accion a realizar al momento de colapsar la
+     * ventana
+     */
     private void Configuraciones() {
         this.setTitle("MODO ELECCION");
         this.setAlwaysOnTop(true);
@@ -32,6 +37,11 @@ public class VistaSeleccionModoSimulacion extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
     }
 
+    /**
+     * Este metodo se encarga de cambiar el valor de la varible estatica
+     * dependiendo de que boton del botton group fue pulsado, y por ultimo
+     * cierra la ventana
+     */
     public void OpcionSeleccionada() {
 
         if (this.btnMBatallas.isSelected()) {
@@ -220,7 +230,13 @@ public class VistaSeleccionModoSimulacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Es el metodo asociado a la accion generada por pulsar el boton aceptar,en
+     * este se valida que se escogiera una de las opciones de simulacion, de lo
+     * contrario el usuario es notificado con una señal de error
+     *
+     * @param evt evento por la accion de pulsar el boton aceptar
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         if (this.buttonGroup1.getSelection() != null) {

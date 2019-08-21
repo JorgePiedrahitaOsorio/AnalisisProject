@@ -7,7 +7,8 @@ package ModoEdicion;
 
 /**
  *
- * @author Thebest
+ * @author Thebest (William)
+ * @author JORGE OSORIO
  */
 public class ParametrosIsla {
 
@@ -87,6 +88,20 @@ public class ParametrosIsla {
     private int esclavosViejos;
     private String nombreIsla;
 
+    /**
+     * La clase Parametros isla contendra toda la informacion de la isla
+     * ingresada por el usuario en el modo de edicion
+     *
+     * @param tamañoTesoro indica la cantidad de monedas que contendra el tesoro
+     * de la isla
+     * @param esclavosJovenes indica la cantidad de esclavosJovenes que
+     * contendra la isla
+     * @param esclavosAdultos indica la cantidad de esclavosAdultos que
+     * contendra la isla
+     * @param esclavosViejos indica la cantidad de esclavosViejos que contendra
+     * la isla
+     * @param nombreIsla indica el nombre que tendra la isla
+     */
     public ParametrosIsla(int tamañoTesoro, int esclavosJovenes, int esclavosAdultos,
             int esclavosViejos, String nombreIsla) {
 
@@ -97,6 +112,12 @@ public class ParametrosIsla {
         this.nombreIsla = nombreIsla;
     }
 
+    /**
+     * El constructor por defecto de la clase ParametrosIsla incializa las
+     * variables de la clase en 0, para el caso de las variables enteras y como
+     * vacio las varibles de tipo texto, esto con el fin de permitir al usuario
+     * no llenar ningun campo al momento de la parametrizacion
+     */
     public ParametrosIsla() {
         this.tamañoTesoro = 0;
         this.esclavosJovenes = 0;

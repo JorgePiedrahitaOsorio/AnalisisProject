@@ -10,19 +10,32 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * @author TheBest (William)
  * @author JORGE OSORIO
  */
 public class PanelVistaSeleccion extends javax.swing.JPanel {
 
     private ImageIcon imgFondo;
 
+    /**
+     * La clase PanelVistaSeleccion que hereda de la clase Jpanel, se encarga de
+     * pintar una imagen, esta imagen sera el fondo que se utilizara en la clase
+     * VistaModoSimualacionSeleccion
+     */
     public PanelVistaSeleccion() {
         initComponents();
         this.setBackground(Color.WHITE);
         colocarImgFondo();
     }
 
+    /**
+     * El metodo colocarImgFondo, es invocado en el constructor de la clase
+     * actual. Instancia la variable imgFondo, que contendra una imagen con la
+     * ruta estatica proporcionada dentro de dicho metodo. Cuenta ademas con un
+     * try catch, el cual al momento de presentar alguna excepcion, mostrara un
+     * mensaje por pantalla indicando que el fondo de esta clase no pudo ser
+     * colocado ademas de cual fue la excepcion que provoco lo anterior
+     */
     private void colocarImgFondo() {
         try {
             this.imgFondo = new ImageIcon(getClass().getResource("../Imagenes/BannerInicio.jpg"));
@@ -31,6 +44,15 @@ public class PanelVistaSeleccion extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Metodo paintComponent propio de la clase JPanel, permite pintar la imagen
+     * cargada a travea del metodo colocarImgFondo, ademas de repintar
+     * constantemente la pantalla para refrescar los cambios generados
+     *
+     * @param g Propio de java y su libreria Graphics,se encarga de pintar la
+     * imagen, a partir del metodo propio drawImage que recibe como parametro la
+     * imagen que se desea dibujar su posicion en x, y ademas de un ancho y alto
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import Clases.Estrella;
 import Clases.Isla;
 import Clases.Mar;
 import java.awt.Color;
@@ -21,6 +22,7 @@ public class VistaContinente extends JPanel {
     private int x, y, width, height;
     private LinkedList<Isla> islas;
     private LinkedList<Mar> mares;
+    private LinkedList<Estrella> estrellas;
 
     public VistaContinente(int x, int y, int width, int height, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.x = x;
@@ -29,8 +31,10 @@ public class VistaContinente extends JPanel {
         this.height = height;
         this.islas = islas;
         this.mares = mares;
+        this.estrellas = new LinkedList<>();
         caracteristicasVisuales();
         colocarContinentes();
+        colocarEstrellas();
     }
 
     private void caracteristicasVisuales() {
@@ -45,14 +49,55 @@ public class VistaContinente extends JPanel {
                     i.getAncho(), i.getAlto(), i.getRuta()));
         }
     }
-    
-     @Override
+
+    private void colocarEstrellas() {
+        for (Isla isla : this.islas) {
+            for (int i = 0; i < isla.getNumeroDeEstrellas(); i++) {
+                switch (isla.getNumeroDeEstrellas()) {
+                    case 0:
+                        break;
+                    case 1:
+                        this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y, 20, 20));
+                        break;
+                    case 2:
+                        if (i == 0) {
+                            this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y - 30, 20, 20));
+                        } else {
+                            this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y + 20, 20, 20));
+                        }
+                        break;
+                    default:
+                        switch (i) {
+                            case 0:
+                                this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y - 30, 20, 20));
+                                break;
+                            case 1:
+                                this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y - 10, 20, 20));
+                                break;
+                            default:
+                                this.estrellas.add(new Estrella(isla.getUbicacion().x - 65, isla.getUbicacion().y + 30, 20, 20));
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.mares.forEach((m) -> {
-            colocarMares(g,m.getOrigen(),m.getDestino());
+            colocarMares(g, m.getOrigen(), m.getDestino());
+        });
+        this.estrellas.forEach((estrella) -> {
+            dibujarEstrella(g, estrella);
         });
         repaint();
+    }
+
+    private void dibujarEstrella(Graphics g, Estrella estrella) {
+        g.drawImage(estrella.getImagen().getImage(), estrella.getX(), estrella.getY(), estrella.getAncho(), estrella.getAlto(), this);
     }
 
     private void colocarMares(Graphics g, Isla origen, Isla destino) {

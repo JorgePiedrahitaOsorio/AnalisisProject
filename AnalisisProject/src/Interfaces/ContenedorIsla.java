@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author Thebest
  */
-public class ContenedorIsla extends JLabel{
+public class ContenedorIsla extends JLabel {
 
     private int x, y, width, height;
     private String url;
@@ -44,5 +44,4 @@ public class ContenedorIsla extends JLabel{
             System.out.println("No agrego Fondo");
         }
     }
-    
 }

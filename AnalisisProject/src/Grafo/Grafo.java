@@ -26,6 +26,7 @@ public class Grafo {
         for (Nodo n : this.listaNodos) {
             this.listaAdyacencias.put(n,buscarAdyacencias(n));
         }
+        imprimirListaDeAdyacencias();
     }
     
     private LinkedList<Tupla> buscarAdyacencias(Nodo n){
@@ -48,5 +49,14 @@ public class Grafo {
         this.listaNodos = list;
     }
     
+    private void imprimirListaDeAdyacencias(){
+        for (Nodo n : this.listaAdyacencias.keySet()) {
+            System.out.print("Raiz: " + n.toString());
+            for(Tupla i : this.listaAdyacencias.get(n)){
+                System.out.print(" peso: " + i.peso + " nodo: " + i.adyacente.toString());
+            }
+            System.out.println("");
+        }
+    }
     
 }
