@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModoEdicion;
 
 import Clases.Isla;
@@ -23,8 +18,9 @@ import static ModoEdicion.VistaConstructor.banderaGuardar;
 import java.awt.Point;
 
 /**
- *
- * @author Thebest
+ *Clase que sirve de lienzo para la ubicacion de las islas 
+ * @author Wiliam Vasquez y Jorge Osorio
+ * @version 4.7
  */
 public class ContenedorPreContinente extends javax.swing.JPanel {
 
@@ -43,6 +39,15 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
 
     protected LinkedList<AristaIsla> marProfundo;
 
+    /**
+     * constructor para la instanciacion del panel ContenedorPreContinente
+     * @param x posicion en x sobre la Vnetana VistaContrsuctor
+     * @param y Posicion en y sobre la ventana vistaconstructor
+     * @param width ancho del lienzo
+     * @param heigth alto del lienzo
+     * @param MouseMotion implementacion d ela interfaz mousemotion
+     * @param MouseListener implementacion d ela interfaz mousemotionlistener
+     */
     public ContenedorPreContinente(int x, int y, int width, int heigth, MouseMotionListener MouseMotion, MouseListener MouseListener) {
         this.x = x;
         this.y = y;
@@ -59,6 +64,9 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         iniciarComponentes();
     }
 
+    /**
+     * Metodo que carga los componentes basicos del lienzo
+     */
     private void iniciarComponentes() {
         aspecto();
         tamaño();
@@ -67,6 +75,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         AñadirBotonMundo();
     }
 
+    /**
+     * metodo para la descerializacion 
+     * @return una lista de islas
+     */
     public LinkedList<Isla> getIslas() {
         LinkedList<Isla> isla = new LinkedList<>();
         this.islas.keySet().forEach((contenedor) -> {
@@ -78,6 +90,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return isla;
     }
 
+    /**
+     * metodo para la descerializacion 
+     * @return una lista de mares o aristas entre islas
+     */
     public LinkedList<Mar> getMar() {
         LinkedList<Mar> mares = new LinkedList<>();
         this.marProfundo.forEach((arista) -> {
@@ -89,10 +105,22 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return mares;
     }
 
+    /**
+     * metodo que calcula la distancia entre una isla y otra, osea la arista
+     * @param x1 posicion en x  de la primera isla
+     * @param x2 posicion en x de la segunda isla
+     * @param y1 posicion en y d ela primera isla
+     * @param y2 posicion en y de la segunda isla
+     * @return el valor correspondiente a la distancia entre las dos islas
+     */
     private int distancia(int x1, int x2, int y1, int y2) {
         return (int) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
+    /**
+     * metodo usado para la descerializacion 
+     * @param islas lista de islas 
+     */
     public void obtenerIslas(LinkedList<Isla> islas) {
         islas.forEach((isla) -> {
             ContenedorNodoIsla cnI = new ContenedorNodoIsla(isla.getRuta(), isla.getUbicacion().x, isla.getUbicacion().y, isla.getAncho(), isla.getAncho());
@@ -106,6 +134,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
 
     }
 
+    /**
+     * metodo usado para la descerializacion
+     * @param mares lista de mares o aristas entre islas
+     */
     public void obtenerMares(LinkedList<Mar> mares) {
         mares.stream().map((mar) -> {
             ContenedorNodoIsla cO = obtenerContenedorIsla(mar.getOrigen().getUbicacion().x, mar.getOrigen().getUbicacion().y);
@@ -118,6 +150,12 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         });
     }
 
+    /**
+     * metodo usado para la descerializacion
+     * @param x posicion en x de la isla
+     * @param y posicion en y de la isla
+     * @return un obejto de ContenedorNodoIsla que simula una isla
+     */
     public ContenedorNodoIsla obtenerContenedorIsla(int x, int y) {
         for (ContenedorNodoIsla cnI : this.islas.keySet()) {
             if (cnI.getX() == x && cnI.getY() == y) {
@@ -127,10 +165,20 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return null;
     }
 
+    /**
+     * agrega una isla al lienzo 
+     * @param cnI objeto contenedornodoisla que simula una isla
+     */
     private void agregarIsla(ContenedorNodoIsla cnI) {
         this.add(cnI);
     }
 
+    /**
+     * metodo usado para la descerializacion, devuelve una isla
+     * @param x posicion en x de la isla
+     * @param y posicion en y de la isla
+     * @return una isla
+     */
     private Isla getIsla(int x, int y) {
         LinkedList<Isla> islasbuscar = this.getIslas();
         for (Isla isla : islasbuscar) {
@@ -141,18 +189,30 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return null;
     }
 
+    /**
+     * metodo que le da el tamaño al lienzo
+     */
     private void tamaño() {
         this.setBounds(x, y, getWidth(), heigth);
     }
 
+    /**
+     * metodo que le agrega un layout al lienzo
+     */
     private void agregarLayout() {
         this.setLayout(null);
     }
 
+    /**
+     * metodo que le agrega un color al lienzo
+     */
     private void aspecto() {
         this.setBackground(Color.BLACK);
     }
 
+    /**
+     * metodo que le agrega una imagen de fondo al lienzo
+     */
     private void AgregarFondo() {
         try {
             this.imagenFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo3.jpg"));
@@ -169,12 +229,22 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return width;
     }
 
+    /**
+     * metodo que se encarga de dibujar las aristas de las islas
+     * @param origen isla origen 
+     * @param destino isla destino
+     * @param g implementacion del object graphics para dibujar
+     */
     private void dibujarAristas(ContenedorNodoIsla origen, ContenedorNodoIsla destino, Graphics g) {
         g.setColor(Color.WHITE);
         g.drawLine(origen.getX() + origen.getWidth() / 2, origen.getY() + origen.getHeight() / 2,
                 destino.getX() + destino.getWidth() / 2, destino.getY() + destino.getHeight() / 2);
     }
 
+    /**
+     * metodo implementado de paintcomponent
+     * @param g 
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
@@ -190,6 +260,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         repaint();
     }
 
+    /**
+     * añadimos un boton que nos ayuda a navegar entre los paneles de continentes
+     * e islas
+     */
     private void AñadirBotonMundo() {
         ImageIcon icono = new ImageIcon(getClass().getResource("../Imagenes/IconoMundo.png"));
         Icon iconoEscalado = new ImageIcon(icono.getImage().getScaledInstance(80,
@@ -205,10 +279,21 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         });
     }
 
+    /**
+     * accion que realiza en boton del mundo que nos permite navegar entre los paneles
+     * de continentes e islas
+     * @param evt instancia accion event 
+     */
     private void AccionBotonMundo(java.awt.event.ActionEvent evt) {
         mundoClickeado = true;
     }
 
+    /**
+     * Dibuja los rectangulos para saber si la isla a coocar va a colisionar o no
+     * @param x pisicion en x de la isla
+     * @param y posicion en y de la isla
+     * @return true si el objeto colisiona
+     */
     public boolean DibujarRectangulos(int x, int y) {
         if (this.colocarIsla) {
             if (NoColisiona(new Rectangle(x, y, 150, 150))) {
@@ -220,10 +305,20 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         return false;
     }
 
+    /**
+     * metodo que nos devuelve si la isla a ubicar va a colisionar
+     * @param aux rectangulo que va a ser comparado
+     * @return retorna true si colisiona la isla
+     */
     private boolean NoColisiona(Rectangle aux) {
         return this.rectangulos.stream().noneMatch((r) -> r.intersects(aux));
     }
 
+    /**
+     * metodo que dibuja el rectangulo en el lienzo segun si colisiona o no
+     * @param x posicion en x del rectangulo
+     * @param y posicion en y del rectagulo
+     */
     public void DibujarRectanguloVerdeRojo(int x, int y) {
         if (this.colocarIsla) {
             this.aux = new Rectangle(x, y, 150, 150);
@@ -242,12 +337,21 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         this.colocarIsla = colocarIsla;
     }
 
+    /**
+     * Cambia la parametrizacion de la isla dado que se guardaron cambios nuevos
+     * @param contenedor isla que ha sido modificada que es la llave
+     * @param parametros objeto que va a cambiar los parametros viejos
+     */
     public void CambiarParametrizacion(ContenedorNodoIsla contenedor, ParametrosIsla parametros) {
         this.islas.remove(contenedor);
         this.islas.put(contenedor, parametros);
         banderaGuardar = false;
     }
 
+    /**
+     * metodo que elimina las aristas relacionadas con la isla eliminada
+     * @param isla isla que ha sido eliminada
+     */
     public void eliminarArista(ContenedorNodoIsla isla) {
         for (AristaIsla a : this.marProfundo) {
             if (a.getOrigen().equals(isla)
@@ -257,6 +361,11 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Elimina el rectangulo que verificaba la colision de la isla a insertar sobre 
+     * la isla existente
+     * @param isla isla que ha sido eliminada
+     */
     public void eliminarRectanguloColision(ContenedorNodoIsla isla) {
         for (Rectangle r : this.rectangulos) {
             if (isla.getX() == r.x && isla.getY() == r.y) {
@@ -265,6 +374,10 @@ public class ContenedorPreContinente extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Elimina la referencia de la isla guardada en el lienzo
+     * @param isla isla que a sido eliminada 
+     */
     public void eliminarContinente(ContenedorNodoIsla isla) {
         this.islas.remove(isla);
     }
