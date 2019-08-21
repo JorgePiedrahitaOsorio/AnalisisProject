@@ -54,9 +54,9 @@ public class VistaMundo extends javax.swing.JPanel {
         this.continentes = continentes;
         this.maresProfundos = maresProfundos;
         this.rutasImagenes = new HashMap<>();
+        this.gruposContinentes = new HashMap<>();
         this.idContinente = 1;
         this.grafo = new Grafo();
-        this.gruposContinentes = new HashMap<>();
         llenarRutasHashMap();
         caracteristicasVisuales();
         colocarContinentes();
@@ -78,7 +78,7 @@ public class VistaMundo extends javax.swing.JPanel {
             idContinente++;
             crearNodos(c);
         });
-        idContinente = 0;
+        //idContinente = 0;
         crearAristasDesdeMaresProfundo();
 //        grafo.traerNodos(enviarListNodos());
 //        grafo.llenarAdyacencias();
@@ -100,10 +100,9 @@ public class VistaMundo extends javax.swing.JPanel {
             aux.add(new Nodo(i, c.getId()));
         }
         this.gruposContinentes.put(c.getId(), aux);
-
-        crearAristas(aux, c);
-
         generarNodoPuerta(aux);
+        crearAristas(aux, c);
+      
     }
 
     private void crearAristas(LinkedList<Nodo> nodos, Continente c) {
@@ -122,7 +121,7 @@ public class VistaMundo extends javax.swing.JPanel {
             System.out.println("llave1:" + m.getOrigen().getId());
             System.out.println("llav2:" + m.getDestino().getId());
             grafo.addAristaGrafo(new AristaGrafo(BuscarNodoPuerta(m.getOrigen().getId()),
-                     BuscarNodoPuerta(m.getDestino().getId()), m.getPeso()));
+                    BuscarNodoPuerta(m.getDestino().getId()), m.getPeso()));
         }
     }
 
@@ -137,9 +136,10 @@ public class VistaMundo extends javax.swing.JPanel {
         }
         return aux;
     }
-
+   
     private Nodo BuscarNodoPuerta(int c) {
-        for (Nodo i : this.gruposContinentes.get(c)) {
+        //Si se cambia este valor de c a 1 ya funciona, no entiendo porque sigue existiendo el valor de 0, igual nunca entra al ciclo
+        for (Nodo i : this.gruposContinentes.get(1)) {
             System.out.println(i.getIsDoor());
             if (i.getIsDoor()) {
                 return i;
@@ -151,7 +151,7 @@ public class VistaMundo extends javax.swing.JPanel {
     private void generarNodoPuerta(LinkedList<Nodo> nodos) {
         int num = -100;
         try {
-            num = (int) (Math.random() * nodos.size() - 1);
+            num = (int) (Math.random() * nodos.size());
             nodos.get(num).trueIsDoor();
         } catch (Exception e) {
             System.out.println("numE: " + num);
@@ -178,16 +178,25 @@ public class VistaMundo extends javax.swing.JPanel {
         repaint();
     }
 
-    private void colocarMaresProfundos(Graphics g, Continente origen, Continente destino) {
-        if (origen.getUbicacion().x < destino.getUbicacion().x) {
-            g.drawLine(origen.getUbicacion().x + origen.getAncho() / 2,
-                    origen.getUbicacion().y + origen.getAlto() / 2, destino.getUbicacion().x
-                    + destino.getAncho() / 2, destino.getUbicacion().y + destino.getAlto() / 2);
+    private void colocarMaresProfundos(Graphics g, Continente ori, Continente dest) {
+        if (ori.getUbicacion().x < dest.getUbicacion().x) {
+            g.drawLine(ori.getUbicacion().x + ori.getAncho() / 2,
+                    ori.getUbicacion().y + ori.getAlto() / 2, dest.getUbicacion().x
+                    + dest.getAncho() / 2, dest.getUbicacion().y + dest.getAlto() / 2);
         } else {
-            g.drawLine(destino.getUbicacion().x + destino.getAncho() / 2,
-                    destino.getUbicacion().y + destino.getAlto() / 2, origen.getUbicacion().x
-                    + origen.getAncho() / 2, origen.getUbicacion().y + origen.getAlto() / 2);
+            g.drawLine(dest.getUbicacion().x + dest.getAncho() / 2,
+                    dest.getUbicacion().y + dest.getAlto() / 2, ori.getUbicacion().x
+                    + ori.getAncho() / 2, ori.getUbicacion().y + ori.getAlto() / 2);
         }
+    }
+
+    private Continente buscarContinente(int x, int y) {
+        for (Continente c : this.continentes) {
+            if (c.getUbicacion().x == x && c.getUbicacion().y == y) {
+                return c;
+            }
+        }
+        return null;
     }
 
     private void AñadirBotonSearchBarco() {
