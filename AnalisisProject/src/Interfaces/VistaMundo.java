@@ -43,6 +43,7 @@ public class VistaMundo extends javax.swing.JPanel {
     private HashMap<Integer, LinkedList<Nodo>> gruposContinentes;
     private int idContinente;
 
+    public HashMap<Integer, VistaContinente> panelesContinentes;
     private Isla islaActual;
     private int continenactual;
 
@@ -57,17 +58,19 @@ public class VistaMundo extends javax.swing.JPanel {
         this.idContinente = 1;
         this.grafo = new Grafo();
         this.gruposContinentes = new HashMap<>();
+        this.panelesContinentes = new HashMap<>();
         llenarRutasHashMap();
         caracteristicasVisuales();
         colocarContinentes();
         AñadirBotonSearchBarco();
+        CrearPanelesVistaContinente();
+        seleccionarPrimerIslaYcontinente();
     }
 
     private void caracteristicasVisuales() {
         this.setBounds(getX(), getY(), getWidth(), getHeight());
         this.setLayout(null);
         this.setBackground(new Color(0, 205, 199));
-
     }
 
     private void colocarContinentes() {
@@ -126,16 +129,16 @@ public class VistaMundo extends javax.swing.JPanel {
             }
         }
     }
-    
-    private void corregirReferenciasMares(){
+
+    private void corregirReferenciasMares() {
         for (Continente c : this.continentes) {
             for (Isla i : c.getIslas()) {
                 for (Mar m : c.getMares()) {
-                    if(m.getOrigen().getUbicacion().x == i.getUbicacion().x &&
-                            m.getOrigen().getUbicacion().y == i.getUbicacion().y){
+                    if (m.getOrigen().getUbicacion().x == i.getUbicacion().x
+                            && m.getOrigen().getUbicacion().y == i.getUbicacion().y) {
                         m.setOrigen(i);
-                    }else if(m.getDestino().getUbicacion().x == i.getUbicacion().x &&
-                            m.getDestino().getUbicacion().y == i.getUbicacion().y){
+                    } else if (m.getDestino().getUbicacion().x == i.getUbicacion().x
+                            && m.getDestino().getUbicacion().y == i.getUbicacion().y) {
                         m.setDestino(i);
                     }
                 }
@@ -232,6 +235,46 @@ public class VistaMundo extends javax.swing.JPanel {
 
     private void barcoSearchAction(java.awt.event.ActionEvent evt) {
         System.out.println("No estoy Implementado, IMPLEMENTAME!!!");
+    }
+    
+    private void CrearPanelesVistaContinente(){
+        for (Continente c : this.continentes) {
+            this.panelesContinentes.put(c.getId(),new VistaContinente(this.x,this.y,
+                    this.width,this.height,c.getIslas(),c.getMares()));
+        }
+    }
+    
+    private void seleccionarPrimerIslaYcontinente(){
+        Continente aux = continenteMasIzquierda();
+        this.continenactual = aux.getId();
+        this.islaActual = islaMasIzquierda(aux);
+    }
+    
+    private Isla islaMasIzquierda(Continente c){
+        int x = Integer.MAX_VALUE;
+        Isla r = null;
+        for (Isla i : c.getIslas()) {
+            if(i.getUbicacion().x < x){
+                x = i.getUbicacion().x;
+                r = i;
+            }
+        }
+        return r;
+    }
+    private Continente continenteMasIzquierda(){
+        int x = Integer.MAX_VALUE;
+        Continente r = null;
+        for (Continente c : this.continentes) {
+            if(c.getUbicacion().x < x){
+                x = c.getUbicacion().x;
+                r = c;
+            }
+        }
+        return r;
+    }
+    
+    private void cambiarVistaMundoAVistaContinente(){
+        
     }
 
     /**

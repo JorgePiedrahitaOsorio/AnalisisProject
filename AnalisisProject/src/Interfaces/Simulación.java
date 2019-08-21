@@ -48,11 +48,6 @@ public class Simulación extends javax.swing.JFrame {
         this.setTitle("MODO SIMULACION");
 
     }
-//    public static void main(String[] args) {
-//        Simulación s  = new Simulación();
-//        s.setVisible(true);
-//    }
-//    
 
     private void agregarPaneles() {
         this.VistaMundo = new VistaMundo(5, 5, Toolkit.getDefaultToolkit().getScreenSize().width - 205,
