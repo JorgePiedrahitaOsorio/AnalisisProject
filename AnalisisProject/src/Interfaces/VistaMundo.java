@@ -71,6 +71,8 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     private void colocarContinentes() {
+        corregirReferenciasMaresProfundos();
+        corregirReferenciasMares();
         continentes.forEach((c) -> {
             this.add(new ContenedorContinente(c.getUbicacion().x, c.getUbicacion().y, c.getAncho(),
                     c.getAlto(), rutaImagencontinente(c.getRuta())));
@@ -80,8 +82,8 @@ public class VistaMundo extends javax.swing.JPanel {
         });
         idContinente = 0;
         crearAristasDesdeMaresProfundo();
-//        grafo.traerNodos(enviarListNodos());
-//        grafo.llenarAdyacencias();
+        grafo.traerNodos(enviarListNodos());
+        grafo.llenarAdyacencias();
     }
 
     private LinkedList<Nodo> enviarListNodos() {
@@ -100,9 +102,7 @@ public class VistaMundo extends javax.swing.JPanel {
             aux.add(new Nodo(i, c.getId()));
         }
         this.gruposContinentes.put(c.getId(), aux);
-
         crearAristas(aux, c);
-
         generarNodoPuerta(aux);
     }
 
@@ -113,16 +113,42 @@ public class VistaMundo extends javax.swing.JPanel {
         }
     }
 
+    private void corregirReferenciasMaresProfundos() {
+        for (Continente c : this.continentes) {
+            for (MarProfundo m : this.maresProfundos) {
+                if (m.getOrigen().getUbicacion().x == c.getUbicacion().x
+                        && m.getOrigen().getUbicacion().y == c.getUbicacion().y) {
+                    m.setOrigen(c);
+                } else if (m.getDestino().getUbicacion().x == c.getUbicacion().x
+                        && m.getDestino().getUbicacion().y == c.getUbicacion().y) {
+                    m.setDestino(c);
+                }
+            }
+        }
+    }
+    
+    private void corregirReferenciasMares(){
+        for (Continente c : this.continentes) {
+            for (Isla i : c.getIslas()) {
+                for (Mar m : c.getMares()) {
+                    if(m.getOrigen().getUbicacion().x == i.getUbicacion().x &&
+                            m.getOrigen().getUbicacion().y == i.getUbicacion().y){
+                        m.setOrigen(i);
+                    }else if(m.getDestino().getUbicacion().x == i.getUbicacion().x &&
+                            m.getDestino().getUbicacion().y == i.getUbicacion().y){
+                        m.setDestino(i);
+                    }
+                }
+            }
+        }
+    }
+
     private void crearAristasDesdeMaresProfundo() {
-        System.out.println("tamaño table:" + this.gruposContinentes.size());
         for (int i : this.gruposContinentes.keySet()) {
-            System.out.println("key:" + i);
         }
         for (MarProfundo m : this.maresProfundos) {
-            System.out.println("llave1:" + m.getOrigen().getId());
-            System.out.println("llav2:" + m.getDestino().getId());
             grafo.addAristaGrafo(new AristaGrafo(BuscarNodoPuerta(m.getOrigen().getId()),
-                     BuscarNodoPuerta(m.getDestino().getId()), m.getPeso()));
+                    BuscarNodoPuerta(m.getDestino().getId()), m.getPeso()));
         }
     }
 
@@ -154,7 +180,6 @@ public class VistaMundo extends javax.swing.JPanel {
             num = (int) (Math.random() * nodos.size() - 1);
             nodos.get(num).trueIsDoor();
         } catch (Exception e) {
-            System.out.println("numE: " + num);
         }
 
     }
