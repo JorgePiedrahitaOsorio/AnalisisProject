@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Grafo;
 
 import Clases.Isla;
 
 /**
- *
- * @author Thebest
+ * clase celula del grafo 
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.0
  */
 public class Nodo {
     
@@ -17,6 +13,11 @@ public class Nodo {
     public int idContinente;
     private boolean isDoor;
     
+    /**
+     * Cosntructor de la clase que crea un nuevo nodo
+     * @param i isla que referencia 
+     * @param id referencia del continente al que pertenece
+     */
     public Nodo(Isla i, int id){
         this.isla = i;
         this.idContinente = id;

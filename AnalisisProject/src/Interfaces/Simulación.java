@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import Clases.Mundo;
@@ -12,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
+ * clase que se encarga de crear la simulacion de un mapa previamente construido
  * @author Thebest
  */
 public class Simulación extends javax.swing.JFrame {
@@ -27,6 +22,11 @@ public class Simulación extends javax.swing.JFrame {
     Mundo mundo;
     private final int opcionSimulacion;
 
+    /**
+     * constructor que crea una simulacion a partir de un mundo y de una opcion a simular
+     * @param m mundo serializado
+     * @param opcionSimulacion tipo de simulacion o metodologia a abordar
+     */
     public Simulación(Mundo m, int opcionSimulacion) {
         panelIzquierda = new JPanel();
         panelDerecha = new JPanel();
@@ -36,6 +36,9 @@ public class Simulación extends javax.swing.JFrame {
         this.agregarPaneles();
     }
 
+    /**
+     * caracteristicas visuales de la ventana simulacion
+     */
     private void caracteristicasVisuales() {
         this.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width,
                 Toolkit.getDefaultToolkit().getScreenSize().height);
@@ -49,6 +52,10 @@ public class Simulación extends javax.swing.JFrame {
 
     }
 
+    /**
+     * agrega los paneles de derecha y de izquierda pa el inicio de la simulacion
+     */
+    
     private void agregarPaneles() {
         this.VistaMundo = new VistaMundo(5, 5, Toolkit.getDefaultToolkit().getScreenSize().width - 205,
                 Toolkit.getDefaultToolkit().getScreenSize().height, mundo.getNodos(), mundo.getAristas());

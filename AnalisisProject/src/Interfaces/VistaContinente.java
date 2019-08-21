@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import Clases.Estrella;
@@ -14,8 +9,10 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Thebest
+ * clase que es el lienzo para dibujar a los nodos o islas que hacen parte de un
+ * continente
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.0
  */
 public class VistaContinente extends JPanel {
 
@@ -24,6 +21,16 @@ public class VistaContinente extends JPanel {
     private LinkedList<Mar> mares;
     private LinkedList<Estrella> estrellas;
 
+    /**
+     * constructor que recibe ademas de los parametros basico para la contruccion 
+     * del lienzo, tambien recibe una lista de islas y de mares
+     * @param x posicion en x del lienzo en la vista
+     * @param y posicion en y del lienzo en la vista
+     * @param width ancho del lienzo
+     * @param height alto del lienzo
+     * @param islas lista de islas tomadas tras la serializacion
+     * @param mares lista de mares tomados tras la serializacion
+     */
     public VistaContinente(int x, int y, int width, int height, LinkedList<Isla> islas, LinkedList<Mar> mares) {
         this.x = x;
         this.y = y;
@@ -37,12 +44,18 @@ public class VistaContinente extends JPanel {
         colocarEstrellas();
     }
 
+    /**
+     * metodo que implemente las caracteristicas visuales basicas del lienzo
+     */
     private void caracteristicasVisuales() {
         this.setBounds(x, y, width, height);
         this.setLayout(null);
         this.setBackground(new Color(0, 205, 199));
     }
 
+    /**
+     * metodo que se encarga de colocar las islas en el lienzo
+     */
     private void colocarContinentes() {
         for (Isla i : this.islas) {
             this.add(new ContenedorIsla(i.getUbicacion().x, i.getUbicacion().y,
@@ -50,6 +63,9 @@ public class VistaContinente extends JPanel {
         }
     }
 
+    /**
+     * metodo que se encarga de colocar las estrellas para cada isla en el lienzo
+     */
     private void colocarEstrellas() {
         for (Isla isla : this.islas) {
             for (int i = 0; i < isla.getNumeroDeEstrellas(); i++) {
@@ -84,6 +100,10 @@ public class VistaContinente extends JPanel {
         }
     }
 
+    /**
+     * sobreescritura del metodo paintcomponent propio de java
+     * @param g instacia del objeto graphics
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -96,10 +116,21 @@ public class VistaContinente extends JPanel {
         repaint();
     }
 
+    /**
+     * metodo que se encarga de dibujar la estrella de en el lienzo
+     * @param g instancia de la clase graphics 
+     * @param estrella estrella la cual va hacer dibujada en el lienzo
+     */
     private void dibujarEstrella(Graphics g, Estrella estrella) {
         g.drawImage(estrella.getImagen().getImage(), estrella.getX(), estrella.getY(), estrella.getAncho(), estrella.getAlto(), this);
     }
 
+    /**
+     * metodo que se encarga de dibujar las aristas de los mares en el lienzo
+     * @param g instacia d ela clase graphics de java
+     * @param origen isla origen 
+     * @param destino isla destino
+     */
     private void colocarMares(Graphics g, Isla origen, Isla destino) {
         if (origen.getUbicacion().x < destino.getUbicacion().x) {
             g.drawLine(origen.getUbicacion().x + origen.getAncho() / 2,

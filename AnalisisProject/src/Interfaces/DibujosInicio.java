@@ -1,26 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import Clases.Sonido;
 /**
- *
- * @author JORGE OSORIO
+ * clase que funciona como lienzo para la presentación de la interfaz de inicio 
+ * del proyecto
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.0
  */
 public class DibujosInicio extends javax.swing.JPanel {
 
     Sonido audio;
+    /**
+     * Constructor que instancia el panel para la interfaz de inicio, el cual trae
+     * consigo una imagen y un sonido
+     */
     public DibujosInicio() {
         initComponents();
         this.audio = new Sonido("../Sonidos/300Violin.wav");
         this.audio.Play();
     }
 
+    /**
+     * metodo que nos permite dibujar una imagen de fondo en el lienzo 
+     * @param g instancia de la clase graphics de java
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

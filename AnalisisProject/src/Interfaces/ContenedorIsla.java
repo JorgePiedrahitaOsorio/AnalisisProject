@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.awt.Image;
@@ -11,14 +6,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- *
- * @author Thebest
+ *clase que se encargara de simulas los objetos islas para poderlos dibujar
+ * @author William Vasquez y Jorge Osorio
  */
 public class ContenedorIsla extends JLabel {
 
     private int x, y, width, height;
     private String url;
 
+    /**
+     * constructor con los requerimientos basicos para la construccion de la isla
+     * @param x posicion en x de la isla
+     * @param y posicion en y de la isla
+     * @param width ancho de la isla
+     * @param height alto de la isla
+     * @param url ruta con la imagen de la isla
+     */
     public ContenedorIsla(int x, int y, int width, int height, String url) {
         this.x = x;
         this.y = y;
@@ -28,12 +31,18 @@ public class ContenedorIsla extends JLabel {
         caracteristicasVisuales();
     }
 
+    /**
+     * metodo qeu agrega caracteristicas visuales al label
+     */
     private void caracteristicasVisuales() {
         this.setBounds(x, y, width, height);
         this.setOpaque(false);
         agregarImagenFondo();
     }
 
+    /**
+     * metodo para agregar imagen de fondo al label
+     */
     private void agregarImagenFondo() {
         try {
             ImageIcon imgIcon = new ImageIcon(getClass().getResource(this.url));

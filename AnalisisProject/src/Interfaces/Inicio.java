@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import ModoEdicion.Serializador;
@@ -17,8 +12,9 @@ import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
 /**
- *
- * @author JORGE OSORIO
+ *clase que carga el menu de inicio del programa
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.3
  */
 public class Inicio extends javax.swing.JFrame {
 
@@ -31,6 +27,9 @@ public class Inicio extends javax.swing.JFrame {
         opcionSimulacion = 0;
     }
 
+    /**
+     * Constructor que inicia un nuevo juego
+     */
     public Inicio() {
         initComponents();
         this.Configuraciones();
@@ -38,6 +37,9 @@ public class Inicio extends javax.swing.JFrame {
 
     }
 
+    /**
+     * configuraciones visuales de la ventana 
+     */
     private void Configuraciones() {
         this.setTitle("PIRATAS POR EL MUNDO");
         this.setLocationRelativeTo(null);
@@ -45,6 +47,9 @@ public class Inicio extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("../Imagenes/Icono.png")).getImage());
     }
 
+    /**
+     * cambia el cursor por el cursor de la espada en los botones al pasar por ellos
+     */
     private void CambiarCursorBotones() {
         Cursor cursor;
         ImageIcon imagenes = new ImageIcon(getClass().getResource("../Imagenes/espada.png"));
@@ -194,7 +199,10 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * evento del boton cargar mapa donde se implementa las acciones a ejecutar
+ * @param evt iinstacia de la clase actionevent
+ */
     private void btnCargarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarMapaActionPerformed
         JFileChooser selectorArchivo = new JFileChooser();
         int seleccion = selectorArchivo.showDialog(this, "SELECCIONE SU MAPA");
@@ -210,13 +218,19 @@ public class Inicio extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCargarMapaActionPerformed
-
+/**
+ * evento de boton instruccuiones donde se implementan las instrucciones al ejecutar
+ * @param evt instacia del actionevent de java
+ */
     private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
         //JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
         VistaSeleccionModoSimulacion vSeleccion = new VistaSeleccionModoSimulacion();
         vSeleccion.setVisible(true);
     }//GEN-LAST:event_btnInstruccionesActionPerformed
-
+/**
+ * Evento del boton Comenzar donde se implementa su codigo
+ * @param evt instacia de la clase actionevent de java
+ */
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         VistaConstructor vistC = new VistaConstructor();
         vistC.setVisible(true);
