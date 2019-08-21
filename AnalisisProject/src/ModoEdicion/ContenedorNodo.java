@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModoEdicion;
 
 import java.awt.Image;
@@ -24,8 +19,10 @@ import static ModoEdicion.VistaConstructor.referenciaContinenteEliminar;
 
 
 /**
- *
- * @author Thebest
+ * clase que simula a los continente permitiendo su ubicacion y dibujo sobre el 
+ * lienzo contenedorpremapa
+ * @author William Vasquez y Jorge Osorio
+ * @version 1.7
  */
 public class ContenedorNodo extends javax.swing.JButton {
 
@@ -35,6 +32,15 @@ public class ContenedorNodo extends javax.swing.JButton {
     private final int width;
     private final int height;
 
+    /**
+     * constructor con los parametros necesarios para la construccion y ubicacion 
+     * del boton sobre el lienzo
+     * @param url cadena que representa la ruta de la imagen del fondo del boton
+     * @param x posicion en x del boton sobre el lienzo
+     * @param y posicion en y del boton sobre el lienzo
+     * @param width ancho del oton 
+     * @param height alto del boton 
+     */
     public ContenedorNodo(String url, int x, int y, int width, int height) {
         this.url = url;
         this.x = x;
@@ -44,6 +50,9 @@ public class ContenedorNodo extends javax.swing.JButton {
         initComponents();
     }
 
+    /**
+     * metodo que hace llamado para el diseño del boton
+     */
     private void initComponents() {
         tamaño();
         dibujarFondo();
@@ -53,10 +62,16 @@ public class ContenedorNodo extends javax.swing.JButton {
         decoracion();
     }
 
+    /**
+     * metodo que define el tamaño del boton
+     */
     private void tamaño() {
         this.setBounds(x, y, width, height);
     }
 
+    /**
+     * metodo que dibuja el fondo del boton
+     */
     private void dibujarFondo() {
         ImageIcon imgIcon = new ImageIcon(getClass().getResource(getUrl()));
         Icon iconoEscalado = new ImageIcon(imgIcon.getImage().getScaledInstance(this.getWidth(),
@@ -64,6 +79,10 @@ public class ContenedorNodo extends javax.swing.JButton {
         this.setIcon(iconoEscalado);
     }
 
+    /**
+     * metodo que realiza las accione del boton tras el click segun las circustancias
+     * @param e implementacion del object actionevent de java
+     */
     private void accionClick(ActionEvent e) {
         estadoEdicion = false;
         if (estadoEdicionMar) {
@@ -87,14 +106,23 @@ public class ContenedorNodo extends javax.swing.JButton {
 
     }
 
+    /**
+     * metodo que dibuja el borde del boton
+     */
     private void dibujarBorde() {
         this.setBorderPainted(true);
     }
 
+    /**
+     * metodo que desdibuja el borde del boton
+     */
     public void desDibujarBorde() {
         this.setBorderPainted(false);
     }
 
+    /**
+     * metodo que limpia la decoracion del boton
+     */
     private void decoracion() {
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);

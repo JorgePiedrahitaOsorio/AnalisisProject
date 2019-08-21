@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModoEdicion;
 
 /**
- *
- * @author Thebest
+ * Esta clase nos permite guardar la información de las aristas entre islas creadas 
+ * en la construcción
+ * @author William Vasquez y jorge Osorio
+ * @version 1.2
  */
 public class AristaIsla {
 
@@ -45,6 +42,11 @@ public class AristaIsla {
     private ContenedorNodoIsla origen;
     private ContenedorNodoIsla destino;
     
+    /**
+     * Contructor que recibe dos ContenedorNodoIsla que hace alusion a las islas
+     * @param origen isla origen de la arista
+     * @param destino isla destino de la arista
+     */
     public AristaIsla(ContenedorNodoIsla origen , ContenedorNodoIsla destino){
         this.origen = origen;
         this.destino = destino;

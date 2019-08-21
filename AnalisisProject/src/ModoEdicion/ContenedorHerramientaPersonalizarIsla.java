@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ModoEdicion;
 
 import java.awt.Color;
@@ -17,8 +13,9 @@ import static ModoEdicion.ContenedorNodoIsla.abrir;
 import static ModoEdicion.VistaConstructor.banderaGuardar;
 
 /**
- *
- * @author Thebest
+ * Panel que nos permite parametrizar la isla al manejar Object del tipo ParametrosIsla
+ * @version 1.3
+ * @author William Vasquez y Jorge Osorio
  */
 public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
@@ -30,7 +27,15 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
     private ImageIcon imagenFondo;
 
     private JTextField[] camposTexto;
-
+    
+    /**
+     * 
+     * @param x posicion x sobre la venta VistaConstructor
+     * @param y posicion y sobre la venta VistaConstructor
+     * @param width ancho del panel
+     * @param height alto del panel
+     * @param p Object del tipo ParametrosIsla que trae las caracteristicas de la misma
+     */
     public ContenedorHerramientaPersonalizarIsla(int x, int y, int width, int height, ParametrosIsla p) {
         super(x, y, width, height);
         this.tamañoTesoro = p.getTamañoTesoro();
@@ -46,10 +51,16 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
     }
 
+    /**
+     * Le agrega un fondo al panel
+     */
     private void AñadirFondo() {
         this.imagenFondo = new ImageIcon(getClass().getResource("../Imagenes/mapaFondo3.jpg"));
     }
-
+    
+    /**
+     * agrega las etiquetas de los parametros
+     */
     private void agregarEtiquetas() {
 
         JLabel aux = new JLabel("Tamaño tesoro");
@@ -70,6 +81,9 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
 
     }
 
+    /**
+     * agrega las cajas de texto donde se va introducir el valor de los parametros
+     */
     private void agregarCajasTextos() {
 
         JTextField aux = new JTextField();
@@ -99,6 +113,9 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         this.add(aux);
     }
 
+    /**
+     * añade el boton con el que guardamos la parametrización de la isla
+     */
     private void AñadirBotonGuardar() {
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.setVisible(true);
@@ -109,6 +126,10 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         });
     }
 
+    /**
+     * modifica la bandera banderaGuardar a true y abrir a true, cierra la ventana aux
+     * @param evt evento por defecto de los botones al hacer click 
+     */
     private void Guardar(java.awt.event.ActionEvent evt) {
         guardado();
         banderaGuardar = true;
@@ -116,6 +137,10 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         abrir = true;
     }
 
+    /**
+     * Crea un nuevo Object del tipo ParametrosIslas y le pasa su valor a la bandera 
+     * pIslaReferencia
+     */
     public void guardado() {
         this.tamañoTesoro = Integer.parseInt(this.camposTexto[0].getText());
         this.esclavosJovenes = Integer.parseInt(this.camposTexto[1].getText());
@@ -126,16 +151,25 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
                 this.esclavosAdultos, this.esclavosViejos, this.nombreIsla);
     }
 
+    /**
+     * Define el tamaño del panel
+     */
     @Override
     public void tamaño() {
         this.setBounds(x, y, width, heigth);
     }
 
+    /**
+     * define un layout para el panel
+     */
     @Override
     public void agregarLayout() {
         this.setLayout(null);
     }
-
+    
+    /**
+     * Carga los metodos básicos de l panel
+     */
     @Override
     public void iniciarComponentes() {
         aspecto();
@@ -143,11 +177,18 @@ public class ContenedorHerramientaPersonalizarIsla extends ContenedorTools {
         agregarLayout();
     }
 
+    /**
+     * Le da un color al panel
+     */
     @Override
     public void aspecto() {
         this.setBackground(Color.CYAN);
     }
 
+    /**
+     * Metodo con el cual dibujamos sobre el panel
+     * @param g intanciacion del object graphics con el cual podemos dibujar 
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
