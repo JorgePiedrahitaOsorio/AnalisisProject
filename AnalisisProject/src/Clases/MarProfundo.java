@@ -24,8 +24,8 @@ public class MarProfundo {
         this.origen = origen;
         this.destino = destino;
         this.peligrosidad = peligrosidad;
-        this.distancia = distancia;
-        this.peso = this.distancia + this.peligrosidad;
+        this.distancia = peligrosidad;
+        this.peso =  this.peligrosidad;
     }
 
     /**

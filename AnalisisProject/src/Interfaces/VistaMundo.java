@@ -77,6 +77,7 @@ public class VistaMundo extends javax.swing.JPanel {
         this.grafo = new Grafo();
         this.gruposContinentes = new HashMap<>();
         this.panelesContinentes = new HashMap<>();
+        this.continenactual = 1;
         llenarRutasHashMap();
         caracteristicasVisuales();
         colocarContinentes();

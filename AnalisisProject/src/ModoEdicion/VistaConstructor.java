@@ -672,7 +672,7 @@ public class VistaConstructor extends javax.swing.JFrame implements
                 if (banderaDibujarMarIsla) {
                     if (referenciaContinenteIsla2 != null) {
                         AristaIsla aristaAux = new AristaIsla(referenciaContinenteIsla1, referenciaContinenteIsla2);
-                        aristaAux.setPeligrosidad(Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese peligrosidad")));
+                        aristaAux.setPeligrosidad(Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese Distancia")));
                         this.contenedorPreContinente.marProfundo.add(aristaAux);
                     }
                     Thread.sleep(200);

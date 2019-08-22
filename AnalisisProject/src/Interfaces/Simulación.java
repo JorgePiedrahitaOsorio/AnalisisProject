@@ -66,6 +66,7 @@ public class Simulación extends javax.swing.JFrame {
         this.panelDerecha = this.PanelInformativo;
         this.getContentPane().add(panelIzquierda);
         this.getContentPane().add(this.panelDerecha);
+        cambiarPanelIzquierda();
     }
     
     private void cambiarPanelIzquierda(){
