@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Clases.BarcoJugador;
 import Clases.Continente;
 import Clases.Isla;
 import Clases.Mar;
@@ -46,6 +47,8 @@ public class VistaMundo extends javax.swing.JPanel {
     public Isla islaActual;
     public int continenactual;
 
+    private BarcoJugador barco;
+
     /**
      * Constructor que instancia un objeto de la clase VistaMundo, requeriendo
      * los valores basico para una construccion de l lienzo, sino que ademas
@@ -80,6 +83,7 @@ public class VistaMundo extends javax.swing.JPanel {
         AñadirBotonSearchBarco();
         CrearPanelesVistaContinente();
         seleccionarPrimerIslaYcontinente();
+        AgregarBarco();
     }
 
     /**
@@ -90,6 +94,14 @@ public class VistaMundo extends javax.swing.JPanel {
         this.setBounds(getX(), getY(), getWidth(), getHeight());
         this.setLayout(null);
         this.setBackground(new Color(0, 205, 199));
+    }
+
+    private void AgregarBarco() {
+        Continente c1 = this.continentes.getFirst();
+        Continente c2 = this.continentes.getLast();
+        this.barco = new BarcoJugador(c1.getUbicacion().x, c1.getUbicacion().y, 100, 100);
+        this.barco.Ruta(c1, c2);
+        this.barco.Start();
     }
 
     /**
@@ -275,7 +287,8 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     /**
-     * metodo que se encarga de llenar las hashmap con las rutas de sepia a color
+     * metodo que se encarga de llenar las hashmap con las rutas de sepia a
+     * color
      */
     private void llenarRutasHashMap() {
         for (int i = 1; i <= 6; i++) {
@@ -285,11 +298,13 @@ public class VistaMundo extends javax.swing.JPanel {
 
     /**
      * sobreescritura del metodo por defecto paintcomponent de java para dibujar
+     *
      * @param g instancia del objeto graphics de java
      */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(this.barco.getImagen().getImage(), this.barco.getX(), this.barco.getY(), this.barco.getAncho(), this.barco.getAlto(), this);
         this.maresProfundos.forEach((m) -> {
             colocarMaresProfundos(g, m.getOrigen(), m.getDestino());
         });
@@ -298,8 +313,9 @@ public class VistaMundo extends javax.swing.JPanel {
 
     /**
      * metodo que se encarga de dibujar los mares profundos en el lienzo
+     *
      * @param g instancia de la clase graphics de java
-     * @param ori continente origen 
+     * @param ori continente origen
      * @param dest continente destino
      */
     private void colocarMaresProfundos(Graphics g, Continente ori, Continente dest) {
@@ -315,8 +331,9 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     /**
-     * metodo que se encarga de buscar un continente en la lista de continentes 
-     * @param x posicion en x del continente 
+     * metodo que se encarga de buscar un continente en la lista de continentes
+     *
+     * @param x posicion en x del continente
      * @param y posicion en y del continente
      * @return el continente que cumpla con la condicion
      */
@@ -330,8 +347,8 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     /**
-     * metodo que se encarga de añadir el boton que nos permite tener una vista del
-     * continente donde se encuentra el barco en este preciso momento
+     * metodo que se encarga de añadir el boton que nos permite tener una vista
+     * del continente donde se encuentra el barco en este preciso momento
      */
     private void AñadirBotonSearchBarco() {
         ImageIcon icono = new ImageIcon(getClass().getResource("../Imagenes/barcoSearch.png"));
@@ -350,6 +367,7 @@ public class VistaMundo extends javax.swing.JPanel {
 
     /**
      * metodo con el evento para el boton de buscar el barco o ampliar vista
+     *
      * @param evt instancia del objeto actionevent d ejava
      */
     private void barcoSearchAction(java.awt.event.ActionEvent evt) {
@@ -357,9 +375,9 @@ public class VistaMundo extends javax.swing.JPanel {
     }
 
     /**
-     * metodo que se encarga de crear los paneles que se referenciaran con la 
-     * variable hashmap panelescontinentes para retornar el panel segun el continen
-     * te donde se encuentre
+     * metodo que se encarga de crear los paneles que se referenciaran con la
+     * variable hashmap panelescontinentes para retornar el panel segun el
+     * continen te donde se encuentre
      */
     private void CrearPanelesVistaContinente() {
         for (Continente c : this.continentes) {
@@ -379,6 +397,7 @@ public class VistaMundo extends javax.swing.JPanel {
 
     /**
      * selecciona la isla mas a la izquierda del tablero de continentes
+     *
      * @param c continente al que pertenecen las islas
      * @return la isla por la que comenzara la simulacion
      */
@@ -396,6 +415,7 @@ public class VistaMundo extends javax.swing.JPanel {
 
     /**
      * seleccona al continente alojado mas a la izquierda del panel
+     *
      * @return el continente que esta mas a la izquierda
      */
     private Continente continenteMasIzquierda() {
