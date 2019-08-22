@@ -1,10 +1,7 @@
 package Grafo;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.LinkedList;
-import javafx.scene.shape.Line;
 
 /**
  *clase que se encarga de la construccion de grafo 
@@ -104,5 +101,6 @@ public class Grafo {
         }
         return false;
     }
+    
     
 }

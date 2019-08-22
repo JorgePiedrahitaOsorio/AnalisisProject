@@ -82,7 +82,7 @@ public class VistaMundo extends javax.swing.JPanel {
         colocarContinentes();
         AñadirBotonSearchBarco();
         CrearPanelesVistaContinente();
-        seleccionarPrimerIslaYcontinente();
+//        seleccionarPrimerIslaYcontinente();
         AgregarBarco();
     }
 
