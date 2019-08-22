@@ -56,7 +56,6 @@ public class Inicio extends javax.swing.JFrame {
         Toolkit t = Toolkit.getDefaultToolkit();
         cursor = t.createCustomCursor(imagenes.getImage(), new Point(1, 1), "Cursor");
         this.btnCargarMapa.setCursor(cursor);
-        this.btnInstrucciones.setCursor(cursor);
         this.btnComenzar.setCursor(cursor);
         this.btnModificarMapa.setCursor(cursor);
     }
@@ -73,7 +72,6 @@ public class Inicio extends javax.swing.JFrame {
         dibujosInicio1 = new Interfaces.DibujosInicio();
         btnCargarMapa = new javax.swing.JButton();
         btnComenzar = new javax.swing.JButton();
-        btnInstrucciones = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -100,17 +98,6 @@ public class Inicio extends javax.swing.JFrame {
         btnComenzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComenzarActionPerformed(evt);
-            }
-        });
-
-        btnInstrucciones.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnInstrucciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnInstrucciones.setText("INSTRUCCIONES");
-        btnInstrucciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnInstrucciones.setContentAreaFilled(false);
-        btnInstrucciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInstruccionesActionPerformed(evt);
             }
         });
 
@@ -146,44 +133,38 @@ public class Inicio extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(dibujosInicio1Layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
+                        .addGap(200, 200, 200)
                         .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(dibujosInicio1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(dibujosInicio1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel3)
-                .addContainerGap(38, Short.MAX_VALUE))
         );
         dibujosInicio1Layout.setVerticalGroup(
             dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3)
                 .addGroup(dibujosInicio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dibujosInicio1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dibujosInicio1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel1))
+                    .addGroup(dibujosInicio1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCargarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(11, 11, 11)
-                .addComponent(btnInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificarMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,15 +199,7 @@ public class Inicio extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCargarMapaActionPerformed
-/**
- * evento de boton instruccuiones donde se implementan las instrucciones al ejecutar
- * @param evt instacia del actionevent de java
- */
-    private void btnInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstruccionesActionPerformed
-        //JOptionPane.showMessageDialog(this, "TODAVIA NO HAY INSTRUCCIONES JAJAJA", "INTRUCCIONES", JOptionPane.INFORMATION_MESSAGE, null);
-        VistaSeleccionModoSimulacion vSeleccion = new VistaSeleccionModoSimulacion();
-        vSeleccion.setVisible(true);
-    }//GEN-LAST:event_btnInstruccionesActionPerformed
+
 /**
  * Evento del boton Comenzar donde se implementa su codigo
  * @param evt instacia de la clase actionevent de java
@@ -295,7 +268,6 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarMapa;
     private javax.swing.JButton btnComenzar;
-    private javax.swing.JButton btnInstrucciones;
     private javax.swing.JButton btnModificarMapa;
     private Interfaces.DibujosInicio dibujosInicio1;
     private javax.swing.JLabel jLabel1;
