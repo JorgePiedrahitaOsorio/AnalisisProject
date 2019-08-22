@@ -1,5 +1,6 @@
 package Clases;
 
+import Grafo.Nodo;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
@@ -17,6 +18,7 @@ public class BarcoJugador implements Runnable{
     private int horasNavegacion;
     private ImageIcon imagen;
     private LinkedList<Esclavo> esclavos;
+    
 
     /**
      * constructor que instancia un barco 
@@ -42,6 +44,8 @@ public class BarcoJugador implements Runnable{
             this.horasNavegacion += esclavo.getHorasNavegacion();
         });
     }
+    
+   
 
     /**
      * @return the x
