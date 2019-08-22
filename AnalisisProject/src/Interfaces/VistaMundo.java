@@ -43,8 +43,8 @@ public class VistaMundo extends javax.swing.JPanel {
     private int idContinente;
 
     public HashMap<Integer, VistaContinente> panelesContinentes;
-    private Isla islaActual;
-    private int continenactual;
+    public Isla islaActual;
+    public int continenactual;
 
     /**
      * Constructor que instancia un objeto de la clase VistaMundo, requeriendo
@@ -408,10 +408,6 @@ public class VistaMundo extends javax.swing.JPanel {
             }
         }
         return r;
-    }
-
-    private void cambiarVistaMundoAVistaContinente() {
-
     }
 
     /**

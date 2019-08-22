@@ -12,13 +12,15 @@ import javax.swing.JPanel;
  */
 public class Simulación extends javax.swing.JFrame {
 
+    
     /**
      * @param args the command line arguments
      */
     JPanel panelIzquierda;
     JPanel panelDerecha;
-    JPanel VistaMundo;
+    VistaMundo VistaMundo;
     JPanel PanelInformativo;
+    VistaContinente vistaContinente;
     Mundo mundo;
     private final int opcionSimulacion;
 
@@ -64,6 +66,15 @@ public class Simulación extends javax.swing.JFrame {
         this.panelDerecha = this.PanelInformativo;
         this.getContentPane().add(panelIzquierda);
         this.getContentPane().add(this.panelDerecha);
+    }
+    
+    private void cambiarPanelIzquierda(){
+        this.getContentPane().remove(this.panelIzquierda);
+        this.panelIzquierda = null;
+        this.vistaContinente = this.VistaMundo.panelesContinentes.get(this.VistaMundo.continenactual);
+        this.panelIzquierda = this.vistaContinente;
+        this.getContentPane().add(this.panelIzquierda);
+        this.panelIzquierda.setVisible(true);
     }
 
 }
