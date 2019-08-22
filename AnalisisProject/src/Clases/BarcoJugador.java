@@ -1,11 +1,9 @@
 package Clases;
 
-import Grafo.Nodo;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  * clase que tiene el barco que dibujaremos y navegara durante la simulacion
