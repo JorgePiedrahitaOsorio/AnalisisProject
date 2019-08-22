@@ -1,7 +1,10 @@
 package Grafo;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.LinkedList;
+import javafx.scene.shape.Line;
 
 /**
  *clase que se encarga de la construccion de grafo 
@@ -25,6 +28,7 @@ public class Grafo {
      * metodo que se encarga de llenar las listas de adyacencias
      */
     public void llenarAdyacencias(){
+        System.out.println("tamaño: " + this.listaAristas.size());
         eliminarAristasRepetidas();
         for (Nodo n : this.listaNodos) {
             this.listaAdyacencias.put(n,buscarAdyacencias(n));
@@ -70,7 +74,7 @@ public class Grafo {
      */
     private void imprimirListaDeAdyacencias(){
         for (Nodo n : this.listaAdyacencias.keySet()) {
-            System.out.print("Raiz: " + n.toString() + "-> " + n.idContinente);
+            System.out.print("Raiz: " + n.toString() + "-> " + n.idContinente +"->" + n.getIsDoor());
             for(Tupla i : this.listaAdyacencias.get(n)){
                 System.out.print(" peso: " + i.peso + " nodo: " + i.adyacente.toString());
             }
@@ -78,18 +82,27 @@ public class Grafo {
         }
         
         for (AristaGrafo a: this.listaAristas) {
-            System.out.println("n " + a.origen.isla + " n2 " + a.destino.isla + " p " + a.peso);
+            System.out.println("n " + a.origen + " n2 " + a.destino + " p " + a.peso);
         }
     }
     
     private void eliminarAristasRepetidas(){
-        for (int i = 0; i < this.listaAristas.size() - 1; i++) {
-            for (int j = 1; j < this.listaAristas.size(); j++) {
-                if(this.listaAristas.get(i).equals(this.listaAristas.get(j))){
-                    this.listaAristas.remove(j);
-                }
+        LinkedList<AristaGrafo> aux = new LinkedList<>();
+        for (AristaGrafo a : this.listaAristas) {
+            if(!containsArista(a,aux)){
+                aux.add(a);
             }
         }
+        this.listaAristas = aux;
+    }
+   
+    private boolean containsArista(AristaGrafo b,LinkedList<AristaGrafo> aux){
+        for (AristaGrafo a : aux) {
+            if(a.origen.equals(b.origen) && b.destino.equals(b.destino) && a.peso == b.peso){
+                return true;
+            }
+        }
+        return false;
     }
     
 }

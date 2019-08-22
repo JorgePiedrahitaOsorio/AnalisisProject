@@ -19,7 +19,7 @@ public class DibujosInicio extends javax.swing.JPanel {
     public DibujosInicio() {
         initComponents();
         this.audio = new Sonido("../Sonidos/300Violin.wav");
-        this.audio.Play();
+        //this.audio.Play();
     }
 
     /**
