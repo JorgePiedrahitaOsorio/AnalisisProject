@@ -2,14 +2,18 @@ package Clases;
 
 import Grafo.Nodo;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  * clase que tiene el barco que dibujaremos y navegara durante la simulacion
+ *
  * @author william Vasquez y Jorge Osorio
  * @version 1.1
  */
-public class BarcoJugador implements Runnable{
+public class BarcoJugador implements Runnable {
 
     private int x;
     private int y;
@@ -18,10 +22,13 @@ public class BarcoJugador implements Runnable{
     private int horasNavegacion;
     private ImageIcon imagen;
     private LinkedList<Esclavo> esclavos;
-    
+    private Continente origen;
+    private Continente destino;
+    private final Thread hilo;
 
     /**
-     * constructor que instancia un barco 
+     * constructor que instancia un barco
+     *
      * @param x posicion x del barco en algun lienzo
      * @param y posicion y del barco en algun lienzo
      * @param ancho ancho del barco
@@ -33,19 +40,29 @@ public class BarcoJugador implements Runnable{
         this.ancho = ancho;
         this.alto = alto;
         this.imagen = new ImageIcon(getClass().getResource("../Imagenes/barco-pirata.gif"));
+        this.esclavos = new LinkedList<>();
         this.calcularHorasNavegacion();
+        this.hilo = new Thread(this);
+    }
+
+    public void Start() {
+        this.hilo.start();
     }
 
     /**
      * metodo que calcula las horas de navegacion que tiene actualmente el barco
      */
     private void calcularHorasNavegacion() {
+        this.horasNavegacion = 6;
         this.esclavos.forEach((esclavo) -> {
             this.horasNavegacion += esclavo.getHorasNavegacion();
         });
     }
-    
-   
+
+    public void Ruta(Continente origen, Continente destino) {
+        this.origen = origen;
+        this.destino = destino;
+    }
 
     /**
      * @return the x
@@ -145,11 +162,36 @@ public class BarcoJugador implements Runnable{
         this.esclavos = esclavos;
     }
 
+    private double pendienteRecta(int x1, int x2, int y1, int y2) {
+        return ((double) (y2 - y1) / (double) (x2 - x1));
+    }
+
     @Override
     public void run() {
-        while(this.horasNavegacion >= 0){
-            
+        while (this.horasNavegacion >= 0) {
+            try {
+                if (this.origen.getUbicacion().x < this.destino.getUbicacion().x) {
+                    double m = pendienteRecta(origen.getUbicacion().x, destino.getUbicacion().x, origen.getUbicacion().y, destino.getUbicacion().y);
+                    for (int i = this.origen.getUbicacion().x; i < this.destino.getUbicacion().x; i++) {
+                        double b = (-1) * (m * this.origen.getUbicacion().x) + origen.getUbicacion().y;
+                        this.y = (int) ((m * i) + b);
+                        this.x = i;
+                        Thread.sleep(20);
+                    }
+                } else {
+                    double m = pendienteRecta(origen.getUbicacion().x, destino.getUbicacion().x, origen.getUbicacion().y, destino.getUbicacion().y);
+                    for (int i = this.origen.getUbicacion().x; i > this.destino.getUbicacion().x; i--) {
+                        double b = (-1) * (m * origen.getUbicacion().x) + origen.getUbicacion().y;
+                        this.y = (int) ((m * i) + b);
+                        this.x = i;
+                        Thread.sleep(20);
+                    }
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BarcoJugador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        System.out.println("No hay mas combustible");
     }
 
 }
